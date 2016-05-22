@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Multiple Intelligence Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" type="text/css" href="/style/jquery-ui.css">
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link rel="stylesheet" type="text/css"
+	href="/style/jquery.webui-popover.min.css">
+<link rel="stylesheet" type="text/css" href="/style/waitMe.css">
+
+</head>
+<body>
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>Work Area</h2>
+				<textarea rows="25" cols="80" class="form-control"></textarea>
+			</div>
+			<div class="col-sm-7">
+				<h2>Enter MIT Parameters</h2>
+				<form id="my-form">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="talent-name">Talent name:</label> <select
+									class="form-control" name="intelligence-type">
+									<option>Linguistics</option>
+									<option>Logical Mathematics</option>
+									<option>Music</option>
+									<option>Bodily Kinesthetics</option>
+									<option>Spatial Visual</option>
+									<option>Interpersonal</option>
+									<option>Intrapersonal</option>
+								</select>
+							</div>
+							<div class="col-sm-6"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="short-decription">Short description:</label>
+								<textarea rows="3" cols="80" name="short-decription"
+									id="short-decription" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="question">Question:</label>
+								<textarea rows="3" cols="80" name="question" id="question"
+									class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="long-description">Long description:</label>
+								<textarea rows="3" cols="80" name="long-description"
+									id="long-description" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="typical-roles">Typical Roles:</label>
+								<textarea rows="3" cols="80" name="typical-roles"
+									id="typical-roles" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="related-activities">Related Activities:</label>
+								<textarea rows="3" cols="80" name="related-activities"
+									id="related-activities" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label for="preferred-learning-style">Preferred learning
+									style:</label>
+								<textarea rows="3" cols="80" name="preferred-learning-style"
+									id="preferred-learning-style" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-submit btn-primary"
+								id="save" onclick="saveMit();">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+		function saveMit() {
+			var dt = $('#my-form').serialize();
+			$.ajax({
+				url : "/addmit",
+				type : "POST",
+				data : dt,
+				success : function(data) {
+					alert("saved");
+				},
+				error : function() {
+					alert("error");
+				}
+			});
+		}
+	</script>

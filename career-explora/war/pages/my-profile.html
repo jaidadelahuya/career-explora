@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to Career Explora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" type="text/css" href="/style/jquery-ui.css">
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link rel="stylesheet" type="text/css"
+	href="/style/jquery.webui-popover.min.css">
+<link rel="stylesheet" type="text/css" href="/style/waitMe.css">
+</head>
+<body style="padding-top: 50px" id="main-body">
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '907361745985096',
+				cookie : true,
+				xfbml : true,
+				version : 'v2.2'
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a style="color: orange;" class="navbar-brand" href="">Career
+				Explora</a>
+		</div>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+
+
+			<div class="col-sm-1 col-md-1 pull-right hidden-xs">
+
+				<div id="accountInfo" class="trigger" style="padding-top: 10%;">
+					<img id="imginfo"
+						class="img-circle img-responsive profile-img to-pointer current-user-img"
+						style="width: 2.4em; height: 2.5em" />
+				</div>
+				<div class="content hide container-fluid" id="popover-content">
+
+					<div style="margin-bottom: 5%; height: 5.6em;">
+						<div style="width: 30%; float: left;">
+							<img class="img-responsive profile-img current-user-img"
+								id="popover-img" src="#" />
+						</div>
+						<div style="width: 65%; float: right;">
+							<p style="word-wrap: break-word;">
+								<font id="pop-user-name" face="Arial Narrow"
+									style="font-size: 13pt; font-weight: bold; color: black;">
+
+								</font><br /> <font id="pop-user-email" face="Arial Narrow"
+									style="font-size: 10pt;"> </font>
+							</p>
+						</div>
+						<div style="width: 65%; float: right;">
+							<p style="color: green; font-weight: bolder; font-size: 13pt;">ACTIVE</p>
+						</div>
+					</div>
+
+					<div style="clear: both;">
+						<hr style="margin-bottom: 2%"></hr>
+					</div>
+
+					<div>
+						<div style="width: 50%; float: left;">
+							<input type="button" value="View Profile"
+								class="btn btn-primary btn-sm view-my-profile" onclick="showProfile();"/>
+						</div>
+						<div style="width: auto; float: right;">
+							<input type="button" value="Logout" id="logout-button"
+								class="btn btn-primary btn-sm" onclick="logout();" />
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-8 col-md-8 navbar-right">
+				<form class="navbar-form" role="search">
+					<div class="input-group " style="width: 100%;">
+					<!-- 
+						<input type="text" class="form-control input-block-level"
+							placeholder="Search" name="q" />
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+							 -->
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="hidden-sm hidden-md hidden-lg">
+				<div>
+					<ul class="nav navbar-nav">
+						<li class="cbt-home to-pointer mob-nav">CBT</li>
+						<li class="talent-home to-pointer mob-nav">Talent Hunt</li>
+						<li class="skill-builder-home to-pointer mob-nav">Skill
+							Builder</li>
+						<li>Chat & Forums</li>
+						<li class="mit-home to-pointer mob-nav">Brain Types</li>
+						<li class="career-cluster-home to-pointer mob-nav">Career
+							Clusters</li>
+						<li class="career-values-home to-pointer mob-nav">Career
+							Values</li>
+						<li class="personal-style-home to-pointer mob-nav">Discover
+							You</li>
+						<li class="to-pointer mob-nav">Logout</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid" id="main-body">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-sm-10 col-md-8" id="main"
+				style="padding-right: 0px; z-index: 4">
+				<div  class="row"
+					style="height: 20em; position: relative;">
+					
+					<div id="overlay" class="col-sm-6 col-md-4"
+						style="padding: 0px; padding-top: 7%;">
+
+						<div>
+							<img class="img-circle img-responsive profile-img"
+								id="profile-image" />
+						</div>
+						<div>
+							<h4 style="text-align: center; color: white;">
+								<span class="to-pointer user-name" id="profile-name"
+									style="word-wrap: break-word;" data-toggle="tooltip"
+									title="Click to edit name" data-placement="bottom"> </span>
+							</h4>
+						</div>
+						<div>
+
+							<p style="margin: auto; text-align: center;">
+								<span class="to-pointer"
+									style="font-size: 9pt; color: white; word-wrap: break-word;"
+									id="profile-location" data-toggle="tooltip"
+									title="Click to edit school/location" data-placement="bottom">
+									<span id="sch-name"></span><span
+									style="text-transform: capitalize;" id="loc"></span>
+								</span>
+							</p>
+						</div>
+
+					</div>
+					<img alt="" src="" id="background-img"/>
+					<!--  <div class="hidden-xs col-sm-6 col-md-8" style="height: 100%;"
+						onmouseout="hideCover();" onmouseover="showCover();">
+						<div id="cover-div"></div>
+					</div>-->
+				</div>
+
+				<div id="subnav" class="row">
+					<div id="subnav-content">
+						<ul>
+							<li><a id="home" href="/pages/welcome.html">Home</a></li>
+							<!--  <li><a href="#">Friends</a></li>-->
+							<li><a id="my-profile" class="to-pointer view-my-profile">My
+									Profile</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="sub-main" class="row">
+					<div class="col-sm-2 hidden-xs" style="padding: 0">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: red">
+								<span class="panel-title pan-title-font">Tests</span>
+							</div>
+							<div class="panel-body">
+								<div class="panel panel-default module-panel">
+									<img alt="CBT" src="/images/cbt-ok.jpg"
+										class="img-responsive panel-img cbt-home" />
+									<div class="module-footer">
+										<span class="cbt-home">CBT</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Talent Hunt" src="/images/talent-ok.jpg"
+										class="img-responsive panel-img talent-home" />
+									<div class="module-footer">
+										<span class="talent-home">Talent Hunt</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Career Clusters" src="/images/career-ok.jpg"
+										class="img-responsive panel-img career-cluster-home" />
+
+
+									<div class="module-footer">
+										<span class="career-cluster-home">Career Clusters</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Discover You" src="/images/personal-ok.jpg"
+										class="img-responsive panel-img personal-style-home" />
+									<div class="module-footer">
+										<span class="personal-style-home">Discover You</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Skill Builder" src="/images/skills-ok.jpg"
+										class="img-responsive panel-img skill-builder-home" />
+									<div class="module-footer">
+										<span class="skill-builder-home">Skill Builder</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Brain Types" src="/images/brain-ok.jpg"
+										class="img-responsive panel-img mit-home" />
+									<div class="module-footer">
+										<span class="mit-home">Brain Types</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Career Values" src="/images/values-ok.jpg"
+										class="img-responsive panel-img career-values-home" />
+									<div class="module-footer">
+										<span class="career-values-home">Career Values</span>
+									</div>
+								</div>
+								<div class="panel panel-default module-panel">
+									<img alt="Chat & Forums" src="/images/forum-ok.jpg"
+										class="img-responsive panel-img" />
+									<div class="module-footer">
+										<span>Chat & Forums</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-5" style="padding-right: 0;">
+
+
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: orange">
+								<span class="panel-title pan-title-font" id="personal-profile">Meet
+									me</span>
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item orange-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 45%;"><strong
+												class="last-login-label">First Name: </strong></td>
+											<td id="profile-first-name" class="text-left"
+												style="font-weight: bold;"></td>
+										</tr>
+									</table>
+								</li>
+								<li class="list-group-item orange-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 45%;"><strong
+												class="last-login-label">Last Name: </strong></td>
+											<td id="profile-last-name" class="text-left"
+												style="font-weight: bold;"></td>
+										</tr>
+									</table>
+								</li>
+
+								<li class="list-group-item orange-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 45%;"><strong
+												class="last-login-label">Middle Name: </strong></td>
+											<td id="profile-middle-name" class="text-left"
+												style="font-weight: bold;"></td>
+										</tr>
+									</table>
+								</li>
+
+								<li class="list-group-item orange-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 45%;"><strong
+												class="last-login-label">Gender: </strong></td>
+											<td id="profile-gender" class="text-left"
+												style="font-weight: bold;"></td>
+										</tr>
+									</table>
+								</li>
+								<li class="list-group-item orange-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 45%;"><strong
+												class="last-login-label">Date of Birth: </strong></td>
+											<td id="profile-date-of-birth" class="text-left"
+												style="font-weight: bold;"></td>
+										</tr>
+									</table>
+								</li>
+
+							</ul>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: green">
+								<span class="panel-title pan-title-font">I can work as
+									a/an</span>
+							</div>
+							<ul class="list-group" id="skills-built-profile"></ul>
+							<div class="panel-footer" id="skills-built-footer">
+								<input id="show-me-more-skills-learnt" type="button"
+									class="btn btn-default green-button show-me-more"
+									value="Show me more" name="SKILLS_LEARNT" />
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: indigo">
+								<span class="panel-title pan-title-font">I am good at</span>
+							</div>
+							<ul class="list-group" id="talent-profile"></ul>
+							<div class="panel-footer" id="talent-footer">
+								<input id="show-me-more-talents" type="button"
+									class="btn btn-default indigo-button show-me-more"
+									value="Show me more" name="TALENTS" />
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: red">
+								<span class="panel-title pan-title-font">I am interested
+									in</span>
+							</div>
+							<ul class="list-group" id="mit-profile"></ul>
+							<div class="panel-footer" id="mits-footer">
+								<input id="show-me-more-mits" type="button"
+									class="btn btn-default red-button show-me-more"
+									value="Show me more" name="MITS" />
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading"
+								style="background-color: rgb(255, 211, 0)">
+								<span class="panel-title pan-title-font">I love</span>
+							</div>
+							<ul class="list-group" id="career-clusters-profile"></ul>
+							<div class="panel-footer" id="clusters-footer">
+								<input id="show-me-more-clusters" type="button"
+									class="btn btn-default yellow-button show-me-more"
+									value="Show me more" name="CLUSTERS" />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-xs-12 col-sm-5" style="padding-right: 0;">
+
+						<div class="panel panel-default">
+							<div class="panel-heading"
+								style="background-color: rgb(255, 211, 0)">
+								<span class="panel-title pan-title-font">My contact
+									information</span>
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item yellow-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 35%;"><strong
+												class="last-login-label">EMail: </strong></td>
+											<td id="profile-email" class="text-left"
+												style="font-style: italic; font-size: 9pt;"></td>
+										</tr>
+									</table>
+								</li>
+								<li class="list-group-item yellow-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 35%;"><strong
+												class="last-login-label">School: </strong></td>
+											<td id="profile-school" class="text-left"
+												style="text-transform: capitalize; font-size: 9pt"></td>
+										</tr>
+									</table>
+								</li>
+								<li class="list-group-item yellow-list">
+									<table
+										class="table table-borderless table-condensed table-responsive"
+										style="border: none; margin: 0 auto">
+										<tr>
+											<td class="text-right" style="width: 35%;"><strong
+												class="last-login-label">Lives in: </strong></td>
+											<td id="profile-lives-in" class="text-left"
+												style="text-transform: capitalize; font-size: 9pt"></td>
+										</tr>
+									</table>
+								</li>
+
+							</ul>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: blue">
+								<span class="panel-title pan-title-font">I am</span>
+							</div>
+							<ul class="list-group" id="personal-style-profile"></ul>
+							<div class="panel-footer" id="styles-footer">
+								<input id="show-me-more-styles" type="button"
+									class="btn btn-default blue-button show-me-more"
+									value="Show me more" name="STYLES" />
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: violet">
+								<span class="panel-title pan-title-font">I like</span>
+							</div>
+							<ul class="list-group" id="career-values-profile"></ul>
+							<div class="panel-footer" id="values-footer">
+								<input id="show-me-more-values" type="button"
+									class="btn btn-default violet-button show-me-more"
+									value="Show me more" name="VALUES" />
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: orange">
+								<span class="panel-title pan-title-font">I want to learn
+									how to work as a/an</span>
+							</div>
+							<ul class="list-group" id="skills-to-build-profile"></ul>
+							<div class="panel-footer" id="skills-to-learn-footer">
+								<input id="show-me-more-skills-to-learn" type="button"
+									class="btn btn-default orange-button show-me-more"
+									value="Show me more" name="SKILLS_TO_LEARN" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2"
+				style="height: 100%; position: fixed; top: 0; right: 0; padding-left: 3%; margin: 0">
+				<div class="col-sm-6" style="height: 100%;"></div>
+				<div class="col-sm-6" style="height: 100%;"></div>
+			</div>
+		</div>
+
+	</div>
+	
+	<div id="modals"></div>
+
+	<script src="/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/jquery.webui-popover.min.js"></script>
+	<script type="text/javascript" src="/js/waitMe.js"></script>
+	<script type="text/javascript" src="/js/init.js"></script>
+	<script type="text/javascript" src="/js/modules.js"></script>
+	<script type="text/javascript" src="/js/fbook.js"></script>
+	<script type="text/javascript" src="/js/my-profile.js"></script>
+	
+
+</body>
+</html>
+

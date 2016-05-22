@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Career Explora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link rel="stylesheet" type="text/css" href="/style/waitMe.css">
+</head>
+<body style="background-color: white;">
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '907361745985096',
+				cookie : true, // enable cookies to allow the server to access
+				// the session
+				xfbml : true, // parse social plugins on this page
+				version : 'v2.3' // use version 2.1
+			});
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<div class="container" id="main">
+		<div style="margin-top: 2%;" class="row">
+			<div class="col-xs-12  col-md-9">
+				<img src="/images/career-explora.png" alt="Career Explora"
+					class="img-responsive">
+			</div>
+			<div class="col-xs-12 col-md-3 navbar-container">
+
+				<div scope="public_profile,email" onlogin="checkLoginState();"
+					class="fb-login-button" data-max-rows="1" data-size="medium"
+					data-show-faces="true" data-auto-logout-link="false"></div>
+			</div>
+		</div>
+		<hr
+			style="height: 2px; background-color: orange; margin-top: 1%; margin-bottom: 1%;"></hr>
+		<div class="row">
+			<div class=" col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/cbt-ok.jpg"
+						alt="CBT"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>CBT</h4></a>
+						<p class="module-desc">Prepare for College</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/talent-ok.jpg"
+						alt="Talent Hunt"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Talent Hunt</h4></a>
+						<p class="module-desc">Discover your natural gifts</p>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/career-ok.jpg"
+						alt="Career Cluster"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Career Cluster</h4></a>
+						<p class="module-desc">Find your dream job</p>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/personal-ok.jpg"
+						alt="Discover you"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Discover You</h4></a>
+						<p class="module-desc">Your personal style</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+		<div class="row">
+
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/skills-ok.jpg"
+						alt="Skills Builder"></a>
+					<div class="caption">
+						<aclass="moduleto-pointer">
+						<h4>Skill builder</h4>
+						</a>
+						<p class="module-desc">Build careers from your talents</p>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/brain-ok.jpg"
+						alt="Brain Types"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Brain Types</h4></a>
+						<p class="module-desc">Discover your Intelligence types</p>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/values-ok.jpg"
+						alt="Career Values"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Career Values</h4></a>
+						<p class="module-desc">Identify your true work environment</p>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-xs-6 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<a class="module to-pointer"><img
+						class="img-responsive module-image" src="/images/forum-ok.jpg"
+						alt="Forum"></a>
+					<div class="caption">
+						<a class="module to-pointer"><h4>Chat & Forums</h4></a>
+						<p class="module-desc">Connect with friends, join a career
+							club</p>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+	
+	<form action="/azure/success" method="post" id="login-form">
+		<input id="name" name="name" type="hidden"/>
+		<input id="picture" name="picture" type="hidden"/>
+		<input id="cover" name="cover" type="hidden"/>
+		<input id="access" name="access" type="hidden"/>
+		<input name="authorization" type="hidden" value="false"/>
+	</form>
+
+	<script src="/js/jquery-1.11.2.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/index.js"></script>
+	<script type="text/javascript" src="/js/waitMe.js"></script>
+
+</body>
+</html>

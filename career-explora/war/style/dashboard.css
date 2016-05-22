@@ -1,0 +1,1266 @@
+@CHARSET "ISO-8859-1";
+
+html,body {
+	overflow: auto;
+	font-family: Verdana;
+	font-size: 14px;
+}
+
+.test-report-header-2 {
+	font-size: 13pt;
+	font-family: tahoma;
+	font-weight: bold;
+}
+
+.test-report-header-1 {
+	font-size: 22pt;
+	font-weight: bold;
+	color: black;
+}
+
+.mit-report-content {
+	display: none;
+	font-size: 10pt;
+}
+
+.report-styled-div {
+	margin-bottom: 1px;
+}
+
+.report-styled-header h5,.status {
+	color: white !important;
+}
+
+.report-styled-header {
+	padding: 0.1em;
+	padding-left: 2%;
+	padding-right: 2%;
+	cursor: pointer;
+}
+
+.index-header {
+	background-color: rgb(255, 140, 0);
+}
+
+.h-input {
+	width: 90%;
+	font-weight: normal;
+}
+
+.hidden {
+	display: none;
+}
+
+#confirmation-dialog,.like-confirmation,#login-dialog,#password-recovery-dialog,#payment-failure-dialog
+	{
+	margin: 2%;
+	margin-top: 5%;
+	border-color: rgb(216, 216, 216);
+	padding: 2%;
+	padding-top: 0;
+	padding-bottom: 1%;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+}
+
+#confirmation-table {
+	width: 80%;
+	margin: 0 auto;
+	font-family: arial;
+	font-size: 9pt;
+	padding: 2%;
+	padding-top: 0;
+}
+
+.login-button {
+	background-color: orange;
+	color: white;
+	font-size: 10pt;
+	font-weight: bold;
+	border-style: outset;
+	border-color: rgb(255, 140, 0);
+	padding: 4%;
+}
+
+#logo {
+	color: white;
+	font-size: 24pt;
+}
+
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
+
+.reg-input-error {
+	border-color: red;
+	background-color: rgb(255, 240, 240);
+}
+
+.reg-error-msg {
+	background-color: rgb(255, 240, 240);
+	font-size: 10pt;
+	font-family: arial;
+	border-color: red;
+	padding: 2%;
+	border-style: solid;
+	border-width: 1px;
+	color: red;
+	border-radius: 3px;
+}
+
+.reg-processing-msg {
+	background-color: rgb(240, 255, 240);
+	font-size: 10pt;
+	font-family: arial;
+	border-color: green;
+	padding: 2%;
+	border-style: solid;
+	border-width: 1px;
+	color: green;
+	border-radius: 3px;
+}
+
+.login-label {
+	color: white;
+	font-size: 10pt;
+}
+
+.login-text {
+	color: gray;
+	font-size: 10pt;
+}
+
+.login-input {
+	font-family: arial;
+	font-size: 10pt;
+	width: 95%;
+}
+
+#slogan-div,#sign-up-header {
+	padding: 5%;
+	padding-left: 0;
+	font-size: 15pt;
+	color: gray;
+	text-align: center;
+}
+
+.sign-up-input {
+	font-size: 14pt;
+	height: 2em;
+}
+
+#terms-div {
+	color: gray;
+	font-size: 9pt;
+	font-family: arial;
+}
+
+.slider-img {
+	width: 100%;
+	margin: 0;
+	height: 100%;
+}
+
+.slider-caption {
+	background-color: rgb(255, 140, 0);
+	margin: 0;
+}
+
+#main-body {
+	background-color: white;
+}
+
+#save-div {
+	height: 4.5em;
+	padding-bottom: 1%;
+}
+
+#background-img {
+	height: 100%;
+	width: 100%;
+	clear: both;
+}
+
+#show-me-more-skills-learnt,#show-me-more-talents,#show-me-more-mits,#show-me-more-clusters,#show-me-more-skills-to-learn,#show-me-more-styles,#show-me-more-values
+	{
+	
+}
+
+.yellow-button {
+	color: white;
+	background-color: rgb(255, 211, 0);
+}
+
+.violet-button {
+	color: white;
+	background-color: violet;
+}
+
+.yellow-button:hover {
+	color: white;
+	background-color: rgb(255, 165, 0);
+}
+
+.violet-button:hover {
+	color: white;
+	background-color: rgb(208, 32, 144);
+}
+
+.blue-list:hover {
+	background-color: rgba(0, 0, 211, 0.1);
+	color: black;
+}
+
+.orange-list:hover {
+	background-color: rgba(255, 165, 0, 0.1);
+	color: black;
+}
+
+.green-list:hover {
+	background-color: rgba(43, 139, 34, 0.1);
+	color: black;
+}
+
+.indigo-list:hover {
+	background-color: rgba(0, 255, 255, 0.1);
+	color: black;
+}
+
+.red-list:hover {
+	background-color: rgba(255, 0, 0, 0.1);
+	color: black;
+}
+
+.yellow-list:hover {
+	background-color: rgba(255, 211, 0, 0.1);
+	color: black;
+}
+
+.violet-list:hover {
+	background-color: rgba(238, 130, 238, 0.1);
+	color: black;
+}
+
+.error-div {
+	color: red;
+	font-family: georgia;
+	font-size: 9pt;
+	font-style: italic;
+}
+
+.module-desc {
+	font-size: 9pt;
+}
+
+#talent-skill-info-2 {
+	visibility: hidden;
+}
+
+.talent-skill-groups {
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 1%;
+}
+
+.talent-skill-name {
+	font-size: 14pt;
+	font-stretch: wider;
+	font-weight: bold;
+	font-size: tahoma;
+	color: darkblue;
+}
+
+.talent-skill-options {
+	visibility: hidden;
+}
+
+.talent-skill-desc {
+	padding-right: 2%;
+	padding-left: 2%;
+	padding-bottom: 2%;
+	visibility: hidden;
+}
+
+.talent-skill-info {
+	padding-right: 2%;
+	padding-left: 2%;
+	padding-bottom: 2%;
+}
+
+#skill-div-1 {
+	text-align: center;
+	background-color: orange;
+	border-style: groove;
+	border-width: thin;
+	border-color: gray;
+	margin: 0 auto;
+	font-family: georgia;
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+#view-subscription-details {
+	background-color: orange;
+	margin-left: 1%;
+}
+
+.talent-skill {
+	cursor: pointer;
+}
+
+.talent-skill:hover {
+	color: orange;
+}
+
+#view-subscription-details:hover {
+	background-color: #FF7F00;
+}
+
+.last-login-label {
+	font-variant: tahoma;
+	color: orange;
+	font-size: 10pt;
+}
+
+.last-login-data {
+	font-family: georgia;
+	font-size: 10pt;
+}
+
+.table-borderless td,.table-borderless th {
+	border: 0 !important;
+}
+
+.mob-nav:hover {
+	background-color: orange;
+	color: white;
+}
+
+#c1 {
+	padding-top: 4.5em;
+}
+
+#test-board-btn-grp {
+	padding: 1em;
+}
+
+.career-values-heading {
+	color: orange;
+	font-size: 16pt
+}
+
+.career-values-name {
+	font-family: Bodoni;
+	font-size: 14pt
+}
+
+.career-values-desc {
+	font-family: Book Antiqua;
+	color: blue;
+	font-style: italic;
+	font-size: 12pt;
+}
+
+.profile-img {
+	width: 3em;
+	height: 3em;
+	margin: 0 auto;
+	position: relative;
+	top: 30%;
+}
+
+#demo {
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 18pt;
+}
+
+.cbt-test-info {
+	text-align: right;
+	display: block;
+}
+
+#div-1 {
+	min-height: 100%;
+	position: relative;
+}
+
+#div-content {
+	padding-bottom: 4em;
+}
+
+#demo {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.cpd {
+	margin: 10px;
+}
+
+.ccprogress {
+	margin: 0 auto;
+}
+
+.cctitle {
+	cursor: pointer;
+}
+
+.cctitle:hover {
+	text-decoration: none;
+}
+
+.ccpanelheader {
+	height: 4em;
+}
+
+.test-board-button-group {
+	padding: 1%;
+	padding-top: 3%;
+	padding-bottom: 4em;
+}
+
+.test-board-option {
+	padding-left: 1em;
+	word-wrap: break-word
+}
+
+.test-board-alternative {
+	width: 100%;
+	padding: 1em;
+	padding-left: 2.5em;
+}
+
+.test-board-footer {
+	height: 4em;
+	padding-top: 1%;
+	background-color: orange;
+	bottom: 0;
+	position: absolute;
+	right: 0;
+	left: 0;
+}
+
+.test-board-button {
+	width: 7.5em;
+	margin: 2%;
+	margin-top: inherit;
+	margin-bottom: inherit;
+}
+
+.test-board-header {
+	height: 4.5em;
+	background-color: orange;
+	color: white;
+	text-align: center;
+}
+
+.test-board-question {
+	width: 100%;
+	font-family: 'tahoma';
+	font-size: 14pt;
+	padding: 2em;
+}
+
+.test-board-extra-text {
+	width: 100%;
+	font-family: 'georgia';
+	font-size: 12pt;
+	font-style: italic;
+	color: gray;
+	padding: 2em;
+	padding-bottom: 0px;
+}
+
+.modal-md {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.heading-div {
+	height: 4.5em;
+}
+
+.uptopic {
+	width: 65%;
+}
+
+.up-delete,.up-delete-add {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.up-delete:hover,.up-delete-add:hover {
+	text-decoration: none;
+	color: rgb(255, 211, 0);
+}
+
+.upcoming-topic {
+	cursor: pointer;
+}
+
+#upcoming-topics-table-container {
+	max-height: 14em;
+	overflow: auto;
+	margin-top: 3%;
+}
+
+.editableTable .cellEditing {
+	padding: 0;
+}
+
+.editableTable .cellEditing input[type=text] {
+	width: 100%;
+	border: 0;
+	background-color: rgb(255, 253, 210);
+}
+
+.daysleft {
+	margin-top: 2%;
+	font-size: 10pt;
+}
+
+.edit-topic-anchor {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.edit-topic-anchor:hover {
+	text-decoration: none;
+	color: rgb(255, 211, 0);
+}
+
+.nodays {
+	font-size: 13pt;
+}
+
+.topicsleft {
+	font-size: 9pt;
+	font-style: italic;
+}
+
+.upcoming-testname {
+	text-transform: capitalize;
+	font-size: 11pt;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(255, 211, 0);
+	padding: 1%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	border-radius: 3px;
+}
+
+.module-image {
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1);
+	/* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.module-image:hover {
+	filter: none; /* IE6-9 */
+	-webkit-filter: grayscale(0);
+	/* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.module-footer {
+	text-align: center;
+	display: none;
+	background-color: red;
+	color: blue;
+	font-size: 9pt;
+}
+
+.panel-img {
+	cursor: pointer;
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1);
+	/* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.panel-img:hover {
+	filter: none; /* IE6-9 */
+	-webkit-filter: grayscale(0);
+	/* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.pan-title-font {
+	color: white;
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+#sub-main {
+	margin-top: 2%;
+	height: 600px;
+}
+
+#subnav {
+	height: 2.5em;
+	background-color: white;
+	padding: 1%;
+}
+
+#subnav-content {
+	margin: auto;
+	width: 70%;
+	height: 100%;
+}
+
+#subnav-content ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+#subnav-content ul li {
+	display: inline;
+}
+
+#subnav-content ul li a {
+	color: orange;
+	font-size: 11pt;
+	font-weight: bold;
+	text-decoration: none;
+	padding: .2em 1em;
+}
+
+#subnav-content ul li a:hover {
+	background: orange;
+	color: #fff;
+}
+
+#cover-div {
+	background: rgb(0, 0, 0);
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+	position: absolute;
+	top: 80%;
+	left: 75%;
+	padding: 0.5em;
+	font-size: 10pt;
+	color: white;
+	cursor: pointer;
+	margin: 1%;
+	border-radius: 3px;
+}
+
+#overlay {
+	background: rgb(0, 0, 0); /* Fallback */
+	background-color: rgba(0, 0, 0, 0.5); /*dim the background*/
+	height: 23em;
+	float: left;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 1000;
+	padding: 5px;
+	clear: both;
+}
+
+h4 {
+	color: orange;
+}
+
+.mit-report-key {
+	padding: 4%;
+	padding-top: 5em;
+	float: left;
+	width: 250px;
+	height: 300px;
+}
+
+.mobile-view-row {
+	text-align: center;
+	padding: 3%;
+}
+
+.career-cluster-chart {
+	height: 370px;
+	width: 220px;
+	min-width: 220px;
+	margin: 2%;
+	float: left;
+	margin-left: 5px;
+}
+
+.career-cluster-report-div {
+		width: 1020px;
+		margin: 0 auto;
+	}
+
+.talent-hunt-body {
+	background: -webkit-radial-gradient(white, #5bc0de);
+	background: -o-radisl-gradient(white, #5bc0de);
+	background: -moz-radial-gradient(white, #5bc0de);
+	background: radial-gradient(white, #5bc0de);
+}
+
+.career-cluster-body {
+	background: -webkit-radial-gradient(white, #f0ad4e);
+	background: -o-radisl-gradient(white, #f0ad4e);
+	background: -moz-radial-gradient(white, #f0ad4e);
+	background: radial-gradient(white, #f0ad4e);
+}
+
+.mit-chart-div {
+	width: 600px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+.mit-body {
+	background: -webkit-radial-gradient(white, #d9534f);
+	background: -o-radisl-gradient(white, #d9534f);
+	background: -moz-radial-gradient(white, #d9534f);
+	background: radial-gradient(white, #d9534f);
+}
+
+.report-chart-div {
+	width: 100%;
+	height: 300px;
+	margin: 0 auto;
+}
+
+.report-content-pane {
+	margin-left: 3em;
+	margin-right: 3em;
+}
+
+.report-container {
+	background-color: white;
+	font-family: calibri;
+	width: 55%;
+	margin: 0 auto;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	border-style: double;
+	border-color: gray;
+	padding-bottom: 2%;
+}
+
+.career-cluster-report-container {
+	width: 88% !important;
+}
+
+.report-header {
+	width: 100%;
+	height: 5em;
+	margin-left: 3em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.report-hr {
+	margin: 0;
+	margin: 1%;
+	margin-left: 3em;
+	margin-right: 3em
+}
+
+.talent-report-div {
+	width: 100%;
+	margin-top: 3%;
+	padding-left: 1%;
+}
+
+@media screen and (max-width: 1200px) {
+	
+	.career-cluster-report-div {
+		width: 760px;
+		margin: 0 auto;
+	} 
+	.report-content-pane,.report-hr,.report-header {
+		margin-left: 2em;
+		margin-right: 2em;
+	}
+	.report-container {
+		width: 65%;
+	}
+	
+	.career-cluster-report-container {
+		width: 85% !important;
+	}
+	
+	.login-text {
+		font-size: 8pt;
+	}
+	.modal-md {
+		width: 60%;
+		margin: 0 auto;
+	}
+	.profile-img {
+		width: 3em;
+		height: 3em;
+		margin: 0 auto;
+		position: relative;
+		top: 30%;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	
+	
+	.career-cluster-report-div {
+		width: 480px;
+		margin: 0 auto;
+	}
+	
+	.report-content-pane,.report-hr,.report-header {
+		margin-left: 1.5em;
+		margin-right: 1.5em;
+	}
+	.report-container {
+		width: 75%;
+	}
+	.career-cluster-report-container {
+		width: 80% !important;
+	}
+	.test-report-header-1 {
+		font-size: 16pt;
+	}
+	.test-report-header-2 {
+		font-size: 12pt;
+	}
+	#logo {
+		font-size: 18pt;
+	}
+	.hidden-nav-item {
+		visibility: hidden !important;
+	}
+	.modal-md {
+		width: 70%;
+		margin: 0 auto;
+	}
+	.cbt-test-info {
+		font-size: 10pt;
+	}
+	.cont-one {
+		display: none;
+	}
+	#slogan-div {
+		font-size: 12pt;
+		margin-top: 15%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	
+	
+	
+	.mit-chart-div {
+		width: 100%;
+		height: 300px;
+	}
+	.chart-d {
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+	}
+	.mit-report-key {
+		display: none;
+	}
+	.report-content-pane,.report-hr,.report-header {
+		margin-left: 1em;
+		margin-right: 1em;
+	}
+	.report-container {
+		width: 85%;
+		margin-top: 0;
+		margin-bottom: 1em;
+	}
+	.career-cluster-report-container {
+		width: 100% !important;
+	}
+	.report-styled-header {
+		padding: 1px;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	.mobile-input {
+		font-size: 12pt !important;
+	}
+	.mobile-font-link {
+		font-size: 8pt;
+	}
+	.mobile-font-header {
+		font-size: 12pt !important;
+	}
+	.mobile-table-header {
+		font-size: 11pt !important;
+	}
+	.mobile-font {
+		font-size: 10pt;
+	}
+	.dialog-div {
+		width: 80%;
+		margin: 0 auto !important;
+	}
+	.sign-up-mobile-control {
+		width: 70%;
+	}
+	.mobile-sign-up-div {
+		width: 70%;
+		margin: 0 auto;
+		background-color: white;
+		padding-bottom: 2%;
+	}
+	.mobile-new-account {
+		margin: 0 auto;
+	}
+	.mobile-control {
+		width: 96%;
+		margin-left: 2%;
+		margin-right: 2%;
+		padding: 2%;
+	}
+	.login-div {
+		width: 70%;
+		margin: 0 auto;
+		background-color: rgb(211, 211, 211);
+		background-color: rgba(255, 200, 0, 0.2);
+		padding: 2%;
+		border: 1px solid;
+		border-color: rgba(255, 200, 0, 0.3);
+	}
+	.mobile-logo {
+		font-size: 14pt !important;
+		color: white;
+		text-align: center;
+		margin: 2%;
+	}
+	.mobile-view-panel {
+		padding-left: 0;
+	}
+	.mobile-view-div {
+		width: 70%;
+		margin: 0 auto;
+		margin-bottom: 2%;
+	}
+	.mobile-view {
+		width: 65%;
+		margin: 0 auto;
+		background-color: white;
+		margin-bottom: 2%;
+	}
+	.mobile-view-top {
+		margin-top: 2% !important;
+	}
+	.mobile-profile-image {
+		width: 7.5em;
+		height: 7.5em;
+		margin: 0 auto;
+		margin-top: 4%;
+	}
+	.hidden-nav-item {
+		visibility: visible !important;
+	}
+	.modal-md {
+		width: 80%;
+		margin: 0 auto !important;
+	}
+	.test-board-header {
+		margin-top: 0px;
+	}
+	.test-board-number-button {
+		font-size: 6pt;
+	}
+	.cc-div-content {
+		margin-top: 4.5em;
+	}
+	#save-div,.heading-div {
+		background-color: orange;
+		height: 2.5em;
+	}
+	.test-board-button {
+		margin-top: 2%;
+	}
+	.cbt-test-info {
+		font-size: inherit;
+	}
+}
+
+@media screen and (max-width: 580px) {
+	
+	.career-cluster-chart {
+		margin-right: 5px;
+	}
+	.report-chart-div {
+		width: 100%;
+		height: 380px;
+	}
+	.report-content-pane,.report-hr,.report-header {
+		margin-left: 0.5em;
+		margin-right: 0.5em;
+	}
+	.mobile-table-header {
+		font-size: 10pt !important;
+	}
+	.report-picture {
+		display: none;
+	}
+	.mobile-font {
+		font-size: 9pt;
+	}
+	.dialog-div {
+		width: 90%;
+	}
+	.login-div {
+		width: 85%;
+	}
+	.mobile-logo {
+		font-size: 12pt !important;
+	}
+	.mobile-view {
+		width: 85%;
+	}
+	#div-2 {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	
+	.career-cluster-chart {
+		width: 250px;
+		margin: 0 auto;
+		clear: both;
+		float: none;
+		margin-bottom: 2%;
+	}
+	.report-chart-div {
+		width: 100%;
+		height: 300px;
+	}
+	.report-container {
+		width: 100%;
+		margin: 0;
+		border: none;
+		min-width: 310px;
+	}
+	
+	.mobile-font {
+		font-size: 8pt;
+	}
+	.dialog-div {
+		width: 100%;
+	}
+	.mobile-sign-up-div {
+		width: 100%;
+	}
+	.login-div {
+		width: 100%;
+	}
+	.mobile-view-div {
+		width: 100%;
+	}
+	.mobile-view {
+		width: 100%;
+	}
+	.mobile-profile-image {
+		width: 5em;
+		height: 5em;
+		margin: 0 auto;
+		margin-top: 4%;
+	}
+	.modal-md {
+		width: 90%;
+		margin: 0 auto;
+	}
+	.test-board-button {
+		width: 5em;
+		font-size: 10pt;
+		margin-top: 2%;
+	}
+	.test-board-option {
+		padding-left: 1em;
+		font-size: 10pt;
+	}
+	.test-board-question {
+		font-weight: bold;
+		width: 100%;
+		font-family: 'tahoma';
+		font-size: 12pt;
+		padding: 2em;
+	}
+	.test-board-header h2 {
+		font-size: 20px;
+	}
+	.test-board-number-button {
+		display: none;
+	}
+	#demo {
+		font-size: 16pt;
+	}
+	.cont-button {
+		display: none;
+	}
+	.cbt-test-info {
+		font-size: 10pt;
+	}
+	.career-values-name {
+		font-size: 12pt
+	}
+	.career-values-desc {
+		font-size: 10pt;
+	}
+	.career-values-heading {
+		font-size: 13pt
+	}
+	#personal-style-list {
+		font-size: 9pt
+	}
+	.report-username {
+		font-size: 18pt;
+	}
+	.report-test-name {
+		font-size: 12pt;
+	}
+	.report-date {
+		font-size: 10pt;
+	}
+	#div-3 {
+		display: none;
+	}
+	.talent-skill {
+		font-size: 9pt;
+	}
+	.caption h4 {
+		font-size: 10pt;
+	}
+	.module-desc {
+		font-size: 8pt;
+	}
+	#background-img {
+		height: 15em;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.career-cluster-chart {
+		width: 220px;
+	}
+	.report-chart-div {
+		width: 100%;
+		height: 250px;
+	}
+	.mobile-logo {
+		font-size: 11pt !important;
+	}
+	.modal-md {
+		width: 280px;
+		margin: 0 auto;
+	}
+	#div-1 {
+		width: 320px;
+	}
+	.test-board-button {
+		width: 8;
+		font-size: 8pt;
+		padding: 1%;
+		margin-top: 4%;
+	}
+	.test-board-option {
+		padding-left: 1em;
+		font-size: 9pt;
+	}
+	.test-board-question {
+		font-weight: bold;
+		width: 100%;
+		font-family: 'tahoma';
+		font-size: 11pt;
+		padding: 2em;
+	}
+	.test-board-header h2 {
+		font-size: 18px;
+	}
+	.test-board-header {
+		clear: both;
+		text-align: center;
+	}
+	.test-board-number-button {
+		display: none;
+	}
+	#demo {
+		font-weight: normal;
+		font-size: 13pt;
+	}
+	.report-username {
+		font-size: 16pt;
+	}
+	.report-test-name {
+		font-size: 11pt;
+	}
+	.report-date {
+		font-size: 9pt;
+	}
+	.modal-header h4 {
+		font-size: 10pt;
+	}
+	.modal-content h2 {
+		font-size: 14pt;
+	}
+	.modal-content {
+		font-size: 9pt;
+	}
+	.ccpanel {
+		width: 300px
+	}
+}
+
+.friend-image {
+	margin: auto;
+	width: 6em;
+	height: 6em;
+}
+
+#profile-image {
+	margin: auto;
+	width: 10em;
+	height: 10em;
+}
+
+.to-pointer {
+	cursor: pointer;
+}
+
+#popover-img {
+	width: 6em;
+	height: 6em;
+}
+
+.orange-button {
+	color: #fff;
+	background-color: rgb(255, 140, 0);
+	border-color: rgb(255, 120, 0);
+}
+
+.orange-button.active,.orange-button.focus,.orange-button:active,.orange-button:focus,.orange-button:hover,.open>.dropdown-toggle.orange-button
+	{
+	color: #fff;
+	background-color: rgb(255, 120, 0);
+	border-color: rgb(255, 100, 0)
+}
+
+.orange-button.active,.orange-button:active,.open>.dropdown-toggle.orange-button
+	{
+	background-image: none
+}
+
+.orange-button.disabled,.orange-button.disabled.active,.orange-button.disabled.focus,.orange-button.disabled:active,.orange-button.disabled:focus,.orange-button.disabled:hover,.orange-button[disabled],.orange-button[disabled].active,.orange-button[disabled].focus,.orange-button[disabled]:active,.orange-button[disabled]:focus,.orange-button[disabled]:hover,fieldset[disabled] .orange-button,fieldset[disabled] .orange-button.active,fieldset[disabled] .orange-button.focus,fieldset[disabled] .orange-button:active,fieldset[disabled] .orange-button:focus,fieldset[disabled] .orange-button:hover
+	{
+	background-color: #d9534f;
+	border-color: #d43f3a
+}
+
+.login-button.active,.login-button.focus,.login-button:active,.login-button:focus,.login-button:hover,.open>.dropdown-toggle.orange-button
+	{
+	color: #fff;
+	background-color: rgb(255, 100, 0);
+}

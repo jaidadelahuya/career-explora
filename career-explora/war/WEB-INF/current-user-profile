@@ -1,0 +1,534 @@
+<div class="col-xs-12 col-sm-5 mobile-view-panel"
+	style="padding-right: 0;">
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: orange">
+			<span class="panel-title pan-title-font" id="personal-profile">Meet
+				me</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; width: 100%; margin: 0 auto">
+					<tr class='editable'>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">First Name: </strong></td>
+						<td id="profile-first-name" class="text-left editable"
+							style="font-weight: bold; width: 55%"><span
+							class="editable-value"><c:out
+									value="${userProfile.firstName}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.firstName}" placeholder="First Name" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Last Name: </strong></td>
+						<td id="profile-last-name" class="text-left editable"
+							style="font-weight: bold;"><span class="editable-value"><c:out
+									value="${userProfile.lastName}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.lastName}" placeholder="Last Name" /></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Middle Name: </strong></td>
+						<td id="profile-middle-name" class="text-left editable"
+							style="font-weight: bold;"><span class="editable-value"><c:out
+									value="${userProfile.middleName}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.middleName}" placeholder="Middle Name" /></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Gender: </strong></td>
+						<td id="profile-gender" class="text-left editable"
+							style="font-weight: bold;"><span id="gender-value"
+							class="editable-value"><c:out
+									value="${userProfile.gender}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<select class="hidden h-input">
+								<c:choose>
+									<c:when test='${userProfile.gender == "male"}'>
+										<option>female</option>
+										<option selected="selected">male</option>
+									</c:when>
+									<c:otherwise>
+										<option selected="selected">female</option>
+										<option>male</option>
+									</c:otherwise>
+								</c:choose>
+						</select></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Date of Birth: </strong></td>
+						<td id="profile-date-of-birth" class="text-left editable"
+							style="font-weight: bold;"><span id="dob-value"
+							class="editable-value"><c:out
+									value="${userProfile.dateOfBirth}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" id="profile-dob" class="h-input hidden"
+							value="${userProfile.dateOfBirth}" placeholder="Date of Birth" /></td>
+					</tr>
+				</table>
+			</li>
+
+		</ul>
+	</div>
+
+	<div
+		class="panel panel-default mobile-view-div hidden-sm hidden-md hidden-lg">
+		<div class="panel-heading" style="background-color: #f0ad4e">
+			<span class="panel-title pan-title-font">My contact
+				information</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">EMail: </strong></td>
+						<td class="text-left editable profile-email"
+							style="font-style: italic; font-size: 9pt;"><span
+							class="editable-value"><c:out value="${userProfile.email}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.email}" placeholder="E-Mail" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">School: </strong></td>
+						<td class="text-left editable profile-school"
+							style="text-transform: capitalize; font-size: 9pt"><span
+							class="editable-value"><c:out
+									value="${userProfile.school}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.school}" placeholder="School" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">Lives in: </strong></td>
+						<td id="profile-lives-in" class="text-left editable"
+							style="text-transform: capitalize; font-size: 9pt"><span
+							class="editable-value livesin-value"><span
+								class="profile-state"><c:out value="${userProfile.state}" /></span>
+								<c:if test="${not empty userProfile.state}">
+									<span class="lives-in-comma">,</span>
+								</c:if><span class="profile-country"><c:out
+										value="${userProfile.country}" /></span></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="hidden hidden-state"
+							value="${userProfile.state}" style="margin-bottom: 2%"
+							placeholder="State" /> <input type="text"
+							class="hidden hidden-country" value="${userProfile.country}"
+							placeholder="Country" /></td>
+
+					</tr>
+				</table>
+			</li>
+
+		</ul>
+	</div>
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #5cb85c">
+			<span class="panel-title pan-title-font">My SKills</span>
+		</div>
+		<ul class="list-group" id="skills-built-profile">
+			<c:forEach var='module' items='${userProfile.learntSkills}'
+				begin='${userProfile.learntSkilsCounter}' end='5'>
+				<li class="list-group-item green-list sllist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='learntSkilsCounter'
+					value='${userProfile.learntSkilsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.learntSkills) > userProfile.learntSkilsCounter+1}">
+				<div class="panel-footer" id="skills-built-footer">
+					<input id="show-me-more-skills-learnt" type="button"
+						class="btn btn-default btn-success show-me-more"
+						value="Show me more" name="SKILLS_LEARNT" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="panel-footer" id="skills-built-footer"
+					style="display: none">
+					<input id="show-me-more-skills-learnt" type="button"
+						class="btn btn-default btn-success show-me-more"
+						value="Show me more" name="SKILLS_LEARNT" />
+				</div>
+			</c:otherwise>
+
+		</c:choose>
+	</div>
+
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #5bc0de">
+			<span class="panel-title pan-title-font">My Talents</span>
+		</div>
+		<ul class="list-group" id="talent-profile">
+			<c:forEach var='module' items='${userProfile.talents}'
+				begin='${userProfile.talentsCounter}' end='5'>
+				<li class="list-group-item indigo-list tlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='talentsCounter'
+					value='${userProfile.talentsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when test="${not empty userProfile.talents}">
+				<div class="panel-footer" id="talent-footer">
+					<c:choose>
+						<c:when
+							test="${fn:length(userProfile.talents) > userProfile.talentsCounter+1}">
+							<input id="show-me-more-talents" type="button"
+								class="btn btn-default btn-info show-me-more"
+								value="Show me more" name="TALENTS" />
+						</c:when>
+						<c:otherwise>
+							<input id="show-me-more-talents" type="button"
+								class="btn btn-default btn-info show-me-more hidden"
+								value="Show me more" name="TALENTS" />
+						</c:otherwise>
+
+					</c:choose>
+					<input id="show-talents-report" type="button"
+						class="btn btn-default btn-info show-report" value="View Report"
+						name="" />
+				</div>
+			</c:when>
+		</c:choose>
+	</div>
+
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #d9534f">
+			<span class="panel-title pan-title-font">My Intelligence Types</span>
+		</div>
+		<ul class="list-group" id="mit-profile">
+			<c:forEach var='module' items='${userProfile.mits}'
+				begin='${userProfile.mitsCounter}' end='5'>
+				<li class="list-group-item red-list mlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='mitsCounter'
+					value='${userProfile.mitsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when test="${not empty userProfile.mits}">
+				<div class="panel-footer" id="mits-footer">
+					<c:choose>
+						<c:when
+							test="${fn:length(userProfile.mits) > userProfile.mitsCounter+1}">
+
+							<input id="show-me-more-mits" type="button"
+								class="btn btn-default btn-danger show-me-more"
+								value="Show me more" name="MITS" />
+						</c:when>
+						<c:otherwise>
+
+							<input id="show-me-more-mits" type="button"
+								class="btn btn-default btn-danger show-me-more hidden"
+								value="Show me more" name="MITS" />
+						</c:otherwise>
+					</c:choose>
+					<input id="show-mits-report" type="button"
+						class="btn btn-default btn-danger show-report" value="View Report"
+						name="MITS" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #f0ad4e">
+			<span class="panel-title pan-title-font">Industries I fit in</span>
+		</div>
+		<ul class="list-group" id="career-clusters-profile">
+			<c:forEach var='module' items='${userProfile.clusters}'
+				begin='${userProfile.clustersCounter}' end='5'>
+				<li class="list-group-item yellow-list clist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='clustersCounter'
+					value='${userProfile.clustersCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when test="${not empty userProfile.clusters}">
+				<div class="panel-footer" id="clusters-footer">
+					<c:choose>
+						<c:when
+							test="${fn:length(userProfile.clusters) > userProfile.clustersCounter+1}">
+
+							<input id="show-me-more-clusters" type="button"
+								class="btn btn-default btn-warning show-me-more"
+								value="Show me more" name="CLUSTERS" />
+						</c:when>
+						<c:otherwise>
+							<input id="show-me-more-clusters" type="button"
+								class="btn btn-default btn-warning show-me-more hidden"
+								value="Show me more" name="CLUSTERS" />
+						</c:otherwise>
+					</c:choose>
+					<input id="show-career-cluster-report" type="button"
+						class="btn btn-default btn-warning show-report" value="View Report" />
+				</div>
+			</c:when>
+		</c:choose>
+	</div>
+
+
+</div>
+<div class="col-xs-12 col-sm-5 mobile-view-panel"
+	style="padding-right: 0;">
+
+	<div class="panel panel-default mobile-view-div hidden-xs">
+		<div class="panel-heading" style="background-color: #f0ad4e">
+			<span class="panel-title pan-title-font">My contact
+				information</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">EMail: </strong></td>
+						<td class="text-left editable profile-email"
+							style="font-style: italic; font-size: 9pt;"><span
+							class="editable-value"><c:out value="${userProfile.email}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.email}" placeholder="E-Mail" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">School: </strong></td>
+						<td class="text-left editable profile-school"
+							style="text-transform: capitalize; font-size: 9pt"><span
+							class="editable-value"><c:out
+									value="${userProfile.school}" /></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="h-input hidden"
+							value="${userProfile.school}" placeholder="School" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">Lives in: </strong></td>
+						<td id="profile-lives-in" class="text-left editable"
+							style="text-transform: capitalize; font-size: 9pt"><span
+							class="editable-value livesin-value"><span
+								class="profile-state"><c:out value="${userProfile.state}" /></span>
+								<c:if test="${not empty userProfile.state}">
+									<span class="lives-in-comma">,</span>
+								</c:if><span class="profile-country"><c:out
+										value="${userProfile.country}" /></span></span><span
+							class="glyphicon glyphicon-pencil pull-right to-pointer edit-tool hidden"></span>
+							<input type="text" class="hidden hidden-state"
+							value="${userProfile.state}" style="margin-bottom: 2%"
+							placeholder="State" /> <input type="text"
+							class="hidden hidden-country" value="${userProfile.country}"
+							placeholder="Country" /></td>
+
+					</tr>
+				</table>
+			</li>
+
+		</ul>
+	</div>
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #337ab7">
+			<span class="panel-title pan-title-font">I am</span>
+		</div>
+		<ul class="list-group" id="personal-style-profile">
+			<c:forEach var='module' items='${userProfile.styles}'
+				begin='${userProfile.stylesCounter}' end='5'>
+				<li class="list-group-item blue-list slist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='stylesCounter'
+					value='${userProfile.stylesCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.styles) > userProfile.stylesCounter+1}">
+				<div class="panel-footer" id="styles-footer">
+					<input id="show-me-more-styles" type="button"
+						class="btn btn-default btn-primary show-me-more"
+						value="Show me more" name="STYLES" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="panel-footer" id="styles-footer" style="display: none">
+					<input id="show-me-more-styles" type="button"
+						class="btn btn-default btn-primary show-me-more"
+						value="Show me more" name="STYLES" />
+
+				</div>
+			</c:otherwise>
+		</c:choose>
+
+	</div>
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: violet">
+			<span class="panel-title pan-title-font">I like</span>
+		</div>
+		<ul class="list-group" id="career-values-profile">
+			<c:forEach var='module' items='${userProfile.values}'
+				begin='${userProfile.valuesCounter}' end='5'>
+				<li class="list-group-item violet-list vlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='valuesCounter'
+					value='${userProfile.valuesCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.values) > userProfile.valuesCounter+1}">
+				<div class="panel-footer" id="values-footer">
+					<input id="show-me-more-values" type="button"
+						class="btn btn-default violet-button show-me-more"
+						value="Show me more" name="VALUES" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div id="values-footer" style="display: none" class='panel-footer'>
+					<input id="show-me-more-values" type="button"
+						class="btn btn-default violet-button show-me-more"
+						value="Show me more" name="VALUES" />
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: orange">
+			<span class="panel-title pan-title-font">I want to learn how
+				to work as a/an</span>
+		</div>
+		<ul class="list-group" id="skills-to-build-profile">
+			<c:forEach var='module' items='${userProfile.skillToLearn}'
+				begin='${userProfile.skillsToLearnCounter}' end='5'>
+				<li class="list-group-item orange-list stllist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='skillsToLearnCounter'
+					value='${userProfile.skillsToLearnCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.skillToLearn) > userProfile.skillsToLearnCounter+1}">
+				<div class="panel-footer" id="skills-to-learn-footer">
+					<input id="show-me-more-skills-to-learn" type="button"
+						class="btn btn-default orange-button show-me-more"
+						value="Show me more" name="SKILLS_TO_LEARN" />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="panel-footer" id="skills-to-learn-footer"
+					style="display: none">
+					<input id="show-me-more-skills-to-learn" type="button"
+						class="btn btn-default orange-button show-me-more"
+						value="Show me more" name="SKILLS_TO_LEARN" />
+				</div>
+			</c:otherwise>
+
+		</c:choose>
+	</div>
+
+</div>

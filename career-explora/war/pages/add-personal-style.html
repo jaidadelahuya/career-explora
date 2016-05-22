@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add new Personal Style</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="row"
+			style="width: 70%; margin: 0 auto; padding-bottom: 3%">
+			<h2>Add Personal Style</h2>
+			<hr></hr>
+			<form action="/addpersonalstyle" method="post">
+				
+				<div class="row">
+					<div class="form-group">
+						<label for="styles">Styles:</label>
+						<textarea rows="6" cols="" id="styles" name="styles"
+							class="form-control"></textarea>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-submit">Submit</button> <button type="reset" class="btn btn-warning">Reset</button>
+				
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

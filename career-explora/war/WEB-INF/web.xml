@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/general-error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>com.restfb.exception.FacebookException</exception-type>
+		<location>/WEB-INF/facebook-error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<!-- for invalid username and password -->
+		<exception-type>com.jevalab.exceptions.InvalidLoginException</exception-type>
+		<location>/WEB-INF/login.jsp</location>
+	</error-page>
+
+	<filter>
+		<filter-name>WelcomeFilter</filter-name>
+		<filter-class>com.jevalab.azure.WelcomeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>WelcomeFilter</filter-name>
+		<url-pattern>/welcome</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>MobileSignUp</servlet-name>
+		<jsp-file>/WEB-INF/mobile-sign-up.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileSignUp</servlet-name>
+		<url-pattern>/sign-up</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Settings</servlet-name>
+		<jsp-file>/WEB-INF/settings.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Settings</servlet-name>
+		<url-pattern>/azure/settings</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ChangePasswordRecovery</servlet-name>
+		<jsp-file>/WEB-INF/change-password-recovery-option.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChangePasswordRecovery</servlet-name>
+		<url-pattern>/change-password-recovery-option</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ResetPassword</servlet-name>
+		<jsp-file>/WEB-INF/reset-password.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResetPassword</servlet-name>
+		<url-pattern>/reset-password</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UploadPicture</servlet-name>
+		<jsp-file>/WEB-INF/upload-picture.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadPicture</servlet-name>
+		<url-pattern>/upload-picture</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PasswordRecoveryPage</servlet-name>
+		<jsp-file>/WEB-INF/password-recovery.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PasswordRecoveryPage</servlet-name>
+		<url-pattern>/password-recovery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginPage</servlet-name>
+		<jsp-file>/WEB-INF/login.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginPage</servlet-name>
+		<url-pattern>/login-page</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminLoginPage</servlet-name>
+		<jsp-file>/WEB-INF/admin-login.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminLoginPage</servlet-name>
+		<url-pattern>/adminlogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AuthorizationPage</servlet-name>
+		<jsp-file>/WEB-INF/authorization.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthorizationPage</servlet-name>
+		<url-pattern>/authorization</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ConfirmationCodePage</servlet-name>
+		<jsp-file>/WEB-INF/confirmation-code.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConfirmationCodePage</servlet-name>
+		<url-pattern>/confirmation-code</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MitReport</servlet-name>
+		<jsp-file>/WEB-INF/mit-report.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MitReport</servlet-name>
+		<url-pattern>/multiple-intelligence-test-report</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>WelcomePage</servlet-name>
+		<jsp-file>/WEB-INF/welcome.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WelcomePage</servlet-name>
+		<url-pattern>/welcome</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TalentReport</servlet-name>
+		<jsp-file>/WEB-INF/talent-hunt-report.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TalentReport</servlet-name>
+		<url-pattern>/talent-hunt-test-report</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CareerClusterReport</servlet-name>
+		<jsp-file>/WEB-INF/career-cluster-report.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CareerClusterReport</servlet-name>
+		<url-pattern>/career-clusters-report</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PaymentPending</servlet-name>
+		<jsp-file>/WEB-INF/payment-pending.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PaymentPending</servlet-name>
+		<url-pattern>/payment-pending</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SecurityServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.SecurityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SecurityServlet</servlet-name>
+		<url-pattern>/azure/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.jevalab.azure.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/success</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.jevalab.azure.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserData</servlet-name>
+		<servlet-class>com.jevalab.azure.UserDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserData</servlet-name>
+		<url-pattern>/getdata</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddTalent</servlet-name>
+		<servlet-class>com.jevalab.azure.AddTalentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddTalent</servlet-name>
+		<url-pattern>/addtalent</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetTalent</servlet-name>
+		<servlet-class>com.jevalab.azure.TalentTestBoardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetTalent</servlet-name>
+		<url-pattern>/gettalents</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditLocation</servlet-name>
+		<servlet-class>com.jevalab.azure.EditLocationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditLocation</servlet-name>
+		<url-pattern>/editlocation</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditName</servlet-name>
+		<servlet-class>com.jevalab.azure.EditNameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditName</servlet-name>
+		<url-pattern>/editname</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditTalent</servlet-name>
+		<servlet-class>com.jevalab.azure.EditTalentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditTalent</servlet-name>
+		<url-pattern>/edittalent</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddMit</servlet-name>
+		<servlet-class>com.jevalab.azure.AddMITServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddMit</servlet-name>
+		<url-pattern>/addmit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveQuestion</servlet-name>
+		<servlet-class>com.jevalab.azure.QuestionInputServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveQuestion</servlet-name>
+		<url-pattern>/savequestion</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CareerClusterBoard</servlet-name>
+		<servlet-class>com.jevalab.azure.CareerClusterBoardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CareerClusterBoard</servlet-name>
+		<url-pattern>/careerclusterboard</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddCareerCluster</servlet-name>
+		<servlet-class>com.jevalab.azure.AddCareerClusterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddCareerCluster</servlet-name>
+		<url-pattern>/addcareercluster</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetQuestions</servlet-name>
+		<servlet-class>com.jevalab.azure.GetQuestionsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetQuestions</servlet-name>
+		<url-pattern>/getquestions</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveCbtTest</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveCbtTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveCbtTest</servlet-name>
+		<url-pattern>/savecbt</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveCareerClusterRecord</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveCareerClusterRecordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveCareerClusterRecord</servlet-name>
+		<url-pattern>/savecareerclusterrecord</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveUpComingTest</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveUpComingTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveUpComingTest</servlet-name>
+		<url-pattern>/saveupcomingtest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetMultipleIntelligenceType</servlet-name>
+		<servlet-class>com.jevalab.azure.GetMultipleIntelligenceTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetMultipleIntelligenceType</servlet-name>
+		<url-pattern>/getmultipleintelligencetype</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CareerValues</servlet-name>
+		<servlet-class>com.jevalab.azure.CareerValuesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CareerValues</servlet-name>
+		<url-pattern>/getcareervalues</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddCareerValues</servlet-name>
+		<servlet-class>com.jevalab.azure.AddCareerValuesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddCareerValues</servlet-name>
+		<url-pattern>/addcareervalues</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddPersonalStyle</servlet-name>
+		<servlet-class>com.jevalab.azure.AddPersonalStyleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddPersonalStyle</servlet-name>
+		<url-pattern>/addpersonalstyle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetPersonalStyle</servlet-name>
+		<servlet-class>com.jevalab.azure.PersonalStyleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPersonalStyle</servlet-name>
+		<url-pattern>/getpersonalstyle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SavePersonalStyle</servlet-name>
+		<servlet-class>com.jevalab.azure.SavePersonalStyleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SavePersonalStyle</servlet-name>
+		<url-pattern>/savepersonalstyle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveCareerValues</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveCareerValuesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveCareerValues</servlet-name>
+		<url-pattern>/savecareervalues</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveMit</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveMitServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveMit</servlet-name>
+		<url-pattern>/savemit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveTalents</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveTalentsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveTalents</servlet-name>
+		<url-pattern>/savetalents</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetSkillBuilder</servlet-name>
+		<servlet-class>com.jevalab.azure.SkillBuilderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetSkillBuilder</servlet-name>
+		<url-pattern>/getskillbuilder</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveSkills</servlet-name>
+		<servlet-class>com.jevalab.azure.SaveSkillsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveSkills</servlet-name>
+		<url-pattern>/saveskills</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetUploadUrl</servlet-name>
+		<servlet-class>com.jevalab.azure.UploadUrlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetUploadUrl</servlet-name>
+		<url-pattern>/getuploadurl</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BlobUpload</servlet-name>
+		<servlet-class>com.jevalab.azure.BlobUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BlobUpload</servlet-name>
+		<url-pattern>/blobupload</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserProfile</servlet-name>
+		<servlet-class>com.jevalab.azure.UserProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserProfile</servlet-name>
+		<url-pattern>/getuserprofile</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>AddUserKey</servlet-name>
+		<servlet-class>com.jevalab.azure.AddUserKeyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddUserKey</servlet-name>
+		<url-pattern>/adduserkey</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VerifyToken</servlet-name>
+		<servlet-class>com.jevalab.azure.TokenVerifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerifyToken</servlet-name>
+		<url-pattern>/verifytoken</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MoreProfileInfo</servlet-name>
+		<servlet-class>com.jevalab.azure.MoreProfileInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MoreProfileInfo</servlet-name>
+		<url-pattern>/moreprofileinfo</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MoreFriendsServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.MoreFriendsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MoreFriendsServlet</servlet-name>
+		<url-pattern>/getmorefriends</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteUpcomingTest</servlet-name>
+		<servlet-class>com.jevalab.azure.DeleteUpcomingTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteUpcomingTest</servlet-name>
+		<url-pattern>/deleteupcomingtest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditUpcomingTest</servlet-name>
+		<servlet-class>com.jevalab.azure.EditUpComingTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditUpcomingTest</servlet-name>
+		<url-pattern>/editupcomingtest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddEnglishCategory</servlet-name>
+		<servlet-class>com.jevalab.azure.AddEnglishCategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddEnglishCategory</servlet-name>
+		<url-pattern>/addenglishcategory</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PingServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.PingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PingServlet</servlet-name>
+		<url-pattern>/pingservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RegisterUserServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.RegisterUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisterUserServlet</servlet-name>
+		<url-pattern>/registeruser</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ResendCodeServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ResendCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResendCodeServlet</servlet-name>
+		<url-pattern>/resendcode</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditUsernameServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.EditUsernameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditUsernameServlet</servlet-name>
+		<url-pattern>/editusername-mobile</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditUsernameServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.EditUsernameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditUsernameServlet</servlet-name>
+		<url-pattern>/editusername-email</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ConfirmationCodeServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ConfirmationCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConfirmationCodeServlet</servlet-name>
+		<url-pattern>/confirmcode</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FacebookHandlerServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.FacebookHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FacebookHandlerServlet</servlet-name>
+		<url-pattern>/facebookhandler</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>InsertSequenceServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.InsertSequenceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertSequenceServlet</servlet-name>
+		<url-pattern>/insertsequence</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginHandlerServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.LoginHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandlerServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ToSignUpServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ToSignUpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ToSignUpServlet</servlet-name>
+		<url-pattern>/tosignup</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PasswordRecoveryServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.PasswordRecoveryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PasswordRecoveryServlet</servlet-name>
+		<url-pattern>/passwordrecovery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PasswordResetServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.PasswordResetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PasswordResetServlet</servlet-name>
+		<url-pattern>/resetpassword</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SettingsServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.SettingsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SettingsServlet</servlet-name>
+		<url-pattern>/azure/getsettings</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditPasswordRecovery</servlet-name>
+		<servlet-class>com.jevalab.azure.EditPasswordRecovery</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditPasswordRecovery</servlet-name>
+		<url-pattern>/editpasswordrecovery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VerifyPasswordServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.VerifyPasswordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerifyPasswordServlet</servlet-name>
+		<url-pattern>/verifypasswordrecovery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditProfileServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.EditProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditProfileServlet</servlet-name>
+		<url-pattern>/editprofile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowMitReportServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ShowMitReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowMitReportServlet</servlet-name>
+		<url-pattern>/showmitreport</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetMitReportInfoServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.GetMitReportInfo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetMitReportInfoServlet</servlet-name>
+		<url-pattern>/getmitreportinfo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PaymentSuccessServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.PaymentSuccess</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PaymentSuccessServlet</servlet-name>
+		<url-pattern>/paymentsuccess</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PayPalNotifyServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.PayPalNotify</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PayPalNotifyServlet</servlet-name>
+		<url-pattern>/paypalnotify</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VoguePayServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.VoguePay</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VoguePayServlet</servlet-name>
+		<url-pattern>/voguepay</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TalentReportServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.TalentReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TalentReportServlet</servlet-name>
+		<url-pattern>/showtalentreport</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TalentInfoReportServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.TalentInfoReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TalentInfoReportServlet</servlet-name>
+		<url-pattern>/talentinforeport</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FreeAccessServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.FreeAccess</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FreeAccessServlet</servlet-name>
+		<url-pattern>/free-access</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>CareerClusterReportServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ShowCareerClusterReport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CareerClusterReportServlet</servlet-name>
+		<url-pattern>/careerclusterreport</url-pattern>
+	</servlet-mapping>
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<session-config>
+		<session-timeout>180</session-timeout>
+	</session-config>
+
+	<context-param>
+		<param-name>AppSecret</param-name>
+		<param-value>586287c081a44e677e5ca72006d217f6</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>AppSecret1</param-name>
+		<param-value>e75a2ab220aad793ec8625e514b976a1</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>TwilioSID</param-name>
+		<param-value>AC4a2eab44a45e7810609af9afe967e701</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>TwilioAuthToken</param-name>
+		<param-value>b34db573c97811749a7a53617ea94950</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>com.jevalab.listeners.AzureSessionListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>com.jevalab.listeners.AzureServletContextListener</listener-class>
+	</listener>
+
+	 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>profile</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>  
+
+
+</web-app>

@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Talent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link type="text/css" rel="stylesheet" href="/style/waitMe.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>Work Area</h2>
+				<textarea rows="25" cols="80" class="form-control"></textarea>
+			</div>
+			<div class="col-sm-7">
+				<h2>Enter Talent Parameters</h2>
+				<form action="" method="post" id="my-form">
+					<div class="parent">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-6">
+									<label for="talent-name">Talent name:</label> <input
+										type="text" id="talent-name" name="talent-name"
+										class="form-control" />
+								</div>
+								<div class="col-sm-6">
+									<label for="talent-category">Talent category:</label> <select
+										name="category" id="talent-category" class="form-control">
+										<option selected="selected">HEAD</option>
+										<option>HAND</option>
+										<option>BODY</option>
+										<option>SPORT</option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+						<div class="form-group skill-section">
+							<div class="row">
+								<div class="col-sm-9">
+									<label for="questions">Questions:</label> <input type="text"
+										name="questions" class="form-control" />
+								</div>
+								<div class="col-sm-3">
+									<div class="btn-group" role='group'
+										style="position: relative; top: 5px;">
+										<button type="button" class="btn btn-warning buta"
+											style="position: relative; top: 20px;">Add</button>
+										<button type="button" class="btn btn-danger butd"
+											style="position: relative; top: 20px;">Delete</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-submit btn-primary"
+								id="save">Submit</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="/js/waitMe.js"></script>
+	<script type="text/javascript">
+		var $form = $("#my-form");
+		var newContainer = null;
+		function successCallBack(newContainer) {
+			var $parent = $(".parent")
+			$form[0].reset();
+			var $children = $parent.children('.skill-section').remove();
+			$parent.append(newContainer);
+
+		}
+
+		function run_waitMe(effect) {
+
+			$form.waitMe({
+				effect : 'ios',
+				text : 'Processing...',
+				bg : 'rgba(255,255,255,0.7)',
+				color : 'orange',
+				sizeW : '40',
+				sizeH : '40'
+			});
+		}
+
+		$(document)
+				.ready(
+						function() {
+
+							$('.buta').on(
+									'click',
+									function() {
+
+										var container = $(this).parent()
+												.parent().parent().parent();
+										newContainer = container.clone(true);
+										newContainer.find("input[type=text]")
+												.val("");
+										newContainer.insertAfter(container);
+									});
+
+							$('.butd').on(
+									'click',
+									function() {
+										var container = $(this).parent()
+												.parent().parent().parent();
+										container.remove();
+									});
+
+							$("#save")
+									.click(
+											function(event) {
+												run_waitMe('ios');
+												$
+														.ajax({
+															url : "/edittalent",
+															type : "POST",
+															data : $form
+																	.serialize(),
+															success : function(
+																	data) {
+																successCallBack(newContainer);
+																$form
+																		.waitMe('hide');
+																alert("Save Successful");
+															},
+															error : function() {
+																$form
+																		.waitMe('hide');
+																alert("unable to save");
+															},
+															complete : function() {
+																$('.buta')
+																		.on(
+																				'click',
+																				function() {
+
+																					var container = $(
+																							this)
+																							.parent()
+																							.parent()
+																							.parent()
+																							.parent();
+																					newContainer = container
+																							.clone(true);
+																					newContainer
+																							.find(
+																									"input[type=text]")
+																							.val(
+																									"");
+																					newContainer
+																							.insertAfter(container);
+																				});
+
+																$('.butd')
+																		.on(
+																				'click',
+																				function() {
+																					var container = $(
+																							this)
+																							.parent()
+																							.parent()
+																							.parent()
+																							.parent();
+																					container
+																							.remove();
+																				});
+															}
+														});
+
+											});
+						});
+	</script>
+
+</body>
+</html>

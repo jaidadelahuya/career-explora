@@ -1,0 +1,475 @@
+
+<!-- Add upcoming test modal -->
+<div id="upcoming-test-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Add
+					a test</h4>
+			</div>
+			<div class="modal-body">
+
+				<form method="post" id="upcoming-test-form">
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="test-name">Test name:</label> <input type="text"
+								class="form-control" id="test-name"
+								placeholder="Name of test/exam" name="test-name" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="test-date">Test Date:</label> <input
+								class="form-control" id="test-date" name="test-date"
+								readonly="readonly" onchange="upcomingTestDateChanged();"
+								style="cursor: pointer; background-color: white;" />
+							<div class="error-div col-sm-12" id="upcoming-testdate-error-div"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="prep-deadline">Preparation deadline:</label> <input
+								class="form-control" id="prep-deadline" name="prep-deadline"
+								readonly="readonly" onchange="prepDeadlineChanged();"
+								style="cursor: pointer; background-color: white;" />
+							<div class="error-div col-sm-12" id="prep-deadline-error-div"></div>
+						</div>
+					</div>
+					<!-- <div class="row">
+							<div class="form-group col-sm-12">
+								<label for="topics">Topics:</label>
+								<textarea class="form-control" id="topics" name="topics"
+									placeholder="Comma separated list of topics you want to prepare for"></textarea>
+							</div>
+						</div> -->
+				</form>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="saveUpComingTest();">Save Test</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CBT modal -->
+<div id="cbt-dialog" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close close-modal" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Computer
+					Based Tests</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="cbt-init-form">
+					<div id="e1"></div>
+					<div class="form-group">
+						<label for="subject">Subject:</label> <select class="form-control"
+							id="subject" name="subject">
+							<option selected="selected">ACCOUNT</option>
+							<option>BIOLOGY</option>
+							<option>CHEMISTRY</option>
+							<option>COMMERCE</option>
+							<option>C.R.K</option>
+							<option>ECONOMICS</option>
+							<option>ENGLISH</option>
+							<option>GOVERNMENT</option>
+							<option>GEOGRAPHY</option>
+							<option>HISTORY</option>
+							<option>MATHEMATICS</option>
+							<option>PHYSICS</option>
+						</select>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="time" id="time-label">Time:</label> <input
+								class="form-control" id="time" name="time"
+								placeholder="Time in mins" />
+							<div class="error-div col-sm-12" id="time-error-div"></div>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="questions">No of questions:</label> <input
+								class="form-control" id="questions" name="no-of-questions"
+								placeholder="Max 50" />
+							<div class="error-div col-sm-12" id="questions-error-div"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="pass-percentage">Pass Mark(%):</label> <input
+								class="form-control" id="pass-percentage" name="pass-percentage"
+								placeholder="% Pass mark" value="50" />
+							<div class="error-div col-sm-12" id="pass-error-div"></div>
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button type="button" class="btn btn-default close-modal"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="start-cbt">Continue</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- edit upcoming test modal -->
+<div id="edit-upcoming-test-dialog" class="modal fade " tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content ">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Edit
+					test</h4>
+			</div>
+			<div class="modal-body">
+
+				<form method="post" id="edit-upcoming-test-form">
+
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="test-name1">Test name:</label> <input type="text"
+								class="form-control" id="test-name1"
+								placeholder="Name of test/exam" name="test-name" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="test-date1">Test Date:</label> <input
+								class="form-control" id="test-date1" name="test-date"
+								readonly="readonly" onchange="upcomingTestDateChanged1();"
+								style="cursor: pointer; background-color: white;" />
+							<div class="error-div col-sm-12"
+								id="upcoming-testdate-error-div1"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12">
+							<label for="prep-deadline1">Preparation deadline:</label> <input
+								class="form-control" id="prep-deadline1" name="prep-deadline"
+								readonly="readonly" onchange="prepDeadlineChanged1();"
+								style="cursor: pointer; background-color: white;" />
+							<div class="error-div col-sm-12" id="prep-deadline-error-div1"></div>
+						</div>
+					</div>
+					<input id="old-test-name" type="hidden" />
+				</form>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="editUpComingTest();">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- career cluster modal -->
+<div id="career-cluster-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Career
+					Cluster</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Career Cluster Test</h2>
+						<hr></hr>
+						<p>Everyone fits in somewhere. You too. It's high time you
+							discovered where you fit in the global economy so you can pursue
+							fulfilling careers. Every career falls into one of 16 "Career
+							Clusters" and inside your DNA are clusters of careers that you
+							can pursue and excel at.</p>
+						<p>A career cluster is a group of industries and jobs that are
+							related by the skills applied or products manufactured in those
+							industries. There are 16 of them. And in each of them there are
+							career pathways. Let's find out the clusters you fit in.</p>
+						<h4>Instructions</h4>
+						<p>Be truthful. This test is about you.</p>
+						<p>For each of the statements displayed, select an option that
+							best describes how you feel. Whatever option comes to your mind
+							is usually the right choice. Don't spend too long on each
+							statement so you don't make mistakes.</p>
+						<button class="btn btn-primary start-career-cluster-test"
+							value="test-1">Start Test I</button>
+						<button class="btn btn-primary start-career-cluster-test"
+							value="test-2">Start Test II</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Multiple Intelligence modal -->
+<div id="multiple-intelligence-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Multilple
+					Intelligence Detector</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Multiple Intelligence Test</h2>
+						<hr></hr>
+						<p>You are happiest and most successful when you learn,
+							develop, and work in ways that best make use of your natural
+							intelligences (your strengths and brain-type).</p>
+						<p>Before choosing a career you need to find out if you have
+							the natural intelligence to succeed in that field. Talent is not
+							enough! Yes. You need to know if your preferred learning style is
+							adaptable to that career path you are considering; and if you
+							naturally excel at activities related to that career. Would you
+							mind taking this test to know?</p>
+						<h4>Instructions</h4>
+						<p>Be truthful. This test is about you.</p>
+						<p>For each of the statements displayed, select an option that
+							best describes how you feel. Whatever option comes to your mind
+							is usually the right choice. Don't spend too long on each
+							statement so you don't make mistakes.</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary start-mit">Start Test</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Talent hunt modal -->
+<div id="talent-dialog" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Talent
+					Hunt</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Talent Test</h2>
+						<hr></hr>
+						<p>You are more successful when you build careers around your
+							talents. And for every talent you have there are at least 3
+							skills/jobs you can develop. Discovering your talents opens you
+							up to multiple careers you can pursue.</p>
+						<p>Your talents can be found in the activities you are
+							passionate about, and in which you excel without much effort.
+							They could be activities you excel at using only your hands
+							(HAND-BASED), or using you're your whole body (BODY-BASED), or
+							using predominantly your head (HEAD-BASED).</p>
+
+						<p>Now let's discover your talents!</p>
+
+						<h4>Instructions</h4>
+						<p>Be truthful. This test is about you.</p>
+						<p>For each of the statements displayed, select an option that
+							best describes how you feel. Whatever option comes to your mind
+							is usually the right choice. Don't spend too long on each
+							statement so you don't make mistakes.</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button class="btn btn-primary btn-sm  start-talent-test"
+					value="HEAD">Head Test</button>
+				<button class="btn btn-primary btn-sm start-talent-test"
+					value="BODY">Body Test</button>
+				<button class="btn btn-primary btn-sm start-talent-test"
+					value="HAND">Hand Test</button>
+				<button type="button" class="btn btn-default btn-sm"
+					data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Career values modal -->
+<div id="career-values-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Career
+					Values</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Career Values</h2>
+						<hr></hr>
+						<p>In order for you to pursue fulfilling, interesting careers,
+							you must first know what type of work actually interests you, and
+							what kind of work environment suits you.</p>
+						<p>If your career choices do not agree with your values, you'd
+							struggle in it. Therefore it pays to identify your values before
+							heading out the door in pursuit of career success. Knowing and
+							understanding what's important to you about work will help you to
+							choose an occupation and a work environment that matches your
+							values.</p>
+
+						<h4>Instructions</h4>
+						<p>This test is about you.</p>
+						<p>Each of the statements displayed are career values. select
+							only the ones that describe work values that are important to you
+							if you must work in an organization. Think deeply before ticking
+							any.</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button class="btn btn-primary btn-sm start-career-values">Start
+					Test</button>
+				<button type="button" class="btn btn-default btn-sm"
+					data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Personal style modal -->
+<div id="personal-style-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Discover
+					your Personal Style</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Personal Style</h2>
+						<hr></hr>
+						<p>You have characteristics and personality traits that make
+							you unique. These make up your personality or personal style.
+							Knowing your style of working and relating with others will help
+							you choose an occupation or work environment where you can be
+							yourself and be appreciated for who you are.</p>
+
+						<h4>Instructions</h4>
+						<p>Use the personal attributes to be displayed to help you
+							identify your personal style. Tick the ones that apply to you.
+							The results will be saved in your profile for reference.</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button class="btn btn-primary btn-sm start-personal-style">Start
+					Test</button>
+				<button type="button" class="btn btn-default btn-sm"
+					data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- skill builder modal -->
+<div id="skill-builder-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: orange;">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel" style="color: white;">Choose
+					skills to build</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Skill builder</h2>
+						<hr></hr>
+						<p>When you develop your talents into skills then you can earn
+							an income! For example someone gifted in cooking can develop a
+							skill as a chef or caterer, another person gifted in running can
+							become a sprinter (an athlete). What skills can you develop out
+							of your talents? This test helps you learn about the skills or
+							jobs you can pursue based on your talents. With it you can create
+							a plan of study for your skills acquisition and your dream job.</p>
+
+						<h4>Instructions</h4>
+						<p>The robotics in the app will extract your talents from your
+							profile and display for you. Take time to look at the different
+							skills/jobs listed under each of your talents and select the ones
+							you'd love to start learning. The skills you select to learn
+							would be saved in your profile. Those skills you've already
+							developed will be saved in your profile for potential for
+							potential employers to see. This plan would serve as your virtual
+							guide.</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="background-color: orange;">
+				<button class="btn btn-primary btn-sm start-skill-builder" id="ssb">Continue</button>
+				<button type="button" class="btn btn-default btn-sm"
+					data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+

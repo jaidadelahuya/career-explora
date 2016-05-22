@@ -1,0 +1,271 @@
+<html>
+<head>
+<style type="text/css">
+@media screen and (max-width: 480px) {
+	#save-div {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	#gen-panel {
+		max-width: 400px;
+	}
+}
+</style>
+</head>
+<body>
+	<div class="container" id="c1" style="padding-top: 2%;">
+		<div class="row">
+			<div class="col-sm-12 col-md-5">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="panel panel-default" id="gen-panel">
+							<div class="panel-body text-right">
+								<div class="col-xs-5  col-lg-4"
+									style="padding: 2%;">
+
+									<img class="img-circle img-responsive profile-img"
+										id="profile-image"/>
+
+								</div>
+								<div class="col-xs-7 col-lg-8 text-right">
+									<h2 id="username" class="report-username"></h2>
+									<h4 id="subject-name" class="report-test-name"></h4>
+									<h6 id="test-date" class="report-date"></h6>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6 col-md-7 col-lg-8">
+						<div
+							class="panel panel-default hidden-xs hidden-sm hidden-md hidden-lg">
+							<div class="panel-heading" style="background-color: green">
+								<span class="panel-title pan-title-font">History</span>
+							</div>
+							<div id="jsGrid"></div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-12 col-md-7" style="padding: 0">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="background-color: red">
+							<span class="panel-title pan-title-font">Test Info</span>
+						</div>
+						<ul class="list-group">
+
+							<li class="list-group-item">
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 70%;"><strong
+											class="last-login-label">Total No. of questions: </strong></td>
+										<td id="total-questions" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 70%;"><strong
+											class="last-login-label">No. of correct answers: </strong></td>
+										<td id="correct-answers" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 70%;"><strong
+											class="last-login-label">No. of wrong answers: </strong></td>
+										<td id="wrong-answers" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 70%;"><strong
+											class="last-login-label">No. of unanswered
+												questions: </strong></td>
+										<td id="unanswered" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+
+						</ul>
+					</div>
+
+				</div>
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="background-color: orange">
+							<span class="panel-title pan-title-font">Report Analysis</span>
+						</div>
+						<ul class="list-group">
+
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 45%;"><strong
+											class="last-login-label">Score: </strong></td>
+										<td id="score" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 45%;"><strong
+											class="last-login-label">Percentage score: </strong></td>
+										<td id="percentage-score" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+
+							<li class="list-group-item">
+
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 45%;"><strong
+											class="last-login-label">Grade: </strong></td>
+										<td id="grade" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+							<li class="list-group-item">
+								
+								<table
+									class="table table-borderless table-condensed table-responsive"
+									style="border: none; margin: 0 auto">
+									<tr>
+										<td class="text-right" style="width: 45%;"><strong
+											class="last-login-label">Comment: </strong></td>
+										<td id="comment" class="text-left last-login-data"></td>
+									</tr>
+
+								</table>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading"
+							style="background-color: rgb(255, 211, 0)">
+							<span class="panel-title pan-title-font">Performance
+								analysis</span>
+						</div>
+						<div style="padding: 3%;">
+							<div>Percentage Score</div>
+							<div class="progress">
+								<div id="score-progress"
+									class="progress-bar progress-bar-striped" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="min-width: 2em">
+									<span id="cp-score"></span>
+								</div>
+							</div>
+							<div>Speed</div>
+							<div class="progress">
+								<div id="speed-progress"
+									class="progress-bar progress-bar-striped" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="min-width: 2em">
+									<span id="cp-speed"></span>
+								</div>
+							</div>
+							<div>Accuracy</div>
+							<div class="progress">
+								<div id="accuracy-progress"
+									class="progress-bar progress-bar-striped" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="min-width: 2em">
+									<span id="cp-accuracy"></span>
+								</div>
+							</div>
+							<div>Confidence</div>
+							<div class="progress">
+								<div id="confidence-progress"
+									class="progress-bar progress-bar-striped" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="min-width: 2em">
+									<span id="cp-confidence"></span>
+								</div>
+							</div>
+							<div>Overall Performance</div>
+							<div class="progress">
+								<div id="overall-progress"
+									class="progress-bar progress-bar-striped" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="min-width: 2em">
+									<span id="cp-overall"></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div
+						class="panel panel-default hidden-xs hidden-sm hidden-md hidden-lg">
+						<div class="panel-heading"
+							style="background-color: rgb(255, 211, 0)">
+							<span class="panel-title pan-title-font">History Chart</span>
+						</div>
+						<div id="history-chart"></div>
+					</div>
+				</div>
+				<div class="col-sm-12 hidden-sm hidden-md hidden-lg">
+					<button type="button"
+						class="btn btn-primary btn-sm save-button pull-right"
+						style="margin-right: 1em">
+						<span class="glyphicon glyphicon-save"></span><span> Save</span>
+					</button>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
+
+

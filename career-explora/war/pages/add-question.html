@@ -1,0 +1,222 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Question</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link type="text/css" rel="stylesheet" href="/style/waitMe.css">
+
+</head>
+<body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>Work Area</h2>
+				<textarea rows="25" cols="80" class="form-control tiny"></textarea>
+			</div>
+			<div class="col-sm-7">
+				<h2>Enter question parameters</h2>
+				<form action="" method="post" enctype="multipart/form-data"
+					id="my-form">
+					<div class="form-group complex-form-section">
+						<div class="row">
+							<div class="col-sm-4">
+								<label for="subject">Subject:</label> <select
+									name="subject-name" id="subject" class="form-control">
+									<option selected="selected">ACCOUNT</option>
+									<option>AGRICULTURAL SCIENCE</option>
+									<option>BIOLOGY</option>
+									<option>CHEMISTRY</option>
+									<option>COMMERCE</option>
+									<option>C.R.K</option>
+									<option>ECONOMICS</option>
+									<option>ENGLISH</option>
+									<option>FINE ART</option>
+									<option>GEOGRAPHY</option>
+									<option>GOVERNMENT</option>
+									<option>HISTORY</option>
+									<option>LITERATURE</option>
+									<option>MATHEMATICS</option>
+									<option>PHYSICS</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<label for="year">Year:</label> <select name="year" id="year"
+									class="form-control">
+									<option selected="selected">2014</option>
+									<option>2013</option>
+									<option>2012</option>
+									<option>2011</option>
+									<option>2010</option>
+									<option>2009</option>
+									<option>2008</option>
+									<option>2007</option>
+									<option>2006</option>
+									<option>2005</option>
+									<option>2004</option>
+									<option>2003</option>
+									<option>2002</option>
+									<option>2001</option>
+									<option>2000</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<label for="vendor">Vendor:</label> <select name="vendor"
+									id="vendor" class="form-control">
+									<option>UTME</option>
+									<option>WAEC</option>
+									<option>NECO</option>
+								</select>
+							</div>
+
+
+						</div>
+					</div>
+					<div class="form-group complex-form-section">
+						<div class="row" style="padding: 3%;">
+							<div class="row">
+								<label for="question">Question Body:</label>
+								<textarea rows="2" cols="" name="body" id="question"
+									class="form-control tiny"></textarea>
+							</div>
+							<div class="row">
+								<label for="alt-a">Alternative A:</label> <textarea
+									id="alt-a" name="alt-a" class="form-control tiny" ></textarea>
+							</div>
+							<div class="row">
+								<label for="alt-b">Alternative B:</label> <textarea
+									id="alt-b" name="alt-b" class="form-control tiny"></textarea>
+							</div>
+							<div class="row">
+								<label for="alt-c">Alternative C:</label> <textarea
+									id="alt-c" name="alt-c" class="form-control tiny"></textarea>
+							</div>
+							<div class="row">
+								<label for="alt-d">Alternative D:</label> <textarea
+									id="alt-d" name="alt-d" class="form-control tiny"></textarea>
+							</div>
+							<div class="row">
+								<label for="alt-e">Alternative E:</label> <textarea
+									id="alt-e" name="alt-e" class="form-control tiny"></textarea>
+							</div>
+							<div class="row">
+
+								<label for="table">Correct Alternative:</label>
+								<table id="table" class="table" style="padding-bottom: 0px">
+									<tr>
+										<td><input type="radio" name="correct-alt" value="A"
+											class="opts">A</td>
+										<td><input type="radio" name="correct-alt" value="B"
+											class="opts">B</td>
+										<td><input type="radio" name="correct-alt" value="C"
+											class="opts">C</td>
+										<td><input type="radio" name="correct-alt" value="D"
+											class="opts">D</td>
+										<td><input type="radio" name="correct-alt" value="E"
+											class="opts">E</td>
+									</tr>
+								</table>
+
+
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<label for="picture-url">Picture Url:</label> <input type="text"
+										id="picture-url" name="picture-url" class="form-control" />
+								</div>
+								<div class="col-sm-6">
+									<label for="category-name">Category name:</label> <select
+										id="category-name" class="form-control" name="category-name">
+										<option></option>
+										<option>COMPREHENSION</option>
+										<option>SYNONYMS</option>
+										<option>ANTONYMS</option>
+										<option>BEST EXPLANATION</option>
+										<option>STRESS ON FIRST SYLLABLE</option>
+										<option>SAME VOWEL SOUND AS OTHERS</option>
+										<option>SAME VOWEL SOUND AS UNDERLINED</option>
+										<option>SAME CONSONANT SOUND AS OTHERS</option>
+										<option>SAME CONSONANT SOUND AS UNDERLINED</option>
+										<option>DIFFERENT VOWEL SOUND FROM OTHERS</option>
+										<option>DIFFERENT CONSONANT SOUND FROM OTHERS</option>
+										<option>DIFFERENT STRESS PATTERN</option>
+										<option>EMPHATIC STRESS</option>
+										<option>FILL IN THE GAPS</option>
+										<option>SAME STRESS PATTERN AS GIVEN WORD</option>
+										<option>APPROPRIATE STRESS PATTERN</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="row" style="padding-top: 2%">
+								<input type="button" class="btn btn-primary btn-lg active"
+									id="save" value="Save" />
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-1.11.2.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/waitMe.js"></script>
+	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script type="text/javascript">
+		var $form = $("#my-form");
+		function successCallBack() {
+
+			$("#question").val("");
+			$("#alt-a").val("");
+			$("#alt-b").val("");
+			$("#alt-c").val("");
+			$("#alt-d").val("");
+			$("#extra-text").val("");
+			$("#image").val("");
+			$(".opts").prop('selected', false);
+
+		}
+
+		function run_waitMe(effect) {
+
+			$form.waitMe({
+				effect : 'ios',
+				text : 'Processing...',
+				bg : 'rgba(255,255,255,0.7)',
+				color : 'orange',
+				sizeW : '15',
+				sizeH : '15'
+			});
+		}
+
+		$(document).ready(function() {
+			tinymce.init({ selector:'.tiny' });
+			$("#save").click(function() {
+				run_waitMe('ios');
+				$.ajax({
+					url : "/savequestion",
+					type : "POST",
+					data : $form.serialize(),
+					success : function(data) {
+						successCallBack();
+						$form.waitMe('hide');
+						alert("Save Successful");
+					},
+					error : function() {
+						$form.waitMe('hide');
+						alert("unable to save");
+					}
+				});
+
+			});
+		});
+	</script>
+</body>
+</html>

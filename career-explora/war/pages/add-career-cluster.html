@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add new career cluster</title>
+<script
+	src="httpss://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<script type="text/javascript" src="/js/career-cluster.js"></script>
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>Work Area</h2>
+				<textarea rows="25" cols="80" class="form-control"></textarea>
+			</div>
+			<div class="col-sm-7">
+				<h2>Add Career Cluster</h2>
+				<hr></hr>
+				<form action="/addcareercluster" method="post">
+					<div class="row">
+						<div class="form-group">
+							<label for="cluster-name">Cluster Name Name:</label> <select
+								name="cluster-name" id="cluster-name" class="form-control">
+								<option>Agriculture and Natural Resources</option>
+								<option>Architecture and Construction</option>
+								<option>Arts, Audio/Video Technology, and
+									Communications</option>
+								<option>Business and Administration</option>
+								<option>Education and Training</option>
+								<option>Finance</option>
+								<option>Government and Public Administration</option>
+								<option>Health Science</option>
+								<option>Hospitality and Tourism</option>
+								<option>Human Services</option>
+								<option>Information Technology</option>
+								<option>Law, Public Safety, Corrections & Security</option>
+								<option>Manufacturing</option>
+								<option>Marketing</option>
+								<option>Science, Technology, Engineering & Mathematics</option>
+								<option>Transportation, Distribution, and Logistics</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="description">Description:</label>
+							<textarea rows="5" cols="" id="description" name="description"
+								class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="questions">Questions:</label>
+							<textarea class="form-control" rows="5" cols="" id="description"
+								name="questions" placeholder="List of questions separated by @"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label for="pathway-name">Pathway Name:</label> <input
+									class="form-control" type="text" name="pathway-name"
+									id="pathway-name" />
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label for="careers">List of Careers:</label> <input
+									class="form-control" type="text" name="careers" id="careers"
+									placeholder="list of careers separated by ;" />
+							</div>
+						</div>
+						<div class="col-sm-1">
+							<div class="form-group">
+								<input class="form-control btn btn-default butt" type="button"
+									value="add" /> <input
+									class="form-control btn btn-default butt" type="button"
+									value="del" />
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-submit">Submit</button>
+					<button type="reset" class="btn btn-warning">Reset</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

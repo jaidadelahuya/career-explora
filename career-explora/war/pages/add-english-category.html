@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add english category</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" href="/style/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="form-group">
+			<label for="category-name">Category name:</label>
+			<select id="category-name" class="form-control" >
+				<option>COMPREHENSION</option>
+				<option>SYNONYMS</option>
+				<option>ANTONYMS</option>
+				<option>BEST EXPLANATION</option>
+				<option>STRESS ON FIRST SYLLABLE</option>
+				<option>SAME VOWEL SOUND AS OTHERS</option>
+				<option>SAME VOWEL SOUND AS UNDERLINED</option>
+				<option>SAME CONSONANT SOUND AS OTHERS</option>
+				<option>SAME CONSONANT SOUND AS UNDERLINED</option>
+				<option>DIFFERENT VOWEL SOUND FROM OTHERS</option>
+				<option>DIFFERENT CONSONANT SOUND FROM OTHERS</option>
+				<option>DIFFERENT STRESS PATTERN</option>
+				<option>EMPHATIC STRESS</option>
+				<option>FILL IN THE GAPS</option>
+				<option>SAME STRESS PATTERN AS GIVEN WORD</option>
+				<option>APPROPRIATE STRESS PATTERN</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="instruction">Instruction:</label>
+			<textarea rows="3" cols="80" class="form-control" id="instruction"></textarea>
+		</div>
+		<div class="form-group">
+			<input type="button" value="Submit" id="submit"/>
+		</div>
+	</div>
+</div>
+
+<script src="/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#submit').click(function() {
+			var x = $('#category-name').val();
+			var y = $('#instruction').val();
+			console.log(x);
+			console.log(y);
+			$.ajax({
+				url : '/addenglishcategory',
+				type : 'POST',
+				data : {
+					name : x,
+					instruction : y
+				},
+				success : function() {
+					alert('success');
+				},
+				error : function(jqXHR, status, errorThrown) {
+					alert(errorThrown);
+				}
+			});
+		});
+		
+	});
+</script>
+</body>
+</html>

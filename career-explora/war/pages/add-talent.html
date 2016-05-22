@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Talent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+<link type="text/css" rel="stylesheet" href="/style/waitMe.css">
+</head>
+<body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>Work Area</h2>
+				<textarea rows="25" cols="80" class="form-control"></textarea>
+			</div>
+			<div class="col-sm-7">
+				<h2>Enter Talent Parameters</h2>
+				<form action="" method="post" id="my-form">
+					<div class="parent">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-6">
+									<label for="talent-name">Talent name:</label> <input
+										type="text" id="talent-name" name="talent-name"
+										class="form-control" />
+								</div>
+								<div class="col-sm-6">
+									<label for="talent-category">Talent category:</label> <select
+										name="category" id="talent-category" class="form-control">
+										<option selected="selected">HEAD</option>
+										<option>HAND</option>
+										<option>BODY</option>
+										<option>SPORT</option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group skill-section">
+							<div class="row">
+								<div class="col-sm-9">
+									<label for="questions">Questions:</label> <input type="text"
+										name="questions" class="form-control" />
+								</div>
+								<div class="col-sm-3">
+									<div class="btn-group" role='group'
+										style="position: relative; top: 5px;">
+										<button type="button" class="btn btn-warning buta"
+											style="position: relative; top: 20px;">Add</button>
+										<button type="button" class="btn btn-danger butd"
+											style="position: relative; top: 20px;">Delete</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group skill-section">
+							<div class="row">
+								<div class="col-sm-6">
+									<label for="skill-name">Skill name:</label> <input type="text"
+										id="skill-name" name="skill-name" class="form-control" />
+								</div>
+								<div class="col-sm-6">
+									<label for="cluster-name">Cluster Name:</label> <select
+										name="cluster-name" id="cluster-name" class="form-control">
+										<option>Agriculture and Natural Resources</option>
+										<option>Architecture and Construction</option>
+										<option>Arts, Audio/Video Technology, and
+											Communications</option>
+										<option>Business and Administration</option>
+										<option>Education and Training</option>
+										<option>Finance</option>
+										<option>Government and Public Administration</option>
+										<option>Health Science</option>
+										<option>Hospitality and Tourism</option>
+										<option>Human Services</option>
+										<option>Information Technology</option>
+										<option>Law, Public Safety, Corrections & Security</option>
+										<option>Manufacturing</option>
+										<option>Marketing</option>
+										<option>Science, Technology, Engineering &
+											Mathematics</option>
+										<option>Transportation, Distribution, and Logistics</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-sm-9">
+									<label for="skill-description">Skill description:</label>
+									<textarea rows="2" cols="" name="skill-description"
+										id="skill-description" class="form-control"></textarea>
+								</div>
+								<div class="col-sm-3">
+									<div class="btn-group" role='group'
+										style="position: relative; top: 5px;">
+										<button type="button" class="btn btn-warning buta"
+											style="position: relative; top: 35px;">Add</button>
+										<button type="button" class="btn btn-danger butd"
+											style="position: relative; top: 35px;">Delete</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-submit btn-primary"
+								id="save">Submit</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-1.11.2.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui.js"></script>
+	<script src="/js/waitMe.js"></script>
+	<script type="text/javascript">
+		var $form = $("#my-form");
+		var newContainer = null;
+		function successCallBack(newContainer) {
+			var $parent = $(".parent")
+			$form[0].reset();
+			var $children = $parent.children('.skill-section').remove();
+			$parent.append(newContainer);
+
+		}
+
+		function run_waitMe(effect) {
+
+			$form.waitMe({
+				effect : 'ios',
+				text : 'Processing...',
+				bg : 'rgba(255,255,255,0.7)',
+				color : 'orange',
+				sizeW : '40',
+				sizeH : '40'
+			});
+		}
+
+		$(document).ready(function() {
+
+			$('.buta').on('click', function() {
+
+				var container = $(this).parent().parent().parent().parent();
+				newContainer = container.clone(true);
+				newContainer.find("input[type=text]").val("");
+				newContainer.insertAfter(container);
+			});
+
+			$('.butd').on('click', function() {
+				var container = $(this).parent().parent().parent().parent();
+				container.remove();
+			});
+
+			$("#save").click(function(event) {
+				run_waitMe('ios');
+				$.ajax({
+					url : "/addtalent",
+					type : "POST",
+					data : $form.serialize(),
+					success : function(data) {
+						successCallBack(newContainer);
+						$form.waitMe('hide');
+						alert("Save Successful");
+					},
+					error : function() {
+						$form.waitMe('hide');
+						alert("unable to save");
+					}
+				});
+
+			});
+		});
+	</script>
+</body>
+</html>

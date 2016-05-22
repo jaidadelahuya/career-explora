@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form target="_new" method="post" action="/paypalnotify">
+<input type="hidden" name="receiver_email" value="jaidadelahuya@gmail.com"/>
+<input type="hidden" name="receiver_id" value="009"/>
+<input type="hidden" name="txn_id" value="h7t6t5r"/>
+<input type="hidden" name="txn_type" value="sunbsciption"/>
+<input type="hidden" name="payer_email" value="gm_1231902590_per@paypal.com"/>
+<input type="hidden" name="payer_id" value="LPLWNMTBWMFAY"/>
+<input type="hidden" name="first_name" value="Test"/>
+<input type="hidden" name="last_name" value="User"/>
+
+
+<!-- code for other variables to be tested ... -->
+
+<input type="submit"/>
+</form>
+
+</body>
+</html>
+<!-- https://career-explora.appspot.com/paypalnotify -->
+<!-- 
+FetchOptions options = FetchOptions.Builder.withDeadline(60.00);
+			HTTPRequest outRequest = new HTTPRequest(u, HTTPMethod.POST,options);
+			HTTPHeader host = new HTTPHeader("Host", "www.paypal.com");
+			HTTPHeader contentType = new HTTPHeader("Content-Type", "application/x-www-form-urlencoded");
+			outRequest.setHeader(host);
+			outRequest.setHeader(contentType);
+			outRequest.setHeader(new HTTPHeader("Accept-Charset", "utf-8"));
+			outRequest.setPayload(cmd.toString().getBytes(Charset.forName("utf-8")));
+			URLFetchService fs = URLFetchServiceFactory.getURLFetchService();
+			HTTPResponse response = fs.fetch(outRequest); -->

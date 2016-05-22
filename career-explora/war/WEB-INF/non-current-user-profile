@@ -1,0 +1,355 @@
+<div class="col-xs-12 col-sm-5 mobile-view-panel" style="padding-right: 0;">
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: orange">
+			<span class="panel-title pan-title-font" id="personal-profile">Meet
+				me</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">First Name: </strong></td>
+						<td id="profile-first-name" class="text-left"
+							style="font-weight: bold;"><c:out
+								value="${userProfile.firstName}" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Last Name: </strong></td>
+						<td id="profile-last-name" class="text-left"
+							style="font-weight: bold;"><c:out
+								value="${userProfile.lastName}" /></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Middle Name: </strong></td>
+						<td id="profile-middle-name" class="text-left"
+							style="font-weight: bold;"><c:out
+								value="${userProfile.middleName}" /></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Gender: </strong></td>
+						<td id="profile-gender" class="text-left"
+							style="font-weight: bold;"><c:out
+								value="${userProfile.gender}" /></td>
+					</tr>
+				</table>
+			</li>
+
+			<li class="list-group-item orange-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 45%;"><strong
+							class="last-login-label">Date of Birth: </strong></td>
+						<td id="profile-date-of-birth" class="text-left"
+							style="font-weight: bold;"><c:out
+								value="${userProfile.dateOfBirth}" /></td>
+					</tr>
+				</table>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #5cb85c">
+			<span class="panel-title pan-title-font">I can work as a/an</span>
+		</div>
+		<ul class="list-group" id="skills-built-profile">
+			<c:forEach var='module' items='${userProfile.learntSkills}'
+				begin='${userProfile.learntSkilsCounter}' end='5'>
+				<li class="list-group-item green-list sllist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='learntSkilsCounter'
+					value='${userProfile.learntSkilsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.learntSkills) > userProfile.learntSkilsCounter+1}">
+				<div class="panel-footer" id="skills-built-footer">
+					<input id="show-me-more-skills-learnt" type="button"
+						class="btn btn-default btn-success show-me-more"
+						value="Show me more" name="SKILLS_LEARNT" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #5bc0de">
+			<span class="panel-title pan-title-font">I am good at</span>
+		</div>
+		<ul class="list-group" id="talent-profile">
+			<c:forEach var='module' items='${userProfile.talents}'
+				begin='${userProfile.talentsCounter}' end='5'>
+				<li class="list-group-item indigo-list tlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='talentsCounter'
+					value='${userProfile.talentsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.talents) > userProfile.talentsCounter+1}">
+				<div class="panel-footer" id="talent-footer">
+					<input id="show-me-more-talents" type="button"
+						class="btn btn-default btn-info show-me-more" value="Show me more"
+						name="TALENTS" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #d9534f">
+			<span class="panel-title pan-title-font">I am interested in</span>
+		</div>
+		<ul class="list-group" id="mit-profile">
+			<c:forEach var='module' items='${userProfile.mits}'
+				begin='${userProfile.mitsCounter}' end='5'>
+				<li class="list-group-item red-list mlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='mitsCounter'
+					value='${userProfile.mitsCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.mits) > userProfile.mitsCounter+1}">
+				<div class="panel-footer" id="mits-footer">
+					<input id="show-me-more-mits" type="button"
+						class="btn btn-default btn-danger show-me-more"
+						value="Show me more" name="MITS" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #f0ad4e">
+			<span class="panel-title pan-title-font">I love</span>
+		</div>
+		<ul class="list-group" id="career-clusters-profile">
+			<c:forEach var='module' items='${userProfile.clusters}'
+				begin='${userProfile.clustersCounter}' end='5'>
+				<li class="list-group-item yellow-list clist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='clustersCounter'
+					value='${userProfile.clustersCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.clusters) > userProfile.clustersCounter+1}">
+				<div class="panel-footer" id="clusters-footer">
+					<input id="show-me-more-clusters" type="button"
+						class="btn btn-default btn-warning show-me-more"
+						value="Show me more" name="CLUSTERS" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+
+</div>
+<div class="col-xs-12 col-sm-5 mobile-view-panel" style="padding-right: 0;">
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #f0ad4e">
+			<span class="panel-title pan-title-font">My contact
+				information</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">EMail: </strong></td>
+						<td id="profile-email" class="text-left"
+							style="font-style: italic; font-size: 9pt;"><c:out
+								value="${userProfile.email}" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">School: </strong></td>
+						<td id="profile-school" class="text-left"
+							style="text-transform: capitalize; font-size: 9pt"><c:out
+								value="${userProfile.school}" /></td>
+					</tr>
+				</table>
+			</li>
+			<li class="list-group-item yellow-list">
+				<table
+					class="table table-borderless table-condensed table-responsive"
+					style="border: none; margin: 0 auto">
+					<tr>
+						<td class="text-right" style="width: 35%;"><strong
+							class="last-login-label">Lives in: </strong></td>
+						<td id="profile-lives-in" class="text-left"
+							style="text-transform: capitalize; font-size: 9pt"><span
+							id="livesin-value" class="editable-value"><c:out
+									value="${userProfile.state}" /> <c:if
+									test="${not empty userProfile.state}">
+																,
+															</c:if> <c:out value="${userProfile.country}" /></td>
+
+					</tr>
+				</table>
+			</li>
+
+		</ul>
+	</div>
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: #337ab7">
+			<span class="panel-title pan-title-font">I am</span>
+		</div>
+		<ul class="list-group" id="personal-style-profile">
+			<c:forEach var='module' items='${userProfile.styles}'
+				begin='${userProfile.stylesCounter}' end='5'>
+				<li class="list-group-item blue-list slist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='stylesCounter'
+					value='${userProfile.stylesCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.styles) > userProfile.stylesCounter+1}">
+				<div class="panel-footer" id="styles-footer">
+					<input id="show-me-more-styles" type="button"
+						class="btn btn-default btn-primary show-me-more"
+						value="Show me more" name="STYLES" />
+				</div>
+			</c:when>
+
+		</c:choose>
+
+	</div>
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: violet">
+			<span class="panel-title pan-title-font">I like</span>
+		</div>
+		<ul class="list-group" id="career-values-profile">
+			<c:forEach var='module' items='${userProfile.values}'
+				begin='${userProfile.valuesCounter}' end='5'>
+				<li class="list-group-item violet-list vlist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='valuesCounter'
+					value='${userProfile.valuesCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.values) > userProfile.valuesCounter+1}">
+				<div class="panel-footer" id="values-footer">
+					<input id="show-me-more-values" type="button"
+						class="btn btn-default violet-button show-me-more"
+						value="Show me more" name="VALUES" />
+				</div>
+			</c:when>
+		</c:choose>
+	</div>
+
+
+
+	<div class="panel panel-default mobile-view-div">
+		<div class="panel-heading" style="background-color: orange">
+			<span class="panel-title pan-title-font">I want to learn how
+				to work as a/an</span>
+		</div>
+		<ul class="list-group" id="skills-to-build-profile">
+			<c:forEach var='module' items='${userProfile.skillToLearn}'
+				begin='${userProfile.skillsToLearnCounter}' end='5'>
+				<li class="list-group-item orange-list stllist">
+					<div>
+						<span><c:out value="${module}" /></span>
+					</div>
+				</li>
+				<c:set target='${userProfile}' property='skillsToLearnCounter'
+					value='${userProfile.skillsToLearnCounter + 1}' />
+			</c:forEach>
+		</ul>
+		<c:choose>
+			<c:when
+				test="${fn:length(userProfile.skillToLearn) > userProfile.skillsToLearnCounter+1}">
+				<div class="panel-footer" id="skills-to-learn-footer">
+					<input id="show-me-more-skills-to-learn" type="button"
+						class="btn btn-default orange-button show-me-more"
+						value="Show me more" name="SKILLS_TO_LEARN" />
+				</div>
+			</c:when>
+
+		</c:choose>
+	</div>
+
+</div>
+
+
+
