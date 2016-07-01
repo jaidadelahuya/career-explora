@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="/style/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 
@@ -62,7 +63,7 @@
 								</div>
 								<div>
 									<input type="button" value="login"
-										class="mobile-control orange-button login-button"
+										class="mobile-control ca-btn-primary btn-sm login-button"
 										style="margin-top: 3%; padding: 1%;" />
 								</div>
 							</form>
@@ -93,7 +94,7 @@
 				<form id="auth-form" method="post">
 					<table>
 						<tr>
-							<td class="login-label">Email or Phone</td>
+							<td class="login-label">Emai or Phone</td>
 							<td class="login-label">Password</td>
 							<td></td>
 						</tr>
@@ -102,7 +103,7 @@
 								class="login-input" autofocus="autofocus" /></td>
 							<td><input type="password" id="password" name="password"
 								class="login-input" /></td>
-							<td><input type="button" value="Log in" class="login-button" /></td>
+							<td><input type="button" value="Log in" class="ca-btn-primary" /></td>
 						</tr>
 						<tr>
 							<td class="login-text"><input type="checkbox" /> Keep me
@@ -195,7 +196,7 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<input type="button" class="btn btn-primary" id="sign-up"
+									<input type="button" class="ca-btn-primary btn-lg" id="sign-up"
 										value="Sign Up" />
 								</div>
 								<div class="col-sm-8" id="reg-error-div"></div>
@@ -336,7 +337,7 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<input type="button" class="btn btn-primary" id="sign-up"
+									<input type="button" class="ca-btn-primary btn-lg" id="sign-up"
 										value="Sign Up" />
 								</div>
 								<div class="col-sm-8" id="reg-error-div"></div>
@@ -436,7 +437,7 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<input type="button" class="btn btn-primary" id="sign-up"
+									<input type="button" class="ca-btn-primary btn-lg" id="sign-up"
 										value="Sign Up" />
 								</div>
 								<div class="col-sm-8" id="reg-error-div"></div>
