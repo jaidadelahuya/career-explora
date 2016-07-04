@@ -14,7 +14,7 @@
 
 
 </head>
-<body style="background-color: white;">
+<body class="home-body" style="background-color: white;">
 	<div id="fb-root"></div>
 	<script>
 		window.fbAsyncInit = function() {
@@ -133,7 +133,7 @@
 				<div class="row hidden-xs" id="index-body">
 					<div class="col-sm-8 col-md-6 col-lg-4 col-centered">
 						<div id="sign-up-header" class="row"
-							style="text-align: left; color: black;">
+							style="text-align: left; color: #983b59;">
 							<span class="col-sm-12" style="font-size: 24pt">Sign Up</span>
 						</div>
 						<form method="post" id="register-user-form">
@@ -213,7 +213,7 @@
 					<div class="hidden-sm col-md-1"></div>
 					<div class="col-sm-6 col-md-5">
 						<div class="row" id="slogan-div" style="margin-right: 5%;">
-							<span>Career development and Social network tailored to
+							<span style="color: #983b59">Career development and Social network tailored to
 								work together.</span>
 						</div>
 						<div class="row" id="slider-div" style="margin-right: 5%;">
@@ -273,7 +273,7 @@
 					</div>
 					<div class="col-sm-6 col-md-4">
 						<div id="sign-up-header" class="row"
-							style="text-align: left; color: black;">
+							style="text-align: left; color: #983b59;">
 							<span class="col-sm-12" style="font-size: 24pt">Sign Up</span>
 						</div>
 						<form method="post" id="register-user-form">
@@ -352,7 +352,7 @@
 				<div class="row hidden-xs" id="index-body">
 					<div class="col-sm-8 col-md-6 col-lg-4 col-centered">
 						<div id="sign-up-header" class="row"
-							style="text-align: left; color: black;">
+							style="text-align: left; color: #983b59;">
 							<span class="col-sm-12" style="font-size: 24pt">Sign Up</span>
 						</div>
 						<form method="post" id="register-user-form">
