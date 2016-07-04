@@ -6,6 +6,13 @@ html,body {
 	font-size: 14px;
 }
 
+.home-body {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#fff, #ebeef4, #d7ddea); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#fff, #ebeef4, #d7ddea; /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#fff, #ebeef4, #d7ddea); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#fff, #ebeef4, #d7ddea); /* Standard syntax */
+}
 .btn-lg {
 	font-size: 126%;
 	margin-top: 2%;
