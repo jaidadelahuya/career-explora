@@ -12,39 +12,15 @@
 <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 </head>
-<body class="main-body">
-	<div id="fb-root"></div>
-	<script>
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId : '907361745985096',
-				cookie : true, // enable cookies to allow the server to access
-				// the session
-				xfbml : true, // parse social plugins on this page
-				version : 'v2.3' // use version 2.1
-			});
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
-			});
-		};
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id))
-				return;
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
-
+<body class="home-body">
+	
 	<div class="container-fluid" id="main">
-		<div class="row xs-hidden sm-hidden index-header" >
+		<div class="row xs-hidden sm-hidden front-page-header" >
 
 			<div class="col-md-5 col-md-offset-1">
-				<span id="logo">Career Explora</span>
+				<span class="front-page-logo">Career Explora</span>
 			</div>
-			<div class="col-md-4">
+			<div class="col-sm-8 col-md-6" style="padding-top: 10px;">
 				<form id="auth-form" method="post">
 					<table>
 						<tr>
@@ -57,35 +33,28 @@
 								class="login-input" autofocus="autofocus" /></td>
 							<td><input type="password" id="password" name="password"
 								class="login-input" /></td>
-							<td><input type="button" value="Log in" id="login-button" /></td>
+							<td><input type="button" value="Log in"
+								class="ca-btn-primary login-button" /></td>
 						</tr>
 						<tr>
 							<td class="login-text"><input type="checkbox" /> Keep me
 								logged in</td>
-							<td class="login-text"><a href="<c:url value='/password-recovery'/>">Forgot your password?</a></td>
+							<td class="login-text"><a style="color: white; text-decoration: none;"
+								href="<c:url value='/password-recovery'/>">Forgot your
+									password?</a></td>
 							<td></td>
 					</table>
 
 				</form>
 			</div>
-			<div class="col-md-2">
-				<div style="width: 100%;">
-					<img alt="" src="/images/fb.png"
-						style="height: 32px; width: 32px; margin: 0 auto"
-						class="img img-responsive">
-				</div>
-				<div style="text-align: center;">
-					<a id="fblogin" href="#" class="login-text">Login with facebook</a>
-				</div>
-
-			</div>
+			
 		</div>
 
 		<div class="row" id="index-body">
 			<div class="col-md-1"></div>
 			<div class="col-md-5">
 				<div class="row" id="slogan-div" style="margin-right: 5%;">
-					<span>Career development and Social network tailored to work
+					<span style="color: #983b59">Career development and Social network tailored to work
 						together.</span>
 				</div>
 				<div class="row" id="slider-div" style="margin-right: 5%;">
@@ -143,7 +112,7 @@
 			</div>
 			<div class="col-md-4">
 				<div id="sign-up-header" class="row"
-					style="text-align: left; color: black;">
+					style="text-align: left; color: #983b59">
 					<span class="col-sm-12" style="font-size: 24pt">Sign Up</span>
 				</div>
 				<form method="post" id="register-user-form">

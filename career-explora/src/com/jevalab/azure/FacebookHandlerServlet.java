@@ -44,7 +44,7 @@ public class FacebookHandlerServlet extends HttpServlet {
 		AzureUser user = cont.findUser(id);
 		
 		if(user == null) {
-			user = new AzureUser(id);
+			//user = new AzureUser(id);
 			user.setPicture(picture);
 			user.setCover(cover);
 			if(me != null) {

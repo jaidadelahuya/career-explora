@@ -17,7 +17,7 @@
 	href="/style/jquery.webui-popover.min.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 </head>
-<body style="padding-top: 50px" id="main-body">
+<body style="padding-top: 50px" class="cover-background">
 	<div id="fb-root"></div>
 	<script>
 		window.fbAsyncInit = function() {

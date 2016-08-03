@@ -22,22 +22,22 @@
 <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 </head>
-<body class="main-body">
+<body class="main-body cover-background">
 	<div class="container-fluid" id="main">
-		<div class="row xs-hidden sm-hidden index-header">
+		<div class="row xs-hidden sm-hidden front-page-header">
 			<div class="col-md-5 col-md-offset-1">
-				<span id="logo">Career Explora</span>
+				<span class="front-page-logo-2">Career Explora</span>
 			</div>
 			<div class="col-md-6"></div>
 		</div>
 		<div class="row">
-			<div class="col-sm-8 col-md-6 col-centered dialog-div" style="margin-top: 5%; margin-bottom: 2%;">
-				<div id="confirmation-dialog">
+			<div class="col-sm-8 col-md-6 col-centered " style="margin-top: 5%; margin-bottom: 2%;">
+				<div class="card-panel">
 					<h4 class="mobile-font-header"
 						style="margin-top: 4%; color: rgb(144, 144, 144); font-family: arial">Enter
 						confirmation code</h4>
 					<hr style="margin: 0; margin-bottom: 4%;" />
-					<div class="alert alert-info mobile-font">
+					<div class="alert ca-alert-info mobile-font">
 						<c:choose>
 							<c:when test="${registrationForm.useMobile}">
 								<span style="display: block;"> An SMS with a confirmation
@@ -72,7 +72,7 @@
 								<div class="form-group mobile-font" id="reg-error-div"></div>
 							</div>
 							<div class="col-md-3 form-group">
-								<input type="button" class="btn btn-info btn-sm pull-right mobile-input"
+								<input type="button" class="ca-btn-primary btn-lg pull-right mobile-input"
 									id="continue" value="Continue" />
 							</div>
 

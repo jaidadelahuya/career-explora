@@ -15,28 +15,28 @@
 <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 </head>
-<body class="main-body">
+<body class="main-body cover-background">
 	<div class="container-fluid" id="main">
-		<div class="row xs-hidden sm-hidden index-header">
-			<div class="col-md-5 col-md-offset-1">
-				<span id="logo" class="mobile-logo">Career Explora</span> <a
+		<div class="row xs-hidden sm-hidden front-page-header">
+			<div class="col-md-11 col-md-offset-1" >
+				<span  class="mobile-logo front-page-logo-2">Career Explora</span> <a
 					href="<c:url value='/tosignup'/>"
-					class="btn btn-sm btn-info mobile-font" style="margin-bottom: 2%; margin-top: 1%;">Sign
+					class="mobile-font ca-btn-primary btn-sm" style="margin-bottom: 2%; margin-top: 1%; text-decoration: none;color: white;">Sign
 					up</a>
 			</div>
-			<div class="col-md-6"></div>
+			
 		</div>
 
 		<div class="row">
 			<div class="col-sm-8 col-lg-6 col-centered" style="margin-top: 5%;">
 
-				<div id="password-recovery-dialog" class="dialog-div" >
+				<div id="password-recovery-dialog" class="card-panel" >
 					<h4 class="mobile-font-header"
 						style="margin-top: 4%; color: rgb(144, 144, 144); font-family: arial">Career
 						Explora Password Recovery</h4>
 					<hr style="margin: 0; margin-bottom: 4%;" />
 
-					<div class="alert alert-info mobile-font">
+					<div class="alert ca-alert-info mobile-font">
 						<h4 style="color: black;">Forgot your password?</h4>
 						<p>Enter your email, mobile number or username.</p>
 						<p>A confirmation code will be sent to your email or mobile
@@ -57,11 +57,11 @@
 						</div>
 						<hr style="margin: 0; margin-bottom: 3%; margin-top: 1%;" />
 						<div class="row">
-							<div class="col-sm-7 col-md-8">
+							<div class="col-sm-6 col-md-7">
 								<div class="form-group mobile-font" id="reg-error-div"></div>
 							</div>
-							<div class="col-sm-5 col-md-4 form-group">
-								<input type="button" class="btn btn-info btn-sm pull-left mobile-font"
+							<div class="col-sm-6 col-md-5 form-group">
+								<input type="button" class="ca-btn-primary btn-lg mobile-font"
 									id="send-code" value="Send confirmation code" style="margin-bottom: 1%"/>
 							</div>
 						</div>

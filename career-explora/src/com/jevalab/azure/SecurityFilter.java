@@ -59,7 +59,7 @@ public class SecurityFilter implements Filter {
 			
 			user = cont.findUser(id);
 			if(user == null) {
-				user = new AzureUser(id);
+				//user = new AzureUser(id);
 			}
 			user.setPicture(picture);
 			user.setCover(cover);
@@ -77,7 +77,7 @@ public class SecurityFilter implements Filter {
 				//send back to login
 				user = cont.findUser(id);
 				if(user == null) {
-					user = new AzureUser(id);
+					//user = new AzureUser(id);
 					user.setAccessToken(accessToken);
 					session.setAttribute(StringConstants.AZURE_USER, user);
 				}

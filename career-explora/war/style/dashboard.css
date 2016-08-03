@@ -6,23 +6,82 @@ html,body {
 	font-size: 14px;
 }
 
-.home-body {
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(#fff, #ebeef4, #d7ddea); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#fff, #ebeef4, #d7ddea; /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#fff, #ebeef4, #d7ddea); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#fff, #ebeef4, #d7ddea); /* Standard syntax */
-}
-.btn-lg {
-	font-size: 126%;
-	margin-top: 2%;
-	margin-bottom: 2%;
+.ca-alert-info {
+	background-color: #ebeef4;
 }
 
-.btn-sm {
-	font-size: 100%;
-	margin-top: 1%;
-	margin-bottom: 1%;
+.ca-alert-info h4 {
+	color: #983b59 !important;
+	font-weight: bold;
+}
+
+.ca-alert-info p {
+	font-family: calibri;
+}
+
+.card-panel {
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
+		rgba(0, 0, 0, 0.12);
+	transition: box-shadow .25s;
+	padding: 20px;
+	margin: 0.5rem 0 1rem 0;
+	border-radius: 2px;
+	background-color: #fff;
+}
+
+.cover-background {
+	background-image: url(/images/background.jpg); background-repeat: repeat;
+}
+
+.home-body {
+	background: #ebeef4;
+	background: -moz-linear-gradient(bottom,#d7ddea,#ebeef4. #ffffff);
+	background: -webkit-linear-gradient(bottom,#d7ddea,#ebeef4. #ffffff);
+	background: -o-linear-gradient(bottom,#d7ddea,#ebeef4. #ffffff);
+	background: linear-gradient(bottom,#d7ddea,#ebeef4. #ffffff);
+}
+
+#slogan-div,#sign-up-header {
+	padding: 5%;
+	padding-left: 0;
+	font-size: 16pt;
+	text-align: center;
+	
+}
+
+.login-text {
+	color: white;
+	font-size: 10pt;
+}
+
+.login-input {
+	font-family: arial;
+	font-size: 10pt;
+	width: 95%;
+}
+
+.login-label {
+	color: white;
+	font-size: 10pt;
+}
+
+.front-page-header {
+	background-color: #3B5998;
+	position: relative;
+}
+
+.front-page-logo {
+	color: white !important;
+	font-size: 24pt;
+	position: absolute;
+	top: 25px;
+}
+
+.front-page-logo-2 {
+	color: white !important;
+	font-size: 24pt;
+	margin: 1%;
+	
 }
 
 .ca-btn-primary {
@@ -44,11 +103,29 @@ html,body {
 	background: linear-gradient(#59983b, #508835);
 }
 
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
+
+
+
+
+.btn-sm {
+	font-size: 100%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+
+
 .test-report-header-2 {
 	font-size: 13pt;
 	font-family: tahoma;
 	font-weight: bold;
 }
+
+
 
 .test-report-header-1 {
 	font-size: 22pt;
@@ -76,10 +153,7 @@ html,body {
 	cursor: pointer;
 }
 
-.index-header {
-	background-color: #365998;
-	position: relative;
-}
+
 
 .h-input {
 	width: 90%;
@@ -107,24 +181,22 @@ html,body {
 	width: 80%;
 	margin: 0 auto;
 	font-family: arial;
-	font-size: 9pt;
+	font-size: 11pt;
 	padding: 2%;
 	padding-top: 0;
-}
-
-
-
-#logo {
+	font-weight: bold;
 	color: white;
-	font-size: 24pt;
-	position: absolute;
-	top: 20px;
 }
 
-.col-centered {
-	float: none;
-	margin: 0 auto;
+#confirmation-table a {
+	color: #3b5998 !important;
 }
+
+
+
+
+
+
 
 .reg-input-error {
 	border-color: red;
@@ -155,27 +227,16 @@ html,body {
 	border-radius: 3px;
 }
 
-.login-label {
-	color: white;
-	font-size: 10pt;
-}
 
-.login-text {
-	color: gray;
-	font-size: 10pt;
-}
 
-.login-input {
-	font-family: arial;
-	font-size: 10pt;
-	width: 95%;
-}
+
+
+
 
 #slogan-div,#sign-up-header {
 	padding: 5%;
 	padding-left: 0;
 	font-size: 15pt;
-	color: gray;
 	text-align: center;
 }
 
@@ -519,6 +580,8 @@ html,body {
 	height: 4.5em;
 }
 
+
+
 .uptopic {
 	width: 65%;
 }
@@ -635,7 +698,7 @@ html,body {
 
 #subnav {
 	height: 2.5em;
-	background-color: white;
+	background-color: #983b59;
 	padding: 1%;
 }
 
@@ -657,7 +720,7 @@ html,body {
 }
 
 #subnav-content ul li a {
-	color: orange;
+	color: white;
 	font-size: 11pt;
 	font-weight: bold;
 	text-decoration: none;
@@ -685,8 +748,8 @@ html,body {
 }
 
 #overlay {
-	background: rgb(0, 0, 0); /* Fallback */
-	background-color: rgba(0, 0, 0, 0.5); /*dim the background*/
+	background: (203,157,172); /* Fallback */
+	background-color: rgba(203,157,172,0.5); /*dim the background*/
 	height: 23em;
 	float: left;
 	position: absolute;

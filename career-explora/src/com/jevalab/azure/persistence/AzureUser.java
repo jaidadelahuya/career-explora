@@ -29,184 +29,143 @@ import com.jevalab.helper.classes.UpdateHelperClass;
 import com.jevalab.helper.classes.UserSettingsModel;
 import com.jevalab.helper.classes.WelcomePageBean;
 
-@Entity(name="user")
-public class AzureUser implements Serializable,PropertyChangeListener{
+@Entity(name = "user")
+public class AzureUser implements Serializable, PropertyChangeListener {
 	/**
 	 * 
 	 */
 	@Transient
 	private boolean takenTalentTest;
-	
-	
-	
+
 	@Transient
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	
+
 	private static final long serialVersionUID = 3643732767169302091L;
-	
+
 	@Id
 	private String userID;
-	
+
 	@Column(name = "FirstName")
 	private String firstName;
-	
+
 	@Column(name = "LastName")
 	private String lastName;
-	
+
 	@Column(name = "MiddleName")
 	private String middleName;
-	
-	
+
 	@Column(name = "Gender")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String gender;
-	
+
 	@Column(name = "EMail")
 	private String email;
-	
+
 	@Column(name = "State")
 	private String state;
-	
+
 	@Column(name = "Country")
 	private String country;
-	
+
 	@Column(name = "School")
 	private String school;
-	
+
 	@Column(name = "UpdateName")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private boolean updateNameFromIdp;
-	
+
 	@Column(name = "LastTestTaken")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String lastTestTaken;
-	
+
 	@Column(name = "DateOfBirth")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String dateOfBirth;
-	
-	
+
 	@Column(name = "LastSeenDate")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private Date lastSeenDate;
-	
+
 	@Column(name = "authorized")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private boolean authorized;
-	
+
 	@Column(name = "FreeAccess")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private boolean freeAccess;
-	
+
 	@Column(name = "UpComingTests")
 	@Basic
 	@OneToMany(cascade = CascadeType.ALL)
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private List<UpComingTest> upComingTests;
-	
+
 	@Column(name = "SubscriptionDate")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private Date subscriptionDate;
-	
+
 	@Column(name = "Validity")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String validity;
-	
+
 	@Column(name = "Attends")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String attends;
-	
+
 	@Column(name = "Picture")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String picture;
-	
+
 	@Column(name = "Cover")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String cover;
-	
+
 	@Basic
 	@Column(name = "Friends")
 	@OneToMany(cascade = CascadeType.ALL)
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private List<String> friendsId;
-	
+
 	@Basic
 	@Column(name = "Username")
 	private String username;
-	
+
 	@Basic
 	@Column(name = "Mobile")
 	private String mobile;
-	
+
 	@Basic
 	@Column(name = "Password")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String password;
-	
+
 	@Basic
 	@Column(name = "OldPasswords")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private List<String> oldPasswords;
-	
+
 	@Basic
 	@Column(name = "LastPasswordChangeDate")
-	@Extension(vendorName = "datanucleus",
-	key = "gae.unindexed",
-	value = "true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private Date lastPasswordChangeDate;
-	
+
 	@Basic
 	@Column(name = "PasswordRecoveryIds")
 	private Set<String> passwordRecoveryIds;
-	
+
 	@Basic
 	@Column(name = "UserPicturesIds")
 	private Set<String> UserPicturesIds;
-	
+
 	@Transient
 	private boolean newUser;
-	
+
 	@Transient
 	private String accessToken;
-	
+
 	@Transient
 	private boolean fromAuthorization;
-	
-	
-	
-	
+
 	public boolean isFreeAccess() {
 		return freeAccess;
 	}
@@ -260,9 +219,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 	}
 
 	public void setUsername(String username) {
+		if(username!=null)
 		this.username = username.toLowerCase();
 	}
-	
+
 	public boolean isFromAuthorization() {
 		return fromAuthorization;
 	}
@@ -335,12 +295,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 
 	@Transient
 	private Date expiryDate;
-	
+
 	@Transient
 	private int upComingTestsSize;
-	
-	
-	
+
 	public Date getSubscriptionDate() {
 		return subscriptionDate;
 	}
@@ -398,8 +356,6 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 		pcs.firePropertyChange("lastTestTaken", oldLastTestTaken, lastTestTaken);
 	}
 
-	
-
 	public Date getLastSeenDate() {
 		return lastSeenDate;
 	}
@@ -409,7 +365,7 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 	}
 
 	public int getUpComingTestsSize() {
-		return  upComingTests.size();
+		return upComingTests.size();
 	}
 
 	public List<UpComingTest> getUpComingTests() {
@@ -428,8 +384,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 
 	public void setState(String state) {
 		String oldState = this.state;
-		this.state = state.toUpperCase();
-		pcs.firePropertyChange("state", oldState, state);
+		if (country != null) {
+			this.state = state.toUpperCase();
+			pcs.firePropertyChange("state", oldState, state);
+		}
 	}
 
 	public String getCountry() {
@@ -438,8 +396,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 
 	public void setCountry(String country) {
 		String oldCountry = this.country;
-		this.country = country.toUpperCase();
-		pcs.firePropertyChange("country", oldCountry, country);
+		if (country != null) {
+			this.country = country.toUpperCase();
+			pcs.firePropertyChange("country", oldCountry, country);
+		}
 	}
 
 	public String getSchool() {
@@ -448,8 +408,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 
 	public void setSchool(String school) {
 		String oldSchool = this.school;
-		this.school = school.toUpperCase();
-		pcs.firePropertyChange("school", oldSchool, school);
+		if (school != null) {
+			this.school = school.toUpperCase();
+			pcs.firePropertyChange("school", oldSchool, school);
+		}
 	}
 
 	public boolean isUpdateNameFromIdp() {
@@ -472,12 +434,10 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 		pcs.firePropertyChange("email", oldEmail, email);
 	}
 
-	public AzureUser (String userID) {
-		this.userID = userID;
+	public AzureUser() {
+		this.userID = LoginHelper.getNextId();
 	}
-	
-	public AzureUser () {}
-	
+
 	public String getUserID() {
 		return userID;
 	}
@@ -485,15 +445,17 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	
+
 	public String getMiddleName() {
 		return middleName;
 	}
 
 	public void setMiddleName(String middleName) {
 		String oldMiddleName = this.middleName;
-		this.middleName = middleName.toUpperCase();
-		pcs.firePropertyChange("middleName", oldMiddleName, middleName);
+		if (middleName != null) {
+			this.middleName = middleName.toUpperCase();
+			pcs.firePropertyChange("middleName", oldMiddleName, middleName);
+		}
 	}
 
 	public String getGender() {
@@ -506,15 +468,16 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 		pcs.firePropertyChange("gender", oldGender, gender);
 	}
 
-
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		String oldFirstName = this.firstName;
-		this.firstName = firstName.toUpperCase();
-		pcs.firePropertyChange("firstName", oldFirstName, firstName);
+		if (country != null) {
+			this.firstName = firstName.toUpperCase();
+			pcs.firePropertyChange("firstName", oldFirstName, firstName);
+		}
 	}
 
 	public String getLastName() {
@@ -523,11 +486,11 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 
 	public void setLastName(String lastName) {
 		String oldLastName = this.lastName;
-		this.lastName = lastName.toUpperCase();
-		pcs.firePropertyChange("lastName", oldLastName, lastName);
+		if (country != null) {
+			this.lastName = lastName.toUpperCase();
+			pcs.firePropertyChange("lastName", oldLastName, lastName);
+		}
 	}
-	
-	
 
 	public String getPassword() {
 		return password;
@@ -537,12 +500,6 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 		this.password = password;
 	}
 
-	
-
-	
-	
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -567,8 +524,6 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 			return false;
 		return true;
 	}
-
-	
 
 	@Override
 	public String toString() {
@@ -597,7 +552,7 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
 	}
-	
+
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.removePropertyChangeListener(pcl);
 	}
@@ -605,78 +560,87 @@ public class AzureUser implements Serializable,PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		Object o = evt.getSource();
-		if(o instanceof WelcomePageBean) {
+		if (o instanceof WelcomePageBean) {
 			UpdateHelperClass.updateAzureUser(evt, this);
-		} else if(o instanceof UserSettingsModel) {
-			UpdateHelperClass.updateUserPasswordRecovery(evt,this);
+		} else if (o instanceof UserSettingsModel) {
+			UpdateHelperClass.updateUserPasswordRecovery(evt, this);
 		}
-		
+
 	}
-	
-	public AzureUser (RegistrationForm rf) {
+
+	public AzureUser(RegistrationForm rf) {
 		this.firstName = rf.getFirstName().toUpperCase();
 		this.lastName = rf.getLastName().toUpperCase();
 		this.username = rf.getUsername().toLowerCase();
 		this.password = rf.getPassword1();
 		this.gender = rf.getGender();
 		this.userID = LoginHelper.getNextId();
-		if(rf.isUseEmail()) {
+		if (rf.isUseEmail()) {
 			this.email = rf.getUsername().toLowerCase();
-		} else if(rf.isUseMobile()) {
+		} else if (rf.isUseMobile()) {
 			this.mobile = rf.getUsername();
 		}
-		
+
 		this.upComingTests = new ArrayList<>();
 		this.friendsId = new ArrayList<>();
 		this.picture = rf.getPicture();
 		this.passwordRecoveryIds = new TreeSet<String>();
 		this.UserPicturesIds = new TreeSet<String>();
 		this.oldPasswords = new ArrayList<>();
-		if(rf.getPassword1() != null) {
+		if (rf.getPassword1() != null) {
 			oldPasswords.add(rf.getPassword1());
 		}
-		if(rf.getPasswordRecovery() != null) {
-			this.passwordRecoveryIds.add(rf.getPasswordRecovery().getKey().getName());
+		if (rf.getPasswordRecovery() != null) {
+			this.passwordRecoveryIds.add(rf.getPasswordRecovery().getKey()
+					.getName());
 		}
-		
+
 	}
-	
+
 	public AzureUser(com.google.appengine.api.datastore.Entity e) {
-		this.attends = (String)e.getProperty(StringConstants.cAttends);
-		this.authorized = (Boolean)e.getProperty(StringConstants.cAuthorized);
-		this.country = (String)e.getProperty(StringConstants.cCountry);
-		this.cover = (String)e.getProperty(StringConstants.cCover);
-		this.dateOfBirth = (String)e.getProperty(StringConstants.cDateOfBirth);
-		this.email = (String)e.getProperty(StringConstants.cEMail);
-		this.firstName = (String)e.getProperty(StringConstants.cFirstName);
-		this.friendsId  = (List<String>)e.getProperty(StringConstants.cFriends);
-		this.gender = (String)e.getProperty(StringConstants.cGender);
-		this.lastName = (String)e.getProperty(StringConstants.cLastName);
-		this.lastSeenDate = (Date)e.getProperty(StringConstants.cLastSeenDate);
-		this.lastTestTaken = (String)e.getProperty(StringConstants.cLastTestTaken);
-		this.middleName = (String)e.getProperty(StringConstants.cMiddleName);
-		this.mobile = (String)e.getProperty(StringConstants.cMobile);
-		this.password = (String)e.getProperty(StringConstants.cPassword);
-		this.passwordRecoveryIds = new TreeSet<String>(((List<String>)e.getProperty(StringConstants.cPasswordRecoveryIds)));
-		this.picture = (String)e.getProperty(StringConstants.cPicture);
-		this.school = ((String)e.getProperty(StringConstants.cSchool));
-		this.state = ((String)e.getProperty(StringConstants.cState));
-		this.subscriptionDate = (Date)e.getProperty(StringConstants.cSubscriptionDate);
-		this.upComingTests = (List<UpComingTest>)e.getProperty(StringConstants.cUpComingTests);
-		this.updateNameFromIdp = (Boolean)e.getProperty(StringConstants.cUpdateName);
+		this.attends = (String) e.getProperty(StringConstants.cAttends);
+		this.authorized = (Boolean) e.getProperty(StringConstants.cAuthorized);
+		this.country = (String) e.getProperty(StringConstants.cCountry);
+		this.cover = (String) e.getProperty(StringConstants.cCover);
+		this.dateOfBirth = (String) e.getProperty(StringConstants.cDateOfBirth);
+		this.email = (String) e.getProperty(StringConstants.cEMail);
+		this.firstName = (String) e.getProperty(StringConstants.cFirstName);
+		this.friendsId = (List<String>) e.getProperty(StringConstants.cFriends);
+		this.gender = (String) e.getProperty(StringConstants.cGender);
+		this.lastName = (String) e.getProperty(StringConstants.cLastName);
+		this.lastSeenDate = (Date) e.getProperty(StringConstants.cLastSeenDate);
+		this.lastTestTaken = (String) e
+				.getProperty(StringConstants.cLastTestTaken);
+		this.middleName = (String) e.getProperty(StringConstants.cMiddleName);
+		this.mobile = (String) e.getProperty(StringConstants.cMobile);
+		this.password = (String) e.getProperty(StringConstants.cPassword);
+		this.passwordRecoveryIds = new TreeSet<String>(
+				((List<String>) e
+						.getProperty(StringConstants.cPasswordRecoveryIds)));
+		this.picture = (String) e.getProperty(StringConstants.cPicture);
+		this.school = ((String) e.getProperty(StringConstants.cSchool));
+		this.state = ((String) e.getProperty(StringConstants.cState));
+		this.subscriptionDate = (Date) e
+				.getProperty(StringConstants.cSubscriptionDate);
+		this.upComingTests = (List<UpComingTest>) e
+				.getProperty(StringConstants.cUpComingTests);
+		this.updateNameFromIdp = (Boolean) e
+				.getProperty(StringConstants.cUpdateName);
 		this.userID = e.getKey().getName();
-		this.username = (String)e.getProperty(StringConstants.cUsername);
-		this.validity = (String)e.getProperty(StringConstants.cValidity);
-		this.oldPasswords = (List<String>)e.getProperty(StringConstants.cOldPasswords);
-		this.lastPasswordChangeDate = (Date)e.getProperty(StringConstants.cLastPasswordChangeDate);
-		this.UserPicturesIds = (Set<String>) e.getProperty(StringConstants.cUserPicturesIds);
+		this.username = (String) e.getProperty(StringConstants.cUsername);
+		this.validity = (String) e.getProperty(StringConstants.cValidity);
+		this.oldPasswords = (List<String>) e
+				.getProperty(StringConstants.cOldPasswords);
+		this.lastPasswordChangeDate = (Date) e
+				.getProperty(StringConstants.cLastPasswordChangeDate);
+		this.UserPicturesIds = (Set<String>) e
+				.getProperty(StringConstants.cUserPicturesIds);
 		Object o = e.getProperty(StringConstants.cFreeAccess);
-		if(o!= null) {
-			this.freeAccess = (boolean) e.getProperty(StringConstants.cFreeAccess);
+		if (o != null) {
+			this.freeAccess = (boolean) e
+					.getProperty(StringConstants.cFreeAccess);
 		}
-		
+
 	}
-	
-	
 
 }

@@ -15,22 +15,22 @@
 <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
 <link rel="stylesheet" type="text/css" href="/style/waitMe.css">
 </head>
-<body class="main-body">
+<body class="cover-background">
 	<div class="container-fluid" id="main">
-		<div class="row xs-hidden sm-hidden index-header">
+		<div class="row xs-hidden sm-hidden front-page-header">
 			<div class="col-md-5 col-md-offset-1">
-				<span id="logo" class="mobile-logo">Career Explora</span>
+				<span class="front-page-logo-2" class="mobile-logo">Career Explora</span>
 			</div>
 			<div class="col-md-6"></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-8 col-md-6 col-centered" style="margin-top: 5%;">
-				<div id="confirmation-dialog" class="dialog-div">
+				<div id="confirmation-dialog" class="card-panel">
 					<h4 class="mobile-font-header"
 						style="margin-top: 4%; color: rgb(144, 144, 144); font-family: arial">Reset
 						Password</h4>
 					<hr style="margin: 0; margin-bottom: 4%;" />
-					<div class="alert alert-info mobile-font">
+					<div class="alert ca-alert-info mobile-font">
 						<p>Your password should be between 7-21 characters long and
 							should contain alphabets and at least a digit and a special
 							character.</p>
@@ -56,7 +56,7 @@
 								<div class="form-group mobile-font" id="reg-error-div"></div>
 							</div>
 							<div class="col-md-3 form-group">
-								<input type="button" class="btn btn-info btn-sm pull-right"
+								<input type="button" class="ca-btn-primary btn-lg pull-right"
 									id="reset-password" value="Reset Password" />
 							</div>
 

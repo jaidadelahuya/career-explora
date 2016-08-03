@@ -42,6 +42,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -51,6 +53,9 @@ import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.gson.Gson;
 import com.jevalab.azure.persistence.AzureUser;
+import com.jevalab.azure.persistence.Collection;
+import com.jevalab.azure.persistence.Community;
+import com.jevalab.azure.persistence.GeneralController;
 import com.jevalab.azure.persistence.MultipleIntelligenceTestQuestion;
 import com.jevalab.azure.persistence.MultipleIntelligenceTestQuestionJpaController;
 import com.jevalab.azure.persistence.PasswordRecoveryJpaController;
@@ -71,9 +76,21 @@ import com.twilio.sdk.resource.factory.MessageFactory;
 public class Util {
 
 	private final static Logger LOGGER = Logger.getLogger(Util.class.getName());
-
+	private static final MemcacheService GROUPS = MemcacheServiceFactory.getMemcacheService("groups");
 	static {
 		LOGGER.setLevel(Level.FINEST);
+	}
+	
+	public static boolean notNull(String... args) {
+		if (args == null) {
+			return false;
+		}
+		for (String s : args) {
+			if (s == null || s.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static Map<String, String> validateRegistrationForm(
@@ -1324,6 +1341,28 @@ public class Util {
 			e.printStackTrace();
 		}
 		return complete;
+	}
+
+	public static Object getGroupFromCache(Key k1) {
+		Object o = null;
+		o = GROUPS.get(k1);
+		if(o == null) {
+			Entity e = GeneralController.findByKey(k1);
+			String kind = e.getKind();
+			if(kind.equals(Collection.class.getSimpleName())) {
+				Collection col = EntityConverter.entityToCollection(e);
+				GROUPS.put(col.getId(), col);
+				o = col;
+			}else if(kind.equals(Community.class.getSimpleName())) {
+				Community com = EntityConverter.entityToCommunity(e);
+				GROUPS.put(com.getId(), com);
+				o = com;
+			}
+			return o;
+			
+		} else {
+			return o;
+		}
 	}
 
 }

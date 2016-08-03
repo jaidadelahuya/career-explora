@@ -1,5 +1,5 @@
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background: rgb(255, 140, 0);">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background: #3B5998">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -90,11 +90,11 @@
 	<div>
 		<div style="width: 50%; float: left;">
 			<a type="submit" href="/azure/getsettings"
-				class="btn btn-info btn-sm view-settings">View Settings</a>
+				class="btn ca-btn-primary btn-sm view-settings">View Settings</a>
 		</div>
 		<div style="width: auto; float: right;">
 			<input type="button" value="Logout" id="logout-button"
-				class="btn btn-info btn-sm" onclick="logout();" />
+				class="btn ca-btn-primary btn-sm" onclick="logout();" />
 		</div>
 	</div>
 </div>
