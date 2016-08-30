@@ -32,8 +32,8 @@
 		<h4 style="text-align: center;">Add Discussion</h4>
 		<div class="row">
 			<form class="col s12"
-				action="<%=blobstoreService.createUploadUrl("/ca/admin/discussion/create",
-					options)%>"
+				action="<%=blobstoreService.createUploadUrl(
+					"/ca/admin/discussion/create", options)%>"
 				method="post" enctype="multipart/form-data">
 				<c:choose>
 					<c:when test="${ not empty formError}">
@@ -58,17 +58,19 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<select name="group-name" id="group-name" class="browser-default" disabled="disabled" >
+						<select name="group-name" id="group-name" class="browser-default"
+							disabled="disabled">
 							<option value="" disabled selected>Select the group name</option>
 							<c:forEach var="item" items="${communityMap}">
 								<option value="${item.key}">${item.value}</option>
 							</c:forEach>
-						</select> 
+						</select>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<select name="unit-name" id="unit-name" class="browser-default" disabled="disabled">
+						<select name="unit-name" id="unit-name" class="browser-default"
+							disabled="disabled">
 							<option value="" disabled selected>Select the unit name</option>
 							<c:forEach var="item" items="${unitMap}">
 								<option value="${item.key}">${item.value}</option>
@@ -76,14 +78,64 @@
 						</select>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="input-field col s12">
-						<input id="title" type="text" class="validate"
-							name="title"> <label for="title"
-							data-error="wrong" data-success="right">Discussion title</label>
+						<input id="title" type="text" class="validate" name="title">
+						<label for="title" data-error="wrong" data-success="right">Discussion
+							title</label>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="link" type="text" class="validate" name="link">
+						<label for="title" data-error="wrong" data-success="right">Link</label>
+					</div>
+					<div class="input-field col s6">
+						<select name="department"  multiple>
+							<option value="" disabled selected>Select Department</option>
+							<option>Art</option>
+							<option>Commercial</option>
+							<option>Science</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<select name="class"  multiple>
+							<option value="" disabled selected>Select Class</option>
+							
+								<option>Basic 1</option>
+								<option>Basic 2</option>
+								<option>Basic 3</option>
+								<option>Basic 4</option>
+								<option>Basic 5</option>
+								<option>Basic 6</option>
+							
+							
+								<option>BASIC 7</option>
+								<option>BASIC 8</option>
+								<option>BASIC 9</option>
+							
+							
+								<option>SSS 1</option>
+								<option>SSS 2</option>
+								<option>SSS 3</option>
+							
+						</select>
+					</div>
+					<div class="input-field col s6">
+						<select name="subject" class="browser-default">
+							<option value="" disabled selected>Select Subject</option>
+							<option>Mathematics</option>
+							<option>Physics</option>
+							<option>Chemistry</option>
+							<option>Biology</option>
+						</select>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="tags" type="text" class="validate" name="tags"
@@ -91,7 +143,7 @@
 							data-error="wrong" data-success="right">Tags</label>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="input-field col s12">
 						<select name="format">
@@ -101,12 +153,13 @@
 						</select> <label>Format</label>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="input-field col s12">
-						<textarea id="textarea1" class="materialize-textarea"
-							name="body"></textarea>
-						<label for="textarea1">Body</label>
+					<label for="textarea1">Body</label>
+						<textarea id="textarea1" style="white-space: pre-wrap;" class="materialize-textarea" name="body"></textarea>
+						
+						
 					</div>
 				</div>
 				<div class="row">
@@ -122,7 +175,7 @@
 				<br /> <br />
 				<div class="row">
 					<div class="col s6">
-						<button class="btn waves-effect waves-light" type="submit"
+						<button id="submit-button" class="btn waves-effect waves-light" type="submit"
 							name="action">
 							Submit <i class="material-icons right">send</i>
 						</button>
@@ -137,57 +190,108 @@
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/materialize-tags.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('select').material_select();
-			
-			$("#group-name").on("change", function() {
-				var x = $("#group").val();
-				if(x=="1") {
-					var y = $(this).val();
-					$.ajax({
-					url : "/admin/get-unit-ajax",
-					dataType : "json",
-					data : {
-						"webkey" : y 
-					}, 
-					success : function(data) {
-						console.log(data);
-						 $("#unit-name").find('option').remove();
-						 $("#unit-name").append('<option disabled selected>Select the unit name</option>')
-						for(i = 0; i < data.length; i++) {
-							$("#unit-name").append($("<option></option>").attr("value",data[i].propertyMap.id).text(data[i].propertyMap.name.value));;
-				
-						}
-						$("#unit-name").prop('disabled', false);
-						
-						
-					}
-					});
-				}
-			});
-			
-			$("#group").on('change', function() {
-				$.ajax({
-					url : "/admin/get-ca-communities-ajax",
-					dataType : "json",
-					data : {
-						"val" : $(this).val()
-					},
-					success : function(data) {
-						 $("#group-name").find('option').remove();
-						 $("#group-name").append('<option disabled selected>Select the group name</option>')
-						for(i = 0; i < data.length; i++) {
-							$("#group-name").append($("<option></option>").attr("value",data[i].propertyMap.id).text(data[i].propertyMap.webkey.value));;
-				
-						}
-						$("#group-name").prop('disabled', false);
-						
-						
-					}
-					
-				});
-			});
-		});
+		$(document)
+				.ready(
+						function() {
+							$('select').material_select();
+							
+							$("#group-name")
+									.on(
+											"change",
+											function() {
+												var x = $("#group").val();
+												if (x == "1") {
+													var y = $(this).val();
+													$
+															.ajax({
+																url : "/admin/get-unit-ajax",
+																dataType : "json",
+																data : {
+																	"webkey" : y
+																},
+																success : function(
+																		data) {
+																	console
+																			.log(data);
+																	$(
+																			"#unit-name")
+																			.find(
+																					'option')
+																			.remove();
+																	$(
+																			"#unit-name")
+																			.append(
+																					'<option disabled selected>Select the unit name</option>')
+																	for (i = 0; i < data.length; i++) {
+																		$(
+																				"#unit-name")
+																				.append(
+																						$(
+																								"<option></option>")
+																								.attr(
+																										"value",
+																										data[i].propertyMap.id)
+																								.text(
+																										data[i].propertyMap.name.value));
+																		;
+
+																	}
+																	$(
+																			"#unit-name")
+																			.prop(
+																					'disabled',
+																					false);
+
+																}
+															});
+												}
+											});
+
+							$("#group")
+									.on(
+											'change',
+											function() {
+												$
+														.ajax({
+															url : "/admin/get-ca-communities-ajax",
+															dataType : "json",
+															data : {
+																"val" : $(this)
+																		.val()
+															},
+															success : function(
+																	data) {
+																$("#group-name")
+																		.find(
+																				'option')
+																		.remove();
+																$("#group-name")
+																		.append(
+																				'<option disabled selected>Select the group name</option>')
+																for (i = 0; i < data.length; i++) {
+																	$(
+																			"#group-name")
+																			.append(
+																					$(
+																							"<option></option>")
+																							.attr(
+																									"value",
+																									data[i].propertyMap.id)
+																							.text(
+																									data[i].propertyMap.webkey.value));
+																	;
+
+																}
+																$("#group-name")
+																		.prop(
+																				'disabled',
+																				false);
+
+															}
+
+														});
+											});
+						});
 	</script>
 </body>
 </html>

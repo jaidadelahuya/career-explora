@@ -42,25 +42,16 @@ public class LoginServlet extends HttpServlet {
 		AzureUser user = null;
 		synchronized (session) {
 			user = (AzureUser) session.getAttribute(StringConstants.AZURE_USER);
-			
-			//user = LoginHelper.setTakenTalentTest(user);
-
-			session.setAttribute(StringConstants.AZURE_USER, user);
 
 		}
 
 		WelcomePageBean wpb = LoginHelper.initWelcomePageBean(user);
-		List<UserView> suggestedFriends = LoginHelper.getSuggestedFriends(user,
-				session);
-		List<ProcessedUpComingTest> upComingTests = LoginHelper
-				.getUpcomingTest(user.getUpComingTests());
+		
 
 		RegistrationForm rf = null;
-		synchronized (session) {//why is this attribute not stored in request scope?
-			session.setAttribute(StringConstants.SUGGESTED_fRIENDS_VIEW,
-					suggestedFriends);
+		synchronized (session) {
+			
 			session.setAttribute(StringConstants.WELCOME_PAGE, wpb);
-			session.setAttribute(StringConstants.UPCOMING_TESTS, upComingTests);
 			rf = (RegistrationForm)session.getAttribute(StringConstants.REGISTRATION_FORM);
 		}
 		

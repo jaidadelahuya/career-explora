@@ -35,6 +35,6 @@ public class LogoutServlet extends HttpServlet {
 			}
 		}
 		resp.setStatus(HttpServletResponse.SC_OK);
-
+		resp.sendRedirect("/");
 	}
 }

@@ -43,7 +43,7 @@ public class LoginHandlerServlet extends HttpServlet {
 					session.setAttribute(StringConstants.AZURE_USER, user);
 				}
 				
-				RequestDispatcher rd = req.getRequestDispatcher("/success");
+				RequestDispatcher rd = req.getRequestDispatcher("/azure/success");
 				rd.forward(req, resp);
 			} else {
 				req.setAttribute(StringConstants.INCORRECT_PASSWORD,true);

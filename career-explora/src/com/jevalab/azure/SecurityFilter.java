@@ -33,79 +33,31 @@ public class SecurityFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse res = (HttpServletResponse) arg1;
 
-		String id = req.getParameter(StringConstants.NAME);
-		String accessToken = req.getParameter(StringConstants.ACCESS);
-		String picture = req.getParameter(StringConstants.PICTURE);
-		String cover = req.getParameter(StringConstants.COVER);
-		Boolean fromAuthorization = new Boolean(req.getParameter(StringConstants.AUTHORIZATION));
-
-		//do validation first. create validator using strategy desin pattern
-		/*if(fromAuthorization) {
-			
-		} else {
-			
-			if(req.getMethod().equalsIgnoreCase(StringConstants.GET) || id.isEmpty() || id == null || accessToken.isEmpty() || accessToken == null) {
-				res.sendRedirect(StringConstants.INDEX_PAGE);
-				return;
-			}
-		}*/
-		
-		AzureUser user = null;
 		HttpSession session = req.getSession();
-		
-		UserJpaController cont = new UserJpaController();
-
-		if (session.isNew()) {
-			
-			user = cont.findUser(id);
-			if(user == null) {
-				//user = new AzureUser(id);
+		Object o = null;
+		synchronized (session) {
+			o = session.getAttribute(StringConstants.AZURE_USER);
+		}
+		if (o == null) {
+			if ("XMLHttpRequest".equals(req.getHeader("X-Requested-With"))) {
+				res.sendError(HttpServletResponse.SC_FORBIDDEN,
+						"You don't have an active session. <a href='/'>login again</a>");
+				return;
+			}else {
+				res.sendRedirect("/");
 			}
-			user.setPicture(picture);
-			user.setCover(cover);
-			user.setAccessToken(accessToken);
-			session.setAttribute(StringConstants.AZURE_USER, user);
-			redirectUser(user, res, req, chain);
-			
-		} else {
-			
-			Object object = session.getAttribute(StringConstants.AZURE_USER);
-			if (object != null) {
-				
-				user = (AzureUser) object;
+		}else {
+			AzureUser u = (AzureUser) o;
+			if(u.isAuthorized()) {
+				chain.doFilter(arg0, arg1);
 			} else {
-				//send back to login
-				user = cont.findUser(id);
-				if(user == null) {
-					//user = new AzureUser(id);
-					user.setAccessToken(accessToken);
-					session.setAttribute(StringConstants.AZURE_USER, user);
-				}
+				res.sendRedirect(res.encodeRedirectURL("/authorization"));
 			}
-			redirectUser(user, res, req, chain);
 		}
-	}
-
-	private void redirectUser(AzureUser user, HttpServletResponse res,
-			HttpServletRequest req, FilterChain chain) throws IOException,
-			ServletException {
-		
-		if (user.isAuthorized()) {
-			
-			chain.doFilter(req, res);
-			
-		} else {
-			
-			req.getRequestDispatcher("WEB-INF/authorization.jsp").forward(req, res);
-			
-				
-		}
-
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		
 
 	}
 

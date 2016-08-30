@@ -4,14 +4,24 @@
 		<div class="col s12">
 			<div class="card" style="margin-top: -20px">
 				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
+					<img src="${welcomePage.backgroundImg}">
 					<div class="card-title"
 						style="width: 40%; height: 100%; padding-top: 7%; text-align: center; background-color: rgba(137, 155, 193, 0.5)">
-						<img src="/images/female-unknown-user.jpg"
+						<img class="circle" src="${welcomePage.profileImg}"
 							style="width: 50%; height: 50%; margin: 0 auto">
-						<div class="flow-text">${azureUser.firstName} ${azureUser.lastName}</div>
-						<h6>my school</h6>
-						<h6>my school</h6>
+						<div>
+							<div class="flow-text"
+								style="font-weight: bold; line-height: 1.5; color: #f4ebee">
+								<c:out value='${welcomePage.firstName}' />
+								<c:out value='${welcomePage.lastName}' />
+							</div>
+							<h6 style="color: #eef4eb">
+								<c:out value='${welcomePage.school}' />
+							</h6>
+							<h6>
+								<c:out value='${welcomePage.sClass}' />
+							</h6>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -21,138 +31,106 @@
 		<div class="col s12 m6">
 			<div class="card-panel ">
 				<div class="row valign-wrapper" style="margin-bottom: 0px">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px"> <span>Stephen
-						Ubogu</span>
+					<img class="circle" src="${welcomePage.profileImg}"
+						style="width: 45px; height: 45px; margin: 0px 10px"> <span><c:out
+							value='${welcomePage.firstName}' /> <c:out
+							value='${welcomePage.lastName}' /></span>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12" style="margin-bottom: 0px">
-						<textarea id="textarea1" class="materialize-textarea"
-							style="padding: 0px; margin-bottom: 0px"
-							placeholder="What's on your mind?"></textarea>
-
+						<a class="modal-trigger" href="#modal1">Write something or ask
+							a question</a>
 					</div>
 				</div>
 
 			</div>
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
-				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
+			<div id="f-col">
+				<c:forEach var="item" items="${welcomePage.posts}" step="2">
+					<div class="row">
+						<div class="card" style="padding-top: 20px">
+							<div class="row valign-wrapper" style="margin-bottom: 10px;">
+								<img class="circle" src="${item.authorImage}"
+									style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
+								<span><c:out value='${item.author}' /></span>
+							</div>
+							<c:if test='${not empty item.pictureUrl}'>
+								<div class="card-image">
+									<img class="responsive-img materialboxed"
+										src="${item.pictureUrl}">
+								</div>
+							</c:if>
+							<div class="card-content">
+								<c:out value="${item.snippet}" />
+							</div>
+
+							<div class="card-action" style="overflow: auto">
+								<c:if test="${not empty item.link}">
+									<a target="_blank" href="${item.link}">Source</a>
+								</c:if>
+								<input class="h-input" value="${item.webkey}" type="hidden">
+
+								<i class="material-icons md-dark right post-icons comment">
+									comment</i><span class="right no-comments"><c:out
+										value='${item.comments}' /></span> <i
+									class="material-icons md-dark right post-icons like">
+									thumb_up</i><span class="right no-likes"><c:out
+										value='${item.likes}' /></span>
+							</div>
+							<div class="progress" style="display: none">
+								<div class="indeterminate"></div>
+							</div>
+							<div class="comment-div" style="display: none">
+								i am comment div
+							</div>
+
+						</div>
+					</div>
+				</c:forEach>
 			</div>
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
-				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
-				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
+
+
+
 		</div>
 		<div class="col s12 m6">
 
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
+			<c:forEach var="item" items="${welcomePage.posts}" step="2" begin="1">
+				<div class="row">
+					<div class="card" style="padding-top: 20px; overflow: auto;">
+						<div class="row valign-wrapper" style="margin-bottom: 10px;">
+							<img class="circle" src="${item.authorImage}"
+								style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
+							<span><c:out value='${item.author}' /></span>
+						</div>
+						<c:if test='${not empty item.pictureUrl}'>
+							<div class="card-image">
+								<img class="responsive-image materialboxed"
+									src="${item.pictureUrl}">
+							</div>
+						</c:if>
+						<div class="card-content">${item.snippet}</div>
+						<div class="card-action">
+							<a href="#">This is a link</a>
+						</div>
+
+					</div>
 				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
+				<div style="clear: both"></div>
+			</c:forEach>
 
 
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
-				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
 
-
-			<div class="card" style="padding-top: 20px">
-				<div class="row valign-wrapper" style="margin-bottom: 10px;">
-					<img class="circle" src="/images/female-unknown-user.jpg"
-						style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-					<span>Stephen Ubogu</span>
-				</div>
-				<div class="card-image">
-					<img src="/images/career-explora-bck.jpg">
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
 
 		</div>
 	</div>
+	<c:if test="${welcomePage.offset > 0}">
+		<div id="load-status">
+			<h4 style="color: green; text-align: center; display: none;">
+				<span style="background-color: #dadada; padding: 1%;">loading...</span>
+			</h4>
+		</div>
+	</c:if>
+
+
 </div>
 </main>

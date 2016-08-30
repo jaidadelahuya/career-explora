@@ -20,12 +20,14 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
+import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.Collection;
 import com.jevalab.azure.persistence.Community;
 import com.jevalab.azure.persistence.Discussion;
 import com.jevalab.azure.persistence.GeneralController;
 import com.jevalab.azure.persistence.Unit;
 import com.jevalab.helper.classes.EntityConverter;
+import com.jevalab.helper.classes.StringConstants;
 import com.jevalab.helper.classes.Util;
 
 public class SaveDiscussion extends HttpServlet {
@@ -55,21 +57,15 @@ public class SaveDiscussion extends HttpServlet {
 				blobKey = blobKeys.get(0);
 			}
 
+			String link = req.getParameter("link");
 			String title = req.getParameter("title");
 			String tags = req.getParameter("tags");
 			String format = req.getParameter("format");
 			String body = req.getParameter("body");
+			String classes[] = req.getParameterValues("class");
+			String subject = req.getParameter("subject");
+			String departments[] = req.getParameterValues("department");
 
-			if (!Util.notNull(title)) {
-				synchronized (session) {
-					session.removeAttribute("formSuccess");
-					session.setAttribute("formError",
-							"Enter a title for the discussion");
-				}
-				resp.sendRedirect(resp
-						.encodeRedirectURL("/ca/admin/discussion/form/new"));
-				return;
-			}
 			if (!Util.notNull(tags)) {
 				synchronized (session) {
 					session.removeAttribute("formSuccess");
@@ -84,7 +80,7 @@ public class SaveDiscussion extends HttpServlet {
 				synchronized (session) {
 					session.removeAttribute("formSuccess");
 					session.setAttribute("formError",
-							"Se;ect a format for the discussion");
+							"Select a format for the discussion");
 				}
 				resp.sendRedirect(resp
 						.encodeRedirectURL("/ca/admin/discussion/form/new"));
@@ -100,15 +96,62 @@ public class SaveDiscussion extends HttpServlet {
 						.encodeRedirectURL("/ca/admin/discussion/form/new"));
 				return;
 			}
+			if (!Util.notNull(subject)) {
+				synchronized (session) {
+					session.removeAttribute("formSuccess");
+					session.setAttribute("formError",
+							"Enter the subject of the discussion");
+				}
+				resp.sendRedirect(resp
+						.encodeRedirectURL("/ca/admin/discussion/form/new"));
+				return;
+			}
+			if (!Util.notNull(classes)) {
+				synchronized (session) {
+					session.removeAttribute("formSuccess");
+					session.setAttribute("formError",
+							"Select at least a class for the discussion");
+				}
+				resp.sendRedirect(resp
+						.encodeRedirectURL("/ca/admin/discussion/form/new"));
+				return;
+			}
+			if (!Util.notNull(body)) {
+				synchronized (session) {
+					session.removeAttribute("formSuccess");
+					session.setAttribute("formError",
+							"Select at least an area of interest for the discussion");
+				}
+				resp.sendRedirect(resp
+						.encodeRedirectURL("/ca/admin/discussion/form/new"));
+				return;
+			}
 
+			Object o1 = null;
+			synchronized (session) {
+				o1 = session.getAttribute(StringConstants.AZURE_USER);
+			}
+			if (o1 == null) {
+				return;
+			}
+
+			AzureUser user = (AzureUser) o1;
 			Discussion d = new Discussion();
 			d.setDateCreated(new Date());
 			d.setTitle(title);
-			String[] tgs = tags.split(";");
-			d.setTags(Arrays.asList(tgs));
+			String[] tgs = tags.split(",");
+			List<String> tagList = new ArrayList<>();
+			tagList.add(subject);
+			tagList.addAll(Arrays.asList(tgs));
+			tagList.addAll(Arrays.asList(classes));
+			tagList.addAll(Arrays.asList(departments));
+			d.setTags(tagList);
+			d.setLink(link);
 			d.setBody(new Text(body));
 			d.setFormat(format);
 			d.setImage(blobKey);
+			d.setOwner(KeyFactory.createKey(AzureUser.class.getSimpleName(),
+					user.getUserID()));
 
 			Key k1 = KeyFactory.stringToKey(group);
 			Object o = Util.getGroupFromCache(k1);
@@ -146,10 +189,9 @@ public class SaveDiscussion extends HttpServlet {
 						u.setDiscussions(keys);
 						d.setUnit(u.getId());
 						d.setCollection(c.getId());
-						
+
 						e = EntityConverter.unitToEntity(u);
 						e1 = EntityConverter.discussionToEntity(d);
-
 
 					} else {
 						synchronized (session) {
@@ -161,9 +203,9 @@ public class SaveDiscussion extends HttpServlet {
 								.encodeRedirectURL("/ca/admin/discussion/form/new"));
 
 					}
-					
-					GeneralController.createWithCrossGroup(e,e1);
-					
+
+					GeneralController.createWithCrossGroup(e, e1);
+
 					synchronized (session) {
 						session.removeAttribute("formError");
 						session.setAttribute("formSuccess",

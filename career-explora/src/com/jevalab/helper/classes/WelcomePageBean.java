@@ -1,86 +1,92 @@
 package com.jevalab.helper.classes;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
+
 
 public class WelcomePageBean implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	private String lastTest, validity, lastTestDate, id;
-
-	private Date subscriptionDate, lastSeenDate, expiryDate;
-
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-
-		this.id = id;
-	}
-
-	public String getLastTest() {
-		return lastTest;
-	}
-
-	public void setLastTest(String lastTest) {
-		this.lastTest = lastTest;
-	}
-
-	public String getLastTestDate() {
-		return lastTestDate;
-	}
-
-	public void setLastTestDate(String lastTestDate) {
-		this.lastTestDate = lastTestDate;
-	}
-
-	public String getValidity() {
-		return validity;
-	}
-
-	public void setValidity(String validity) {
-		this.validity = validity;
-	}
-
-	public Date getSubscriptionDate() {
-		return subscriptionDate;
-	}
-
-	public void setSubscriptionDate(Date subscriptionDate) {
-		this.subscriptionDate = subscriptionDate;
-	}
-
-	public Date getLastSeenDate() {
-		return lastSeenDate;
-	}
-
-	public void setLastSeenDate(Date lastSeenDate) {
-		this.lastSeenDate = lastSeenDate;
-	}
-
+	private static final long serialVersionUID = -4377293919591287101L;
+	
+	private String firstName, lastName, profileImg, backgroundImg, school, sClass;
+	private Integer offset;
+	private List<DiscussionBean> posts;
 	@Override
 	public String toString() {
-		return "WelcomePageBean [lastTest=" + lastTest + ", validity="
-				+ validity + ", lastTestDate=" + lastTestDate + ", id=" + id
-				+ ", subscriptionDate=" + subscriptionDate + ", lastSeenDate="
-				+ lastSeenDate + ", expiryDate=" + expiryDate + "]";
+		return "WelcomePageBean [firstName=" + firstName + ", lastName="
+				+ lastName + ", profileImg=" + profileImg + ", backgroundImg="
+				+ backgroundImg + ", school=" + school + ", sClass=" + sClass
+				+ ", posts=" + posts + "]";
 	}
 	
 	
+	
+
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+
+
+
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+
+
+
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+	public String getBackgroundImg() {
+		return backgroundImg;
+	}
+	public void setBackgroundImg(String backgroundImg) {
+		this.backgroundImg = backgroundImg;
+	}
+	public String getSchool() {
+		return school;
+	}
+	public void setSchool(String school) {
+		this.school = school;
+	}
+	public String getsClass() {
+		return sClass;
+	}
+	public void setsClass(String sClass) {
+		this.sClass = sClass;
+	}
+	public List<DiscussionBean> getPosts() {
+		return posts;
+	}
+	public void setPosts(List<DiscussionBean> posts) {
+		this.posts = posts;
+	}
+	public WelcomePageBean() {
+		super();
+	}
+		
 
 }

@@ -15,10 +15,10 @@ public class Discussion implements Serializable {
 	 */
 	private static final long serialVersionUID = 4381455774031590445L;
 	private Key id, owner;
-	private String title;
+	private String title,link;
 	private Text body;
 	private String format;
-	private List<Key> comments;
+	private List<Key> subscribers, likers;
 	private Date dateCreated;
 	private List<String> tags;
 	private BlobKey image;
@@ -26,17 +26,49 @@ public class Discussion implements Serializable {
 	private long shares;
 	private Key unit;
 	private Key collection;
+	private Key parent;
+
 
 	@Override
 	public String toString() {
 		return "Discussion [id=" + id + ", owner=" + owner + ", title=" + title
-				+ ", body=" + body + ", format=" + format + ", comments="
-				+ comments + ", dateCreated=" + dateCreated + ", tags=" + tags
+				+ ", body=" + body + ", format=" + format + ", subscribers="
+				+ subscribers + ", dateCreated=" + dateCreated + ", tags=" + tags
 				+ ", image=" + image + ", likes=" + likes + ", shares="
 				+ shares + "]";
 	}
-
 	
+	
+	public Key getParent() {
+		return parent;
+	}
+
+
+	public void setParent(Key parent) {
+		this.parent = parent;
+	}
+
+
+	public List<Key> getLikers() {
+		return likers;
+	}
+
+
+	public void setLikers(List<Key> likers) {
+		this.likers = likers;
+	}
+
+
+	public String getLink() {
+		return link;
+	}
+
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+
 	public Key getUnit() {
 		return unit;
 	}
@@ -97,13 +129,15 @@ public class Discussion implements Serializable {
 		this.format = format;
 	}
 
-	public List<Key> getComments() {
-		return comments;
+	public List<Key> getSubscribers() {
+		return subscribers;
 	}
 
-	public void setComments(List<Key> comments) {
-		this.comments = comments;
+
+	public void setSubscribers(List<Key> subscribers) {
+		this.subscribers = subscribers;
 	}
+
 
 	public Date getDateCreated() {
 		return dateCreated;

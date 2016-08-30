@@ -127,27 +127,15 @@ public class LoginHelper {
 
 	public static WelcomePageBean initWelcomePageBean(AzureUser user) {
 		WelcomePageBean wpb = new WelcomePageBean();
-		
-		wpb.setValidity(user.getValidity());
-		
-		wpb.setSubscriptionDate(user.getSubscriptionDate());
-		wpb.setLastSeenDate(user.getLastSeenDate());
-		wpb.setId(user.getUserID());
-		wpb.setExpiryDate(user.getExpiryDate());
-
-		if (user.getLastTestTaken() != null) {
-			Map<String, String> map = getLastTestData(user.getLastTestTaken());
-			if (!map.isEmpty()) {
-				wpb.setLastTest(map.get(StringConstants.TEST_NAME));
-				wpb.setLastTestDate(map.get(StringConstants.TEST_DATE));
-			} else {
-				wpb.setLastTestDate(null);
-			}
-
-		} else {
-			wpb.setLastTestDate(null);
-		}
-
+		wpb.setBackgroundImg(user.getCover());
+		wpb.setFirstName(user.getFirstName());
+		wpb.setLastName(user.getLastName());
+		Map<String, Object> map = Util.getPreferredPosts(user,0);
+		wpb.setOffset((Integer) map.get("offset"));
+		wpb.setPosts((List<DiscussionBean>) map.get("post"));
+		wpb.setProfileImg(user.getPicture());
+		wpb.setSchool(user.getSchool());
+		wpb.setsClass(Util.getClassValue(user.getsClass()));
 		return wpb;
 	}
 
@@ -541,6 +529,8 @@ public class LoginHelper {
 		e.setUnindexedProperty(StringConstants.cOldPasswords, user.getOldPasswords());
 		e.setUnindexedProperty(StringConstants.cUserPicturesIds,user.getUserPicturesIds() );
 		e.setUnindexedProperty(StringConstants.cFreeAccess, user.isFreeAccess());
+		e.setIndexedProperty("Class", user.getsClass());
+		e.setIndexedProperty("AreaOfInterest", user.getAreaOfInterest());
 		return e;
 	}
 

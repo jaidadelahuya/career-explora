@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.CompositeFilter;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -28,6 +27,7 @@ import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
 import com.jevalab.helper.classes.EntityConverter;
+import com.jevalab.helper.classes.Util;
 
 public class GeneralController {
 
@@ -141,21 +141,90 @@ public class GeneralController {
 
 	public static AzureUser findUserByLogin(String email, String password) {
 		Query q = new Query(AzureUser.class.getSimpleName());
-		Filter f = new FilterPredicate("EMail",
-						FilterOperator.EQUAL, email.trim().toLowerCase());
+		Filter f = new FilterPredicate("EMail", FilterOperator.EQUAL, email
+				.trim().toLowerCase());
 		q.setFilter(f);
 		PreparedQuery pq = ds.prepare(q);
 		if (pq.countEntities(FetchOptions.Builder.withDefaults()) == 1) {
 			AzureUser u = EntityConverter.entityToUser(pq.asSingleEntity());
-			if(u.getPassword()!=null && u.getPassword().equals(password)) {
+			if (u.getPassword() != null && u.getPassword().equals(password)) {
 				return u;
-			}else {
+			} else {
 				return null;
 			}
-			
+
 		} else {
 			return null;
 		}
+	}
+
+	public static Map<String, Object> getPreferredPosts(AzureUser user,
+			int offset) {
+		Query q = new Query(Discussion.class.getSimpleName());
+	
+
+		String clss = user.getsClass();
+		List<String> ints = user.getAreaOfInterest();
+		List<String> interest = Util.toInterestValues(ints);
+		Filter f0 = new FilterPredicate("subscriber", FilterOperator.EQUAL,
+				KeyFactory.createKey(AzureUser.class.getSimpleName(),
+						user.getUserID()));
+		Filter f4 = new FilterPredicate("owner", FilterOperator.EQUAL,
+				KeyFactory.createKey(AzureUser.class.getSimpleName(),
+						user.getUserID()));
+		List<Filter> fs = new ArrayList<>();
+		fs.add(f0);
+		fs.add(f4);
+		for (String s : interest) {
+			fs.add(new FilterPredicate("tags", FilterOperator.EQUAL, s));
+		}
+		Filter f1 = new FilterPredicate("tags", FilterOperator.EQUAL, clss);
+		Filter f2 = new Query.CompositeFilter(CompositeFilterOperator.OR, fs);
+		List<Filter> fs1 = new ArrayList<>();
+		fs1.add(f1);
+		fs1.add(f2);
+		Filter f3 = new Query.CompositeFilter(CompositeFilterOperator.AND, fs1);
+		q.setFilter(f3);
+		q.addSort("dateCreated", SortDirection.DESCENDING);
+		PreparedQuery pq = ds.prepare(q);
+		FetchOptions options = FetchOptions.Builder.withLimit(10);
+			options.offset(offset*10);
+		List<Discussion> articles = new ArrayList<>();
+		QueryResultList<Entity> rs = pq.asQueryResultList(options);
+		Iterator<Entity> ents = rs.iterator();
+		if (rs.size() < 10) {
+			offset = 0;
+		}else {
+			offset++;
+		}
+		while (ents.hasNext()) {
+			articles.add(EntityConverter.entityToDiscussion(ents.next()));
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("post", articles);
+		map.put("offset", offset);
+		return map;
+	}
+
+	public static List<Entity> getComments(Key key, String cursor) {
+		Query q = new Query(Discussion.class.getSimpleName());
+		Cursor s = null;
+		FetchOptions options = null;
+		if(cursor != null) {
+			 s = Cursor.fromWebSafeString(cursor);
+			 options = FetchOptions.Builder.withStartCursor(s).limit(10); 
+		}else {
+			options = FetchOptions.Builder.withLimit(10);
+		}
+		Filter f = new FilterPredicate("parent", FilterOperator.EQUAL, key);
+		q.setFilter(f);
+		PreparedQuery pq = ds.prepare(q);
+		QueryResultList<Entity> r = pq.asQueryResultList(options);
+		Cursor cur = r.getCursor();
+		return null;
+			
+
+		
 	}
 
 }

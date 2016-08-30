@@ -94,8 +94,8 @@ public class TokenVerifyServlet extends HttpServlet {
 						UsedKey usk = new UsedKey(key.trim());
 						usk.setValidity(uk.getValidity());
 						UsedKeyJpaController c2 = new UsedKeyJpaController();
-						c2.create(usk);
 						c1.destroy(key.trim());
+						c2.create(usk);
 
 					} catch (NonexistentEntityException e) {
 						// TODO Auto-generated catch block

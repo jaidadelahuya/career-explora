@@ -51,7 +51,7 @@
 							</div>
 						</div>
 					</form>
-					<a id="continue" href="<c:url value="/azure/success"/>"></a>
+					<a id="continue" href="<c:url value="/azure/interest/select"/>"></a>
 					
 				</div>
 				

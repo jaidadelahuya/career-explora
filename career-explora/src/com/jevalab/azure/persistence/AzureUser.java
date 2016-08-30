@@ -21,8 +21,8 @@ import javax.persistence.Transient;
 
 import org.datanucleus.api.jpa.annotations.Extension;
 
+import com.google.appengine.api.datastore.Key;
 import com.jevalab.helper.classes.LoginHelper;
-import com.jevalab.helper.classes.PasswordRecovery;
 import com.jevalab.helper.classes.RegistrationForm;
 import com.jevalab.helper.classes.StringConstants;
 import com.jevalab.helper.classes.UpdateHelperClass;
@@ -143,6 +143,16 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	@Column(name = "OldPasswords")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private List<String> oldPasswords;
+	
+	@Basic
+	@Column(name = "Communities")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
+	private List<Key> communities;
+	
+	@Basic
+	@Column(name = "AreaOfInterest")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
+	private List<String> areaOfInterest;
 
 	@Basic
 	@Column(name = "LastPasswordChangeDate")
@@ -151,11 +161,17 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	@Basic
 	@Column(name = "PasswordRecoveryIds")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private Set<String> passwordRecoveryIds;
 
 	@Basic
 	@Column(name = "UserPicturesIds")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private Set<String> UserPicturesIds;
+	
+
+	@Column(name = "Class")
+	private String sClass;
 
 	@Transient
 	private boolean newUser;
@@ -165,6 +181,32 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	@Transient
 	private boolean fromAuthorization;
+	
+	
+
+	public String getsClass() {
+		return sClass;
+	}
+
+	public void setsClass(String sClass) {
+		this.sClass = sClass;
+	}
+
+	public List<String> getAreaOfInterest() {
+		return areaOfInterest;
+	}
+
+	public void setAreaOfInterest(List<String> areaOfInterest) {
+		this.areaOfInterest = areaOfInterest;
+	}
+
+	public List<Key> getCommunities() {
+		return communities;
+	}
+
+	public void setCommunities(List<Key> communities) {
+		this.communities = communities;
+	}
 
 	public boolean isFreeAccess() {
 		return freeAccess;
@@ -635,6 +677,8 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 				.getProperty(StringConstants.cLastPasswordChangeDate);
 		this.UserPicturesIds = (Set<String>) e
 				.getProperty(StringConstants.cUserPicturesIds);
+		this.setsClass((String) e.getProperty("Class"));
+		this.setAreaOfInterest((List<String>) e.getProperty("AreaOfInterest"));
 		Object o = e.getProperty(StringConstants.cFreeAccess);
 		if (o != null) {
 			this.freeAccess = (boolean) e

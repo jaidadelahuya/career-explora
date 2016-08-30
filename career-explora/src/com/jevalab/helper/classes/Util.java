@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -38,10 +39,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.urlfetch.FetchOptions;
@@ -52,9 +57,11 @@ import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.gson.Gson;
+import com.jevalab.azure.persistence.Article;
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.Collection;
 import com.jevalab.azure.persistence.Community;
+import com.jevalab.azure.persistence.Discussion;
 import com.jevalab.azure.persistence.GeneralController;
 import com.jevalab.azure.persistence.MultipleIntelligenceTestQuestion;
 import com.jevalab.azure.persistence.MultipleIntelligenceTestQuestionJpaController;
@@ -76,11 +83,12 @@ import com.twilio.sdk.resource.factory.MessageFactory;
 public class Util {
 
 	private final static Logger LOGGER = Logger.getLogger(Util.class.getName());
-	private static final MemcacheService GROUPS = MemcacheServiceFactory.getMemcacheService("groups");
+	private static final MemcacheService GROUPS = MemcacheServiceFactory
+			.getMemcacheService("groups");
 	static {
 		LOGGER.setLevel(Level.FINEST);
 	}
-	
+
 	public static boolean notNull(String... args) {
 		if (args == null) {
 			return false;
@@ -401,8 +409,6 @@ public class Util {
 			record.setCbtData(new Text(data));
 			record.setVendor(VENDOR);
 
-			wpb.setLastTest(record.getTestName());
-			wpb.setLastTestDate(record.getTestDate());
 			user.setLastTestTaken(KeyFactory.keyToString(record.getKey()));
 			RecordJpaController cont = new RecordJpaController();
 
@@ -752,8 +758,7 @@ public class Util {
 		if (wpb == null) {
 			return false;
 		} else {
-			wpb.setLastTest(record.getTestName());
-			wpb.setLastTestDate(record.getTestDate());
+
 			return true;
 		}
 	}
@@ -1301,7 +1306,7 @@ public class Util {
 			}
 
 		}
-		
+
 		// 3. Post above command to Paypal IPN URL
 		FetchOptions options = FetchOptions.Builder.withDeadline(60.00);
 		HTTPRequest outRequest = null;
@@ -1326,12 +1331,12 @@ public class Util {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		IpnHandler handler = new IpnHandler();
 		boolean complete = false;
 		try {
 			IpnInfo info = handler.handleIpn(res, req, params);
-			if(info==null) {
+			if (info == null) {
 				complete = false;
 			} else {
 				complete = true;
@@ -1346,23 +1351,162 @@ public class Util {
 	public static Object getGroupFromCache(Key k1) {
 		Object o = null;
 		o = GROUPS.get(k1);
-		if(o == null) {
+		if (o == null) {
 			Entity e = GeneralController.findByKey(k1);
 			String kind = e.getKind();
-			if(kind.equals(Collection.class.getSimpleName())) {
+			if (kind.equals(Collection.class.getSimpleName())) {
 				Collection col = EntityConverter.entityToCollection(e);
 				GROUPS.put(col.getId(), col);
 				o = col;
-			}else if(kind.equals(Community.class.getSimpleName())) {
+			} else if (kind.equals(Community.class.getSimpleName())) {
 				Community com = EntityConverter.entityToCommunity(e);
 				GROUPS.put(com.getId(), com);
 				o = com;
 			}
 			return o;
-			
+
 		} else {
 			return o;
 		}
+	}
+
+	public static Map<String, Object> getPreferredPosts(AzureUser user,
+			int offset) {
+		Map<String, Object> map = GeneralController.getPreferredPosts(user,
+				offset);
+		List<Discussion> articles = (List<Discussion>) map.get("post");
+		List<DiscussionBean> beans = new ArrayList<>();
+		for (Discussion a : articles) {
+			beans.add(Util.toDiscussionBean(a,user));
+		}
+		Map<String, Object> nMap = new HashMap<>();
+		nMap.put("post", beans);
+		nMap.put("offset", map.get("offset"));
+		return nMap;
+	}
+
+	private static DiscussionBean toDiscussionBean(Discussion a, AzureUser currentUser) {
+		DiscussionBean d = new DiscussionBean();
+		if (a != null) {
+			if (a.getOwner() != null) {
+				AzureUser u = new UserJpaController().findUser(a.getOwner()
+						.getName());
+				
+				if(u.getValidity().equals("ADMIN")) {
+					d.setAuthorImage("/images/admin-avatar/tav2.jpg");
+					d.setAuthor("Admin");
+				}else {
+					d.setAuthorImage(u.getPicture());
+					d.setAuthor(u.getFirstName() + " " + u.getLastName());
+				}
+				
+				if (a.getLikers() != null
+						&& a.getLikers().contains(
+								KeyFactory.createKey(
+										AzureUser.class.getSimpleName(),
+										currentUser.getUserID()))) {
+					d.setLiked(true);
+					d.setLikes(a.getLikers().size());
+				}
+			} else {
+				d.setAuthor("Career Explora");
+				d.setAuthorImage("/images/male-unknown-user.jpg");
+			}
+
+			d.setBody(a.getBody().getValue());
+
+			d.setPictureUrl(getPictureUrl(a.getImage()));
+			d.setPostDate(new SimpleDateFormat("dd-MMM-yyyy").format(a
+					.getDateCreated()));
+			String text = a.getBody().getValue();
+			if (text.length() > 400) {
+				int i = text.indexOf(" ", 300);
+				String aStr = text.substring(0, i);
+				String bStr = text.substring(i);
+				d.setRemainingSnippet(bStr);
+				d.setSnippet(aStr);
+			} else {
+				d.setSnippet(text);
+			}
+			d.setTitle(a.getTitle());
+			d.setWebkey(KeyFactory.keyToString(a.getId()));
+			if (a.getLink() != null) {
+				d.setLink(a.getLink());
+			}
+
+		}
+		return d;
+	}
+
+	public static String getClassValue(String sClass) {
+		String c = null;
+		switch (sClass) {
+		case "1":
+			c = StringConstants.CLASS1;
+			break;
+		case "2":
+			c = StringConstants.CLASS2;
+			break;
+		case "3":
+			c = StringConstants.CLASS3;
+			break;
+		case "4":
+			c = StringConstants.CLASS4;
+			break;
+		case "5":
+			c = StringConstants.CLASS5;
+			break;
+		case "6":
+			c = StringConstants.CLASS6;
+			break;
+		case "7":
+			c = StringConstants.CLASS7;
+			break;
+		case "8":
+			c = StringConstants.CLASS8;
+			break;
+		case "9":
+			c = StringConstants.CLASS9;
+			break;
+		case "10":
+			c = StringConstants.CLASS10;
+			break;
+		case "11":
+			c = StringConstants.CLASS11;
+			break;
+		case "12":
+			c = StringConstants.CLASS12;
+			break;
+		}
+		return c;
+	}
+
+	public static String getPictureUrl(BlobKey key) {
+		if (key == null) {
+			return null;
+		} else {
+			ServingUrlOptions suo = ServingUrlOptions.Builder.withBlobKey(key);
+			ImagesService is = ImagesServiceFactory.getImagesService();
+			return is.getServingUrl(suo);
+		}
+	}
+
+	public static List<String> toInterestValues(List<String> ints) {
+		List<String> list = new ArrayList<>();
+		for (String s : ints) {
+			switch (s) {
+			case "1":
+				list.add("Art");
+				break;
+			case "2":
+				list.add("Commercial");
+				break;
+			case "3":
+				list.add("Science");
+				break;
+			}
+		}
+		return list;
 	}
 
 }

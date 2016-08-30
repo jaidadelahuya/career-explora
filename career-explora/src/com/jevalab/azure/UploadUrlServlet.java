@@ -11,6 +11,7 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.blobstore.UploadOptions;
 import com.jevalab.exceptions.InvalidLoginException;
+import com.jevalab.helper.classes.Util;
 
 
 public class UploadUrlServlet extends HttpServlet {
@@ -27,13 +28,17 @@ public class UploadUrlServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
+		String url = req.getParameter("url");
+		if(!Util.notNull(url)){
+			url = CALlBACK;
+		}
 		
 		if(session.isNew()) {
 			throw new InvalidLoginException();
 		} else {
 			BlobstoreService bss = BlobstoreServiceFactory.getBlobstoreService();
-			UploadOptions upo = UploadOptions.Builder.withMaxUploadSizeBytesPerBlob(1024*1024*1024).maxUploadSizeBytes(1024*1024*1024);
-			String upLoadUrl = bss.createUploadUrl(CALlBACK,upo);
+			UploadOptions upo = UploadOptions.Builder.withMaxUploadSizeBytesPerBlob(2*1024*1024).maxUploadSizeBytes(2*1024*1024);
+			String upLoadUrl = bss.createUploadUrl(url,upo);
 			
 			resp.setContentType("text/html");
 			req.setAttribute("uploadUrl", upLoadUrl);

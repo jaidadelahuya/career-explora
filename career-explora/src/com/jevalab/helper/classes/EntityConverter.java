@@ -45,6 +45,8 @@ public class EntityConverter {
 		u.setSchool((String) e.getProperty("School"));
 		u.setState((String) e.getProperty("State"));
 		u.setSubscriptionDate((Date) e.getProperty("SubscriptionDate"));
+		u.setsClass((String) e.getProperty("Class"));
+		u.setAreaOfInterest((List<String>) e.getProperty("AreaOfInterest"));
 		Object o = e.getProperty("TakenTalentTest");
 		if(o!=null) {
 			u.setTakenTalentTest((boolean)o );
@@ -66,9 +68,10 @@ public class EntityConverter {
 	
 	public static Entity commentToEntity(Comment c) {
 		Entity e = new Entity(c.getId());
-		e.setUnindexedProperty("author", c.getAuthor());
+		e.setIndexedProperty("author", c.getAuthor());
+		e.setIndexedProperty("discussion", c.getDiscussion());
 		e.setUnindexedProperty("comments", c.getComments());
-		e.setUnindexedProperty("dateCreated", c.getDateCreated());
+		e.setIndexedProperty("dateCreated", c.getDateCreated());
 		e.setUnindexedProperty("likes",c.getLikes());
 		return e;
 	}
@@ -80,6 +83,7 @@ public class EntityConverter {
 		c.setComments((List<Key>) e.getProperty("comments"));
 		c.setDateCreated((Date) e.getProperty("dateCreated"));
 		c.setLikes((long) e.getProperty("likes"));
+		c.setDiscussion((Key) e.getProperty("discussion"));
 		return c;
 	}
 	
@@ -139,13 +143,16 @@ public class EntityConverter {
 		e.setIndexedProperty("likes", d.getLikes());
 		e.setIndexedProperty("shares", d.getShares());
 		e.setUnindexedProperty("body", d.getBody());
-		e.setUnindexedProperty("comments", d.getComments());
+		e.setIndexedProperty("subscribers", d.getSubscribers());
 		e.setUnindexedProperty("image", d.getImage());
-		e.setUnindexedProperty("owner", d.getOwner());
-		e.setUnindexedProperty("tags", d.getTags());
-		e.setUnindexedProperty("title", d.getTitle());
+		e.setIndexedProperty("owner", d.getOwner());
+		e.setIndexedProperty("tags", d.getTags());
+		e.setIndexedProperty("title", d.getTitle());
 		e.setIndexedProperty("collection", d.getCollection());
 		e.setIndexedProperty("unit", d.getUnit());
+		e.setUnindexedProperty("link", d.getLink());
+		e.setUnindexedProperty("likers", d.getLikers());
+		e.setIndexedProperty("parent", d.getParent());
 		return e;
 	}
 	
@@ -153,7 +160,7 @@ public class EntityConverter {
 		Discussion d = new Discussion();
 		d.setId(e.getKey());
 		d.setBody((Text) e.getProperty("body"));
-		d.setComments((List<Key>) e.getProperty("comments"));
+		d.setSubscribers((List<Key>) e.getProperty("subscribers"));
 		d.setDateCreated((Date) e.getProperty("dateCreated"));
 		d.setFormat((String) e.getProperty("format"));
 		d.setImage((BlobKey) e.getProperty("image"));
@@ -164,8 +171,9 @@ public class EntityConverter {
 		d.setTitle((String) e.getProperty("title"));
 		d.setUnit((Key) e.getProperty("unit"));
 		d.setCollection((Key) e.getProperty("collection"));
-		
-		
+		d.setLink((String) e.getProperty("link"));
+		d.setLikers((List<Key>) e.getProperty("likers"));
+		d.setParent((Key) e.getProperty("parent"));
 		return d;
 	}
 	

@@ -5,6 +5,77 @@
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<servlet>
+		<servlet-name>AddComment</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.AddComment</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddComment</servlet-name>
+		<url-pattern>/azure/post/comment</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddLike</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.AddLike</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddLike</servlet-name>
+		<url-pattern>/azure/post/like</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SavePost</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.SavePost</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SavePost</servlet-name>
+		<url-pattern>/azure/post/save</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ServeNewImageServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.ServeNewImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServeNewImageServlet</servlet-name>
+		<url-pattern>/azure/post/image/new</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProfilePicturesUploader</servlet-name>
+		<servlet-class>com.jevalab.azure.ProfilePicturesUploader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProfilePicturesUploader</servlet-name>
+		<url-pattern>/azure/interest/profile/picture/upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddDefaultPicture</servlet-name>
+		<servlet-class>com.jevalab.azure.AddDefaultPicture</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddDefaultPicture</servlet-name>
+		<url-pattern>/azure/interest/profile/picture/default/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddMajorInterest</servlet-name>
+		<servlet-class>com.jevalab.azure.AddMajorInterest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddMajorInterest</servlet-name>
+		<url-pattern>/azure/interest/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SelectInterest</servlet-name>
+		<jsp-file>/WEB-INF/select-interest.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectInterest</servlet-name>
+		<url-pattern>/azure/interest/select</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>CreateAdminUserForm</servlet-name>
 		<jsp-file>/pages/create-admin-user.jsp</jsp-file>
 	</servlet>
@@ -16,7 +87,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>AdminCreateUser</servlet-name>
 		<servlet-class>com.jevalab.azure.admin.CreateUser</servlet-class>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>AdminCreateUser</servlet-name>
 		<url-pattern>/ca/admin/user/create</url-pattern>
@@ -58,14 +128,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/_ah/sessioncleanup</url-pattern>
 	</servlet-mapping>
 	
-	<security-constraint>
-		<web-resource-collection>
-			<url-pattern>/_ah/sessioncleanup</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-	</security-constraint>
+	
 	
 	<servlet>
 		<servlet-name>AdminAuthServlet</servlet-name>
@@ -232,7 +295,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WelcomePage</servlet-name>
-		<url-pattern>/welcome</url-pattern>
+		<url-pattern>/azure/welcome</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -261,23 +324,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>PaymentPending</servlet-name>
 		<url-pattern>/payment-pending</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>SecurityServlet</servlet-name>
-		<servlet-class>com.jevalab.azure.SecurityServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SecurityServlet</servlet-name>
+	
+	<filter>
+		<filter-name>SecurityFliter</filter-name>
+		<filter-class>com.jevalab.azure.SecurityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SecurityFliter</filter-name>
 		<url-pattern>/azure/*</url-pattern>
-	</servlet-mapping>
-
+	</filter-mapping>
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.jevalab.azure.LoginServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
-		<url-pattern>/success</url-pattern>
+		<url-pattern>/azure/success</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Logout</servlet-name>
@@ -639,14 +701,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/resendcode</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>EditUsernameServlet</servlet-name>
-		<servlet-class>com.jevalab.azure.EditUsernameServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EditUsernameServlet</servlet-name>
-		<url-pattern>/editusername-mobile</url-pattern>
-	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>TagServlet</servlet-name>
 		<servlet-class>com.jevalab.azure.TagServlet</servlet-class>
@@ -663,6 +718,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>EditUsernameServlet</servlet-name>
 		<url-pattern>/editusername-email</url-pattern>
+		<url-pattern>/editusername-mobile</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

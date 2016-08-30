@@ -85,7 +85,7 @@ $(document)
 
 					$(".login-button").click(function() {
 						var $form = $(this).closest('form');
-						$form.prop('action', "/azure/login");
+						$form.prop('action', "/login");
 						$form.submit();
 					});
 

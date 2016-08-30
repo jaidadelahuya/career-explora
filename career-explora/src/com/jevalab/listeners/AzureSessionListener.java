@@ -31,6 +31,7 @@ public class AzureSessionListener implements HttpSessionListener {
 		AzureUser user = null;
 		if(o!=null) {
 			user = (AzureUser) o;
+			
 			LoginHelper.persistUser(user, null);
 		}	
 	}

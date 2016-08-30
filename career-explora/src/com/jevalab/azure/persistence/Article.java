@@ -30,6 +30,7 @@ public class Article implements Serializable {
 	private Link link;
 	private Text video;
 	private List<String> tags;
+	private List<Key> likers;
 
 	
 	@Override
@@ -42,8 +43,21 @@ public class Article implements Serializable {
 				+ ", link=" + link + ", video=" + video + ", tags=" + tags
 				+ "]";
 	}
+	
+	
 
 	
+	public List<Key> getLikers() {
+		return likers;
+	}
+
+	public void setLikers(List<Key> likers) {
+		this.likers = likers;
+	}
+
+
+
+
 	public Link getLink() {
 		return link;
 	}

@@ -15,6 +15,7 @@ public class Comment implements Serializable {
 	
 	private Key id;
 	private Key author;
+	private Key discussion;
 	private Date dateCreated;
 	private long likes;
 	private List<Key> comments;
@@ -26,6 +27,14 @@ public class Comment implements Serializable {
 		return "Comment [id=" + id + ", author=" + author + ", dateCreated="
 				+ dateCreated + ", likes=" + likes + ", comments=" + comments
 				+ "]";
+	}
+	
+	
+	public Key getDiscussion() {
+		return discussion;
+	}
+	public void setDiscussion(Key discussion) {
+		this.discussion = discussion;
 	}
 	public Key getId() {
 		return id;
