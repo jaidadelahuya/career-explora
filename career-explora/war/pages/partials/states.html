@@ -1,0 +1,85 @@
+<select multiple name="state">
+	<c:if test="${empty userProfile.state}">
+		<option value="" disabled selected>Select your current state</option>
+	</c:if>
+	<option <c:if test='${userProfile.grade eq "Abia"}'>selected</c:if> >Abia
+	</option>
+	<option <c:if test='${userProfile.grade eq "Abuja"}'>selected</c:if> >Abuja
+	</option>
+	<option <c:if test='${userProfile.grade eq "Adamawa"}'>selected</c:if> >Adamawa
+	</option>
+	<option <c:if test='${userProfile.grade eq "Anambra"}'>selected</c:if> >Anambra
+	</option>
+	<option <c:if test='${userProfile.grade eq "Akwa Ibom"}'>selected</c:if> >Akwa
+		Ibom
+	</option>
+	<option <c:if test='${userProfile.grade eq "Bauchi"}'>selected</c:if> >Bauchi
+	</option>
+	<option <c:if test='${userProfile.grade eq "Bayelsa"}'>selected</c:if> >Bayelsa
+	</option>
+	<option <c:if test='${userProfile.grade eq "Benue"}'>selected</c:if> >Benue
+	</option>
+	<option <c:if test='${userProfile.grade eq "Borno"}'>selected</c:if> >Borno
+	</option>
+	<option <c:if test='${userProfile.grade eq "Cross River"}'>selected</c:if> >Cross
+		River
+	</option>
+	<option <c:if test='${userProfile.grade eq "Delta"}'>selected</c:if> >Delta
+	</option>
+	<option <c:if test='${userProfile.grade eq "Ebonyi"}'>selected</c:if> >Ebonyi
+	</option>
+	<option <c:if test='${userProfile.grade eq "Enugu"}'>selected</c:if> >Enugu
+	</option>
+	<option <c:if test='${userProfile.grade eq "Edo"}'>selected</c:if> >Edo
+	</option>
+	<option <c:if test='${userProfile.grade eq "Ekiti"}'>selected</c:if> >Ekiti
+	</option>
+	<option <c:if test='${userProfile.grade eq "Gombe"}'>selected</c:if> >Gombe
+	</option>
+	<option <c:if test='${userProfile.grade eq "Imo"}'>selected</c:if> >Imo
+	</option>
+	<option <c:if test='${userProfile.grade eq "Jigawa"}'>selected</c:if> >Jigawa
+	</option>
+	<option <c:if test='${userProfile.grade eq "Kaduna"}'>selected</c:if> >Kaduna
+	</option>
+	<option <c:if test='${userProfile.grade eq "Kano"}'>selected</c:if> >Kano
+	</option>
+	<option <c:if test='${userProfile.grade eq "Katsina"}'>selected</c:if> >Katsina
+	</option>
+	<option <c:if test='${userProfile.grade eq "Kebbi"}'>selected</c:if> >Kebbi
+	</option>
+	<option <c:if test='${userProfile.grade eq "Kogi"}'>selected</c:if> >Kogi
+	</option>
+	<option <c:if test='${userProfile.grade eq "Kwara"}'>selected</c:if> >Kwara
+	</option>
+	<option <c:if test='${userProfile.grade eq "Lagos"}'>selected</c:if> >Lagos
+	</option>
+	<option <c:if test='${userProfile.grade eq "Nasarawa"}'>selected</c:if> >Nasarawa
+	</option>
+	<option <c:if test='${userProfile.grade eq "Niger"}'>selected</c:if> >Niger
+	</option>
+	<option <c:if test='${userProfile.grade eq "Ogun"}'>selected</c:if> >Ogun
+	</option>
+	<option <c:if test='${userProfile.grade eq "Ondo"}'>selected</c:if> >Ondo
+	</option>
+	<option <c:if test='${userProfile.grade eq "Osun"}'>selected</c:if> >Osun
+	</option>
+	<option <c:if test='${userProfile.grade eq "Oyo"}'>selected</c:if> >Oyo
+	</option>
+	<option <c:if test='${userProfile.grade eq "Plateau"}'>selected</c:if> >Plateau
+	</option>
+	<option <c:if test='${userProfile.grade eq "Rivers"}'>selected</c:if> >Rivers
+	</option>
+	<option <c:if test='${userProfile.grade eq "Sokoto"}'>selected</c:if> >Sokoto
+	</option>
+	<option <c:if test='${userProfile.grade eq "Taraba"}'>selected</c:if> >Taraba
+	</option>
+	<option <c:if test='${userProfile.grade eq "Yobe"}'>selected</c:if> >Yobe
+	</option>
+	<option <c:if test='${userProfile.grade eq "Zamfara"}'>selected</c:if> >Zamfara
+	</option>
+	<option <c:if test='${userProfile.grade eq "Other"}'>selected</c:if> >Other
+	</option>
+
+</select>
+<label>State</label>

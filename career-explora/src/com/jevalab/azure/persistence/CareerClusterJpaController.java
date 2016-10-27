@@ -115,6 +115,8 @@ public class CareerClusterJpaController {
 
     private List<CareerCluster> findCareerClusterEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
+        
+        
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(CareerCluster.class));

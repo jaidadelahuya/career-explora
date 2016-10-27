@@ -1,21 +1,5 @@
 function initModals() {
 
-	var url = $("#picture-url").val();
-	var username = $("#user-first-name").val() + " "
-			+ $("#user-last-name").val()
-
-	$('#start-cbt').on('click', function(event) {
-
-		var time = validateTime($('#time'));
-		var question = validateQuestions($('#questions'));
-		var pass = validatepassMark($('#pass-percentage'));
-
-		if (time && question && pass) {
-			openCbtWindow(url, username);
-		}
-
-	});
-
 	$('.start-personal-style').on('click', function() {
 		openPersonalStyleWindow(id, url, username);
 	});
@@ -33,10 +17,7 @@ function initModals() {
 		openCareerValuesWindow(id, url, username);
 	});
 
-	$('.start-talent-test').on('click', function() {
-		var test = $(this).prop('value');
-		openTalentHuntWindow(test, id, url, username);
-	});
+	
 
 	$('.start-skill-builder').on('click', function() {
 			openSkillBuilderWindow(id, url, username);
@@ -195,65 +176,11 @@ function logout() {
 	});
 }
 
-function validateTime(elem) {
-	var text = elem.val();
-	var err = $("#time-error-div");
-	var isPInt = false
-	if ($.isNumeric(text) && Math.floor(text) == text && text > 0) {
-		isPInt = true;
-	}
 
-	if (text == null || text == "" || !isPInt) {
-		elem.closest('div').addClass('has-error');
-		err.text('enter a positive integer greater than 0');
-		return false;
-	} else {
-		elem.closest('div').removeClass('has-error');
-		err.text('');
-		return true;
-	}
 
-}
 
-function validateQuestions(elem) {
-	var text = elem.val();
-	var err = $("#questions-error-div");
-	err.text('enter a positive integer not greater than 50');
-	var isPInt = false;
-	if ($.isNumeric(text) && Math.floor(text) == text && text > 0 && text < 51) {
-		isPInt = true;
-	}
 
-	if (text == null || text == "" || !isPInt) {
-		elem.closest('div').addClass('has-error');
-		err.text('enter a positive integer not greater than 50');
-		return false;
-	} else {
-		elem.closest('div').removeClass('has-error');
-		err.text('');
-		return true;
-	}
 
-}
-
-function validatepassMark(elem) {
-	var text = elem.val();
-	var err = $("#pass-error-div");
-	var isPInt = false;
-	if ($.isNumeric(text) && Math.floor(text) == text && text > 0 && text < 101) {
-		isPInt = true;
-	}
-
-	if (text == null || text == "" || !isPInt) {
-		elem.closest('div').addClass('has-error');
-		err.text('enter a positive integer not greater than 100');
-		return false;
-	} else {
-		elem.closest('div').removeClass('has-error');
-		err.text('');
-		return true;
-	}
-}
 
 function openPersonalStyleWindow(userid, imgUrl, username) {
 
@@ -315,25 +242,7 @@ function openMultipleIntelligenceTestWindow(userid, imgUrl, username) {
 	$("#multiple-intelligence-dialog").modal('hide');
 }
 
-function openCbtWindow(src, username) {
 
-	var $sub = $('#subject').val();
-	var $time = $('#time').val();
-	var $questions = $('#questions').val();
-	var $passmark = $('#pass-percentage').val();
-	var imageUrl = src;
-	var user = username;
-	var win = window.open("/pages/cbt.html", "CBT",
-			"toolbar=yes, scrollbars=yes, fullscreen=1");
-	win.subject = $sub;
-	win.time = $time;
-	win.questions = $questions;
-	win.passmark = $passmark;
-	win.imageUrl = imageUrl;
-	win.username = user;
-	$('#cbt-dialog').modal('hide');
-
-}
 
 function saveProfileName() {
 	var myForm = $("#edit-name-form");

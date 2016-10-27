@@ -9,11 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jevalab.azure.persistence.AzureUser;
+import com.jevalab.azure.profile.UserProfile;
 import com.jevalab.exceptions.InvalidLoginException;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
+
 
 public class EditProfileServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2042723459590485658L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -33,6 +39,7 @@ public class EditProfileServlet extends HttpServlet {
 			if(o != null && o1 != null) {
 				
 				AzureUser user = (AzureUser) o;
+			
 				UserProfile profile = (UserProfile) o1;
 				
 				String propertyType = req.getParameter("propertyType");
@@ -50,9 +57,6 @@ public class EditProfileServlet extends HttpServlet {
 				} else if(propertyType.equalsIgnoreCase("profile-gender")) {
 					user.setGender(property);
 					profile.setGender(property);
-				} else if(propertyType.equalsIgnoreCase("profile-date-of-birth")) {
-					user.setDateOfBirth(property);
-					profile.setDateOfBirth(property);
 				} else if(propertyType.equalsIgnoreCase("profile-email")) {
 					user.setEmail(property);
 					profile.setEmail(property);

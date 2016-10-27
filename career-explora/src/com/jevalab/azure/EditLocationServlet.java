@@ -48,7 +48,7 @@ public class EditLocationServlet extends HttpServlet {
 		user.setState(state);
 		user.setCountry(country);
 		user.setSchool(school);
-		user.setAttends(attends);
+
 		
 		synchronized (session) {
 			session.setAttribute(StringConstants.AZURE_USER, user);

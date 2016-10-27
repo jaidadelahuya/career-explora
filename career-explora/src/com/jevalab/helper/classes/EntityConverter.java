@@ -1,6 +1,7 @@
 package com.jevalab.helper.classes;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Link;
 import com.google.appengine.api.datastore.Text;
+import com.jevalab.azure.people.Following;
+import com.jevalab.azure.people.Friends;
 import com.jevalab.azure.persistence.Article;
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.Collection;
@@ -19,18 +22,55 @@ import com.jevalab.azure.persistence.Unit;
 
 public class EntityConverter {
 	
+	public static Entity FriendsToEntity (Following f) {
+		Entity e = null;
+		if(f.getId()==null) {
+			e = new Entity(Following.class.getSimpleName());
+		}else {
+			e = new Entity(f.getId());
+		}
+		e.setIndexedProperty("following", f.getFollowing());
+		e.setIndexedProperty("owner", f.getOwner());
+		return e;
+	}
+	
+	public static Entity FollowingToEntity (Friends f) {
+		Entity e = null;
+		if(f.getId()==null) {
+			e = new Entity(Friends.class.getSimpleName());
+		}else {
+			e = new Entity(f.getId());
+		}
+		e.setIndexedProperty("friends", f.getFriends());
+		return e;
+	}
+	
+	public static Following entityToFollowing (Entity e) {
+		Following f = new Following();
+		f.setId(e.getKey());
+		f.setFollowing((Key) e.getProperty("following"));
+		f.setOwner((Key) e.getProperty("owner"));
+		return f;
+	}
+	
+	public static Friends entityToFriends (Entity e) {
+		Friends f = new Friends();
+		f.setId(e.getKey());
+		f.setFriends((List<Key>) e.getProperty("friends"));
+		return f;
+	}
+	
 	public static AzureUser entityToUser(Entity e) {
 		AzureUser u = new AzureUser();
 		u.setUserID(e.getKey().getName());
-		u.setAttends((String) e.getProperty("Attends"));
 		u.setAuthorized((boolean) e.getProperty("authorized"));
 		u.setCountry((String) e.getProperty("Country"));
 		u.setCover((String) e.getProperty("Cover"));
-		u.setDateOfBirth((String) e.getProperty("DateOfBirth"));
+		if(e.getProperty("DateOfBirth") instanceof Date) {
+			u.setDateOfBirth((Date) e.getProperty("DateOfBirth"));
+		}
 		u.setEmail((String) e.getProperty("EMail"));
-		u.setExpiryDate((Date) e.getProperty("expiryDate"));
 		u.setFirstName((String) e.getProperty("FirstName"));
-		u.setFriendsId((List<String>) e.getProperty("Friends"));
 		u.setGender((String) e.getProperty("Gender"));
 		u.setLastName((String) e.getProperty("LastName"));
 		u.setLastPasswordChangeDate((Date) e.getProperty("LastPasswordChangeDate"));
@@ -40,7 +80,10 @@ public class EntityConverter {
 		u.setMobile((String) e.getProperty("Mobile"));
 		u.setOldPasswords((List<String>) e.getProperty("OldPasswords"));
 		u.setPassword((String) e.getProperty("Password"));
-		u.setPasswordRecoveryIds((Set<String>) e.getProperty("PasswordRecoveryIds"));
+		List<String> pids = (List<String>) e.getProperty("PasswordRecoveryIds");
+		Set<String> sps = new HashSet<>();
+		sps.addAll(pids);
+		u.setPasswordRecoveryIds(sps);
 		u.setPicture((String) e.getProperty("Picture"));
 		u.setSchool((String) e.getProperty("School"));
 		u.setState((String) e.getProperty("State"));
@@ -55,14 +98,49 @@ public class EntityConverter {
 		u.setUsername((String) e.getProperty("Username"));
 		u.setUserPicturesIds((Set<String>) e.getProperty("UserPicturesIds"));
 		u.setValidity((String) e.getProperty("Validity"));
+		u.setAbout((Text) e.getProperty("About"));
+		u.setHobbies((Text) e.getProperty("Hobbies"));
 		
 		return u;
 	}
 	
-	public static Entity userToEntity(AzureUser u) {
+	public static Entity userToEntity(AzureUser user) {
 		
-		Entity e = new Entity(AzureUser.class.getSimpleName(), u.getUserID());
+		Entity e = new Entity(AzureUser.class.getSimpleName(), user.getUserID());
+		e.setProperty(StringConstants.cFirstName, user.getFirstName());
+		e.setProperty(StringConstants.cLastName, user.getLastName());
+		e.setProperty(StringConstants.cMiddleName, user.getMiddleName());
+		e.setUnindexedProperty(StringConstants.cGender, user.getGender());
+		e.setProperty(StringConstants.cEMail, user.getEmail());
+		e.setProperty(StringConstants.cState, user.getState());
+		e.setProperty(StringConstants.cCountry, user.getCountry());
+		e.setProperty(StringConstants.cSchool, user.getSchool());
+		e.setUnindexedProperty(StringConstants.cLastTestTaken,
+				user.getLastTestTaken());
+		e.setUnindexedProperty(StringConstants.cDateOfBirth,
+				user.getDateOfBirth());
+		e.setUnindexedProperty(StringConstants.cLastSeenDate,
+				user.getLastSeenDate());
+		e.setUnindexedProperty(StringConstants.cAuthorized, user.isAuthorized());
 		
+		e.setUnindexedProperty(StringConstants.cSubscriptionDate,
+				user.getSubscriptionDate());
+		e.setUnindexedProperty(StringConstants.cValidity, user.getValidity());
+		e.setUnindexedProperty(StringConstants.cPicture, user.getPicture());
+		e.setUnindexedProperty(StringConstants.cCover, user.getCover());
+		e.setUnindexedProperty(StringConstants.cFriends, user.getFriendsId());
+		e.setProperty(StringConstants.cUsername, user.getUsername());
+		e.setProperty(StringConstants.cMobile, user.getMobile());
+		e.setUnindexedProperty(StringConstants.cPassword, user.getPassword());
+		e.setProperty(StringConstants.cPasswordRecoveryIds,
+				user.getPasswordRecoveryIds());
+		e.setUnindexedProperty(StringConstants.cLastPasswordChangeDate, user.getLastPasswordChangeDate());
+		e.setUnindexedProperty(StringConstants.cOldPasswords, user.getOldPasswords());
+		e.setUnindexedProperty(StringConstants.cUserPicturesIds,user.getUserPicturesIds() );
+		e.setIndexedProperty("Class", user.getsClass());
+		e.setIndexedProperty("AreaOfInterest", user.getAreaOfInterest());
+		e.setUnindexedProperty("About", user.getAbout());
+		e.setUnindexedProperty("Hobbies", user.getHobbies());
 		return e;
 	}
 	

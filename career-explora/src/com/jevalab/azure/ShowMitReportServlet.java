@@ -13,7 +13,6 @@ import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.exceptions.InvalidLoginException;
 import com.jevalab.helper.classes.MitReport;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.Util;
 
 public class ShowMitReportServlet extends HttpServlet {

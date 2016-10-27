@@ -1,0 +1,16 @@
+<select multiple name="interest" required="required" class="validate">
+	<c:if test="${empty userProfile}">
+		<option value="" disabled selected>Choose your area(s) of
+			interest</option>
+	</c:if>
+	<option <c:if test='${fn:containsIgnoreCase(userProfile.interest, "Arts")}'>selected</c:if>
+		value="1">Arts
+	</option>
+	<option <c:if test='${fn:containsIgnoreCase(userProfile.interest, "Commercial")}'>selected</c:if>
+		value="2">Commercial
+	</option>
+	<option <c:if test='${fn:containsIgnoreCase(userProfile.interest, "Science")}'>selected</c:if>
+		value="3">Science
+	</option>
+</select>
+<label>Area of interest</label>

@@ -1,0 +1,21 @@
+<select class="validate" name="class" required="required">
+	<optgroup label="Primary">
+		<option <c:if test='${userProfile.grade eq "Basic 1"}'>selected</c:if>>Basic 1</option>
+		<option <c:if test='${userProfile.grade eq "Basic 2"}'>selected</c:if>>Basic 2</option>
+		<option <c:if test='${userProfile.grade eq "Basic 3"}'>selected</c:if>>Basic 3</option>
+		<option <c:if test='${userProfile.grade eq "Basic 4"}'>selected</c:if>>Basic 4</option>
+		<option <c:if test='${userProfile.grade eq "Basic 5"}'>selected</c:if>>Basic 5</option>
+		<option <c:if test='${userProfile.grade eq "Basic 6"}'>selected</c:if>>Basic 6</option>
+	</optgroup>
+	<optgroup label="Junior Secondary">
+		<option <c:if test='${userProfile.grade eq "Basic 7"}'>selected</c:if>>Basic 7</option>
+		<option <c:if test='${userProfile.grade eq "Basic 8"}'>selected</c:if>>Basic 8</option>
+		<option <c:if test='${userProfile.grade eq "Basic 9"}'>selected</c:if>>Basic 9</option>
+	</optgroup>
+	<optgroup label="Senoir Secondary">
+		<option <c:if test='${userProfile.grade eq "SSS 1"}'>selected</c:if>>SSS 1</option>
+		<option <c:if test='${userProfile.grade eq "SSS 2"}'>selected</c:if>>SSS 2</option>
+		<option <c:if test='${userProfile.grade eq "SSS 3"}'>selected</c:if>>SSS 3</option>
+	</optgroup>
+</select>
+<label>Class</label>

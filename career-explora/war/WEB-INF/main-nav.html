@@ -10,10 +10,20 @@
 					style="width: 45px; margin: 10px 15px; margin-bottom: 0px"></a></li>
 			</ul>
 			<ul class="side-nav" id="mobile-demo">
-				<li><a href="sass.html">Sass</a></li>
-				<li><a href="badges.html">Components</a></li>
-				<li><a href="collapsible.html">Javascript</a></li>
-				<li><a href="mobile.html">Mobile</a></li>
+				<li><a href="<c:url value='/azure/success' />">Home</a></li>
+				<li><a href="<c:url value='/azure/profile' />">Profile</a></li>
+				<li><a href="<c:url value='/azure/notifications' />">Notifications</a></li>
+				<li><a href="<c:url value='/azure/cbt'/>">CBT</a></li>
+				<li><a href="<c:url value='/azure/careerplus'/>">Career Plus</a></li>
+				<li><a href="<c:url value='/azure/collections' />">Collections</a></li>
+				<li><a href="<c:url value='/azure/communities' />">Communities</a></li>
+				<li><a href="<c:url value='/azure/people' />">People</a></li>
+				<li><a href="<c:url value='/azure/books' />">Books</a></li>
+				<li><a href="<c:url value='/azure/news' />">News</a></li>
+				<li><a href="<c:url value='/azure/videos' />">Videos</a></li>
+				<li><a href="<c:url value='/azure/preference' />">Settings</a></li>
+				<li><a href="<c:url value='/azure/feedback' />">Send Us Feedback</a></li>
+				
 			</ul>
 		</div>
 	</nav>
@@ -23,100 +33,107 @@
 	<div id="slide-out" class="side-nav fixed collection"
 		style="top: 66px; border: none; box-shadow: none; width: 260px;background-color: #f1f3f7;color:  #3b5998; overflow: auto">
 		<div class="row" style="margin-top: 10px; margin-bottom: 0px">
-			<div class="col s12 ca-collection active">
-				<i style="background-color: #983b59;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.home}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/success' />"><i style="background-color: #983b59;"
 					class="material-icons circle ca-collection-icon">home</i><span
-					class="ca-collection-text">Home</span>
+					class="ca-collection-text">Home</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #59983b;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.profile}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/profile' />"><i style="background-color: #3b5998;"
+					class="material-icons circle ca-collection-icon">face</i><span
+					class="ca-collection-text">Profile</span></a>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom: 0px">
+			<div class="col s12 ca-collection <c:if test='${mainNav.notification}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/notifications' />"><i style="background-color: #59983b;"
 					class="material-icons circle ca-collection-icon">flag</i><span
 					class="ca-collection-text">Notifications</span><span
-					class="new badge">4</span>
+					class="new badge">4</span></a>
 			</div>
 		</div>
 		<div class="row"
 			style="border-top: 1px solid #d7ddea; margin-bottom: 0px"></div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #3b8898;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.cbt}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/cbt'/>"><i style="background-color: #3b8898;"
 					class="material-icons circle ca-collection-icon">laptop</i><span
-					class="ca-collection-text">CBT</span>
+					class="ca-collection-text">CBT</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #987a3b;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.careerPlus}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/careerplus'/>"><i style="background-color: #987a3b;"
 					class="material-icons circle ca-collection-icon">grade</i> <span
-					class="ca-collection-text">Career Plus</span>
+					class="ca-collection-text">Career Plus</span></a>
 			</div>
 		</div>
 		<div class="row"
 			style="border-top: 1px solid #d7ddea; margin-bottom: 0px"></div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #984c3b;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.collections}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/collections' />"><i style="background-color: #984c3b;"
 					class="material-icons circle ca-collection-icon">group_work</i> <span
-					class="ca-collection-text">Collections</span>
+					class="ca-collection-text">Collections</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #983b88;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.communities}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/communities' />"><i style="background-color: #983b88;"
 					class="material-icons circle ca-collection-icon">room</i><span
-					class="ca-collection-text"> Communities</span>
+					class="ca-collection-text"> Communities</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #3b987a;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.people}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/people' />"><i style="background-color: #3b987a;"
 					class="material-icons circle ca-collection-icon">supervisor_account</i>
-				<span class="ca-collection-text">People</span>
+				<span class="ca-collection-text">People</span></a>
 			</div>
 		</div>
 		<div class="row"
 			style="border-top: 1px solid #d7ddea; margin-bottom: 0px"></div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #3b8898;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.books}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/books' />"><i style="background-color: #3b8898;"
 					class="material-icons circle ca-collection-icon">library_books</i><span
-					class="ca-collection-text">Books</span>
+					class="ca-collection-text">Books</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #88983b;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.news}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/news' />"><i style="background-color: #88983b;"
 					class="material-icons circle ca-collection-icon">announcement</i><span
-					class="ca-collection-text">News</span>
+					class="ca-collection-text">News</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #7a3b98;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.videos}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/videos' />"><i style="background-color: #7a3b98;"
 					class="material-icons circle ca-collection-icon">video_library</i><span
-					class="ca-collection-text">Videos</span>
+					class="ca-collection-text">Videos</span></a>
 			</div>
 		</div>
 		<div class="row"
 			style="border-top: 1px solid #d7ddea; margin-bottom: 0px"></div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #987a3b;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.preference}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/preference' />"><i style="background-color: #987a3b;"
 					class="material-icons circle ca-collection-icon">settings</i> <span
-					class="ca-collection-text">Preference</span>
+					class="ca-collection-text">Preference</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
-				<i style="background-color: #3b5998;"
+			<div class="col s12 ca-collection <c:if test='${mainNav.feedback}'>nav-active</c:if>">
+				<a href="<c:url value='/azure/feedback' />"><i style="background-color: #3b5998;"
 					class="material-icons circle ca-collection-icon">chat</i><span
-					class="ca-collection-text">Send Us Feedback</span>
+					class="ca-collection-text">Send Us Feedback</span></a>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px">
-			<div class="col s12 ca-collection">
+			<div class="col s12 ca-collection <c:if test='${mainNav.help}'>nav-active</c:if>">
 				<i style="background-color: #4b3b98;"
 					class="material-icons circle ca-collection-icon">help</i><span
 					class="ca-collection-text">Help</span>

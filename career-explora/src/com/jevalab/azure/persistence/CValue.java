@@ -1,6 +1,6 @@
 package com.jevalab.azure.persistence;
 
-import java.util.List;
+
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+
+
 
 import org.datanucleus.api.jpa.annotations.Extension;
 

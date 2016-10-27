@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.Util;
 
 public class SaveTalentsServlet extends HttpServlet {
@@ -33,33 +32,8 @@ public class SaveTalentsServlet extends HttpServlet {
 			List<String> tals = Util.asList(talents);
 			Map<String, String> mp = Util.getTalentMap(tals);
 			
-			boolean updated = Util.updateTalent(session, StringConstants.TALENT_HUNT, testDate, mp);
+			 Util.updateTalent(session, StringConstants.TALENT_HUNT, testDate, mp);
 			
-			UserProfile up = null;
-			if (updated) {
-
-				up = Util.getUserProfileFromSession(session);
-				List<String> list = up.getTalents();
-				Map<String, Object> map = new HashMap<>();
-
-				if (list.size() > 6) {
-					list = up.getTalents().subList(0, 6);
-					map.put("hasMore", true);
-				} else {
-					map.put("hasMore", false);
-				}
-
-				map.put("list", list);
-				if(up.isCurrentUser()) {
-					Util.useJSON(map, resp);
-				}	else {
-					Util.useJSON(new HashMap<String, String>(), resp);
-				}	
-
-			} else {
-				resp.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
-						"We could not save your test on the server. Please try again.");
-			}
 
 		}
 

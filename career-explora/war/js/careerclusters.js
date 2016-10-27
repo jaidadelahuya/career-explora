@@ -226,10 +226,10 @@ function loadResultContent(clay, username, imgUrl) {
 
 						$('#save-div')
 								.append(
-										'<a id="print-doc" class="btn btn-primary btn-sm cont-button" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
+										'<a id="print-doc" class="btn ca-btn-primary btn-sm cont-button" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
 						$('#save-div')
 								.append(
-										'<button id="save-button" type="button" class="btn btn-primary btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');
+										'<button id="save-button" type="button" class="btn ca-btn-primary btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');
 
 						$('#print-doc').on('click', function() {
 							window.print();

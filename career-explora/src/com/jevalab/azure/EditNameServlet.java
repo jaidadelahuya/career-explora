@@ -42,14 +42,8 @@ public class EditNameServlet extends HttpServlet {
 		user.setFirstName(req.getParameter("first-name"));
 		user.setLastName(req.getParameter("last-name"));
 		user.setMiddleName(req.getParameter("middle-name"));
-		user.setDateOfBirth(req.getParameter("date-of-birth"));
-		String updateNameVal = req.getParameter("update-from-idp");
-		if (updateNameVal != null) {
-
-			user.setUpdateNameFromIdp(true);
-		} else {
-			user.setUpdateNameFromIdp(false);
-		}
+		//user.setDateOfBirth(req.getParameter("date-of-birth"));
+		
 		
 		synchronized (session) {
 			session.setAttribute(StringConstants.AZURE_USER, user);

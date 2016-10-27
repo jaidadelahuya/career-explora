@@ -43,12 +43,20 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.google.appengine.api.search.Cursor;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
+import com.google.appengine.api.search.Query;
+import com.google.appengine.api.search.QueryOptions;
+import com.google.appengine.api.search.Results;
+import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -57,7 +65,9 @@ import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.gson.Gson;
-import com.jevalab.azure.persistence.Article;
+import com.jevalab.azure.people.Friends;
+import com.jevalab.azure.people.PeoplePageBean;
+import com.jevalab.azure.people.Person;
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.Collection;
 import com.jevalab.azure.persistence.Community;
@@ -73,6 +83,7 @@ import com.jevalab.azure.persistence.Talent;
 import com.jevalab.azure.persistence.TalentCategory;
 import com.jevalab.azure.persistence.TalentCategoryJpaController;
 import com.jevalab.azure.persistence.UserJpaController;
+import com.jevalab.azure.profile.UserProfile;
 import com.jevalab.exceptions.IpnException;
 import com.jevalab.exceptions.NonexistentEntityException;
 import com.jevalab.exceptions.RollbackFailureException;
@@ -433,272 +444,6 @@ public class Util {
 		}
 	}
 
-	public static boolean updateMITS(HttpSession session, String TEST_NAME,
-			String testDate, Text types) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), TEST_NAME, testDate, types);
-
-		List<String> strongTypesList = ProfileHelper.getAllStrongMits(types
-				.getValue());
-
-		boolean updated = updateLastTestTaken(record, session, user,
-				strongTypesList, true);
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				r.setMitTypes(types);
-				updateNewRecord(r, cont);
-
-			} else {
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean updateTalent(HttpSession session,
-			final String TEST_NAME, String testDate, Map<String, String> map) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), TEST_NAME, testDate, map);
-
-		List<String> strongTalentList = ProfileHelper.getStrongTalents(map);
-
-		boolean updated = updateLastTestTaken(record, session, user,
-				strongTalentList, true);
-
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				Map<String, String> m = r.getTalents();
-				if (m != null) {
-					m.putAll(map);
-					r.setTalents(m);
-				} else {
-					r.setTalents(map);
-				}
-				updateNewRecord(r, cont);
-
-			} else {
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	public static boolean updateCareerValues(HttpSession session,
-			String testName, String testDate, Text values) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), testName, testDate, values);
-
-		List<String> valuesList = ProfileHelper.asValuesList(values);
-
-		boolean updated = updateLastTestTaken(record, session, user,
-				valuesList, true);
-
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				r.setCareerValues(values);
-				updateNewRecord(r, cont);
-
-			} else {
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	public static boolean updateCareerCluster(HttpSession session,
-			String testName, String testDate, Map<String, String> map) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), testName, testDate, map);
-
-		List<String> careerList = ProfileHelper.getLovedClusters(map);
-
-		boolean updated = updateLastTestTaken(record, session, user,
-				careerList, true);
-
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				Map<String, String> m = r.getCareerClusters();
-				if (m != null) {
-					m.putAll(map);
-					r.setCareerClusters(m);
-				} else {
-					r.setCareerClusters(map);
-				}
-				updateNewRecord(r, cont);
-
-			} else {
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean updateSkill(HttpSession session, String TEST_NAME,
-			Map<String, String> allSkillRecords, String testDate) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), TEST_NAME, testDate);
-
-		List<String> skillsToBuildList = ProfileHelper
-				.getSkillsToLearn(allSkillRecords);
-		List<String> skillsLearnt = ProfileHelper
-				.getLearntSkills(allSkillRecords);
-
-		boolean updated = updateLastTestTaken(record, session, user, null,
-				false);
-		updated = updateUserProfile(session, user, record, skillsToBuildList,
-				false);
-		updated = updateUserProfile(session, user, record, skillsLearnt, true);
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				Map<String, String> m = r.getSkills();
-				if (m != null) {
-					m.putAll(allSkillRecords);
-					r.setSkills(m);
-				} else {
-					r.setSkills(allSkillRecords);
-				}
-				updateNewRecord(r, cont);
-
-			} else {
-				record.setSkills(allSkillRecords);
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean updatePersonalStyles(HttpSession session,
-			String testName, String testDate, Text styles) {
-
-		AzureUser user = getUserFromSession(session);
-		Record record = new Record(user.getUserID(), testName, testDate, styles);
-
-		List<String> stylesList = ProfileHelper.asStylesList(styles);
-
-		boolean updated = updateLastTestTaken(record, session, user,
-				stylesList, true);
-
-		if (updated) {
-			RecordJpaController cont = new RecordJpaController();
-			Record r = cont.findRecord(record.getKey());
-
-			if (r != null) {
-				r.setStyles(styles);
-				updateNewRecord(r, cont);
-
-			} else {
-
-				saveNewRecord(record, cont);
-			}
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	private static boolean updateLastTestTaken(Record record,
-			HttpSession session, AzureUser user, List<String> list,
-			boolean updateProfile) {
-
-		WelcomePageBean wpb = getWelcomePageBeanFromSession(session);
-
-		updateWelcomePageBeanRecord(wpb, record);
-		updateUserRecord(user, record);
-
-		saveInSession(session, wpb, StringConstants.WELCOME_PAGE);
-		saveInSession(session, user, StringConstants.AZURE_USER);
-
-		if (updateProfile) {
-			return updateUserProfile(session, user, record, list);
-		} else {
-			return false;
-		}
-
-	}
-
-	private static boolean updateUserProfile(HttpSession session,
-			AzureUser user, Record record, List<String> list,
-			boolean... hasSkillsLearnt) {
-		UserProfile userProfile = getUserProfileFromSession(session);
-		if (userProfile == null) {
-			userProfile = ProfileHelper.getProfileData(user);
-
-		}
-
-		String testName = record.getTestName();
-
-		switch (testName) {
-		case StringConstants.PERSONAL_STYLE:
-			userProfile.setStyles(list);
-			break;
-		case StringConstants.CAREER_VALUES:
-			userProfile.setValues(list);
-			break;
-		case StringConstants.TALENT_HUNT:
-			Set<String> ts = Util.asSet(userProfile.getTalents());
-			ts.addAll(Util.asSet(list));
-			userProfile.setTalents(Util.asList(ts));
-			break;
-		case StringConstants.MULTIPLE_INTELLIGENCE_TEST:
-			userProfile.setMits(list);
-			break;
-		case StringConstants.CAREER_CLUSTERS:
-			ts = Util.asSet(userProfile.getClusters());
-			ts.addAll(Util.asSet(list));
-			userProfile.setClusters(Util.asList(ts));
-			break;
-		case StringConstants.SKILL_BUILDER:
-			if (hasSkillsLearnt[0]) {
-				ts = Util.asSet(userProfile.getLearntSkills());
-				ts.addAll(Util.asSet(list));
-				userProfile.setLearntSkills(Util.asList(ts));
-			} else {
-				ts = Util.asSet(userProfile.getSkillToLearn());
-				ts.addAll(Util.asSet(list));
-				userProfile.setSkillToLearn(Util.asList(ts));
-			}
-			break;
-		}
-
-		saveInSession(session, userProfile, StringConstants.USER_PROFILE);
-
-		return true;
-
-	}
-
 	private static List<String> asList(Set<String> ts) {
 		List<String> list = new ArrayList<>(ts);
 		return list;
@@ -893,11 +638,6 @@ public class Util {
 	public static AzureUser authenticateUsername(String username) {
 		UserJpaController cont = new UserJpaController();
 		AzureUser user = cont.findUserByUsername(username, false);
-		return user;
-	}
-
-	public static AzureUser toAzureUser(Entity e) {
-		AzureUser user = new AzureUser(e);
 		return user;
 	}
 
@@ -1181,16 +921,6 @@ public class Util {
 		return newMap;
 	}
 
-	public static boolean initAuthorizationPage(HttpServletRequest req,
-			AzureUser user) {
-
-		// init for vogue pay
-		VoguePay voguePay = new VoguePay(user.getUserID());
-		req.setAttribute(StringConstants.VOGUE_PAY, voguePay);
-
-		return true;
-	}
-
 	public static TalentReport getTalentReport(AzureUser user) {
 		Map<String, String> map = ProfileHelper.getTalents(user.getUserID(),
 				true);
@@ -1377,7 +1107,7 @@ public class Util {
 		List<Discussion> articles = (List<Discussion>) map.get("post");
 		List<DiscussionBean> beans = new ArrayList<>();
 		for (Discussion a : articles) {
-			beans.add(Util.toDiscussionBean(a,user));
+			beans.add(Util.toDiscussionBean(a, user));
 		}
 		Map<String, Object> nMap = new HashMap<>();
 		nMap.put("post", beans);
@@ -1385,21 +1115,22 @@ public class Util {
 		return nMap;
 	}
 
-	private static DiscussionBean toDiscussionBean(Discussion a, AzureUser currentUser) {
+	public static DiscussionBean toDiscussionBean(Discussion a,
+			AzureUser currentUser) {
 		DiscussionBean d = new DiscussionBean();
 		if (a != null) {
 			if (a.getOwner() != null) {
 				AzureUser u = new UserJpaController().findUser(a.getOwner()
 						.getName());
-				
-				if(u.getValidity().equals("ADMIN")) {
+
+				if (u.getValidity().equals("ADMIN")) {
 					d.setAuthorImage("/images/admin-avatar/tav2.jpg");
 					d.setAuthor("Admin");
-				}else {
+				} else {
 					d.setAuthorImage(u.getPicture());
 					d.setAuthor(u.getFirstName() + " " + u.getLastName());
 				}
-				
+
 				if (a.getLikers() != null
 						&& a.getLikers().contains(
 								KeyFactory.createKey(
@@ -1507,6 +1238,290 @@ public class Util {
 			}
 		}
 		return list;
+	}
+
+	public static boolean updateMITS(HttpSession session, String TEST_NAME,
+			String testDate, Text types) {
+		AzureUser user = getUserFromSession(session);
+		Record record = new Record(user.getUserID(), TEST_NAME, testDate, types);
+
+		RecordJpaController cont = new RecordJpaController();
+		Record r = cont.findRecord(record.getKey());
+
+		if (r != null) {
+			r.setMitTypes(types);
+			updateNewRecord(r, cont);
+		} else {
+			saveNewRecord(record, cont);
+		}
+		return true;
+
+	}
+
+	public static boolean updateTalent(HttpSession session, String TEST_NAME,
+			String testDate, Map<String, String> map) {
+		AzureUser user = getUserFromSession(session);
+		Record record = new Record(user.getUserID(), TEST_NAME, testDate, map);
+
+		RecordJpaController cont = new RecordJpaController();
+		Record r = cont.findRecord(record.getKey());
+
+		if (r != null) {
+			Map<String, String> m = r.getTalents();
+			if (m != null) {
+				m.putAll(map);
+				r.setTalents(m);
+			} else {
+				r.setTalents(map);
+			}
+			updateNewRecord(r, cont);
+		} else {
+			saveNewRecord(record, cont);
+		}
+		return true;
+
+	}
+
+	public static boolean updateCareerCluster(HttpSession session,
+			String testName, String testDate, Map<String, String> map) {
+		AzureUser user = getUserFromSession(session);
+		Record record = new Record(user.getUserID(), testName, testDate, map);
+
+		RecordJpaController cont = new RecordJpaController();
+		Record r = cont.findRecord(record.getKey());
+
+		if (r != null) {
+			Map m = r.getCareerClusters();
+			if (m != null) {
+				m.putAll(map);
+				r.setCareerClusters(m);
+			} else {
+				r.setCareerClusters(map);
+			}
+			updateNewRecord(r, cont);
+		} else {
+			saveNewRecord(record, cont);
+		}
+		return true;
+
+	}
+
+	public static boolean updateSkill(HttpSession session, String TEST_NAME,
+			Map<String, String> allSkillRecords, String testDate) {
+		AzureUser user = getUserFromSession(session);
+		Record record = new Record(user.getUserID(), TEST_NAME, testDate);
+
+		RecordJpaController cont = new RecordJpaController();
+		Record r = cont.findRecord(record.getKey());
+
+		if (r != null) {
+			Map m = r.getSkills();
+			if (m != null) {
+				m.putAll(allSkillRecords);
+				r.setSkills(m);
+			} else {
+				r.setSkills(allSkillRecords);
+			}
+			updateNewRecord(r, cont);
+		} else {
+			record.setSkills(allSkillRecords);
+			saveNewRecord(record, cont);
+		}
+		return true;
+	}
+
+	public static void saveUserToIndex(AzureUser u) {
+		String interest = "";
+		for (String s : Util.toInterestValues(u.getAreaOfInterest())) {
+			interest += s + " ";
+		}
+		Document doc = Document
+				.newBuilder()
+				.setId(KeyFactory.keyToString(u.getKey()))
+				.addField(
+						Field.newBuilder().setName("firstName")
+								.setText(u.getFirstName()))
+				.addField(
+						Field.newBuilder().setName("lastName")
+								.setText(u.getLastName()))
+				.addField(
+						Field.newBuilder().setName("class")
+								.setText(u.getsClass()))
+				.addField(
+						Field.newBuilder().setName("school")
+								.setText(u.getSchool()))
+				.addField(
+						Field.newBuilder().setName("picture")
+								.setText(u.getPicture()))
+				.addField(
+						Field.newBuilder().setName("interest")
+								.setText(interest)).build();
+		SearchDocumentIndexService.indexDocument("PEOPLE", doc);
+
+	}
+
+	public static PeoplePageBean getPeoplePageBean(PeoplePageBean ppb,
+			AzureUser u) {
+		if (ppb.getCategory().equals("2")) {
+			return getFriends(ppb, u);
+		} else if (ppb.getCategory().equals("3")) {
+			return getFollowing(ppb, u);
+		} else {
+			return getSuggestedPeople(ppb, u);
+		}
+
+	}
+
+	public static PeoplePageBean getPeoplePageBean(String category, AzureUser u) {
+		if (category.equals("2")) {
+			return getFriends(null, u);
+		} else if (category.equals("3")) {
+			return getFollowing(null, u);
+		} else {
+			return getSuggestedPeople(null, u);
+		}
+
+	}
+
+	private static PeoplePageBean getFollowing(PeoplePageBean ppb, AzureUser u) {
+		if (ppb == null) {
+			return getNewFollowing();
+		} else {
+			return updateFollowing(ppb, u);
+		}
+	}
+
+	private static PeoplePageBean updateFollowing(PeoplePageBean ppb,
+			AzureUser u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static PeoplePageBean getNewFollowing() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static PeoplePageBean getFriends(PeoplePageBean ppb, AzureUser u) {
+		QueryResultList<Entity> r = GeneralController.getFriends(ppb,u);
+		ppb.setCursor(r.getCursor().toWebSafeString());
+		List<Friends> friends = new ArrayList<>();
+		
+		for(Entity e : r) {
+			friends.add(EntityConverter.entityToFriends(e));
+		}
+		
+		List<Key> frs = new ArrayList<>();
+		
+		for(Friends f : friends) {
+			for(Key k: f.getFriends()) {
+				if(k!=u.getKey()) {
+					frs.add(k);
+				}
+			}
+		}
+		
+		//get Person using key
+		return null;
+	}
+
+	
+
+	
+
+	private static PeoplePageBean getSuggestedPeople(PeoplePageBean ppb,
+			AzureUser u) {
+
+		int limit = 20;
+		if (ppb == null) {
+			ppb = new PeoplePageBean();
+
+		}
+		Results<ScoredDocument> result = (ppb.getCursor() == null) ? searchSuggestedPeople(
+				limit, u, null) : searchSuggestedPeople(limit, u, Cursor
+				.newBuilder().build(ppb.getCursor()));
+
+		List<Person> people = new ArrayList<>();
+		people = addSuggestPeople(people, result, u);
+		people = removeFriends(people, u);
+		while (people.size() < 20 && limit - result.getNumberReturned() == 0) {
+			limit = 20 - people.size();
+			result = searchSuggestedPeople(limit, u, result.getCursor());
+			people = addSuggestPeople(people, result, u);
+			people = removeFriends(people, u);
+		}
+
+		ppb.setPeople(people);
+		ppb.setCategory("SUGGESTED");
+		ppb.setCursor((result.getCursor() == null) ? null : result.getCursor()
+				.toWebSafeString());
+		return ppb;
+
+	}
+
+	private static Results<ScoredDocument> searchSuggestedPeople(int limit,
+			AzureUser u, Cursor cursor) {
+
+		String grade = u.getsClass();
+		List<String> interest = u.getAreaOfInterest();
+
+		for (String s : interest) {
+			grade += " " + s;
+		}
+
+		grade = grade.trim().replace(" ", " OR ");
+		QueryOptions options = null;
+		if (cursor == null) {
+			options = QueryOptions.newBuilder()
+					.setCursor(Cursor.newBuilder().build()).setLimit(limit)
+					.build();
+		} else {
+			options = QueryOptions.newBuilder().setCursor(cursor)
+					.setLimit(limit).build();
+		}
+		Query query = Query.newBuilder().setOptions(options).build(grade);
+		Results<ScoredDocument> result = SearchDocumentIndexService
+				.retrieveDocuments("PEOPLE", query);
+		return result;
+	}
+
+	private static List<Person> addSuggestPeople(List<Person> people,
+			Results<ScoredDocument> result, AzureUser u) {
+		for (ScoredDocument sd : result) {
+
+			Person p = new Person();
+			p.setGrade(sd.getOnlyField("class").getText());
+			p.setInterest(sd.getOnlyField("interest").getText());
+			p.setName(sd.getOnlyField("firstName").getText() + " "
+					+ sd.getOnlyField("lastName").getText());
+			p.setPicture(sd.getOnlyField("picture").getText());
+			p.setWebKey(sd.getId());
+			Key key = KeyFactory.stringToKey(p.getWebKey());
+			if (u.getFriendsId() != null && u.getFriendsId().contains(key)) {
+				p.setFriend(true);
+			}
+
+			if (u.getFollowing() != null && u.getFollowing().contains(key)) {
+				p.setFollowing(true);
+			}
+
+			people.add(p);
+
+		}
+		return people;
+	}
+
+	private static List<Person> removeFriends(List<Person> people, AzureUser u) {
+		Iterator<Person> it = people.iterator();
+
+		while (it.hasNext()) {
+			Person p = it.next();
+			if (p.isFriend()
+					| p.getWebKey().equals(KeyFactory.keyToString(u.getKey()))) {
+				it.remove();
+			}
+		}
+		return people;
 	}
 
 }

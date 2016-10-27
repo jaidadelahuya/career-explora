@@ -4,6 +4,233 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+	
+	<servlet>
+		<servlet-name>AddFollowing</servlet-name>
+		<servlet-class>com.jevalab.azure.people.AddFollowing</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddFollowing</servlet-name>
+		<url-pattern>/azure/people/follow/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateProfile</servlet-name>
+		<servlet-class>com.jevalab.azure.profile.UpdateProfile</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateProfile</servlet-name>
+		<url-pattern>/azure/profile/update</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditProfile</servlet-name>
+		<jsp-file>/WEB-INF/profile/edit-profile.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditProfile</servlet-name>
+		<url-pattern>/azure/profile/edit</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetProfileServlet</servlet-name>
+		<servlet-class>com.jevalab.azure.profile.GetProfile</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetProfileServlet</servlet-name>
+		<url-pattern>/azure/profile/get</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitFeedBack</servlet-name>
+		<servlet-class>com.jevalab.azure.feedback.InitFeedBack</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitFeedBack</servlet-name>
+		<url-pattern>/azure/feedback</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitPreference</servlet-name>
+		<servlet-class>com.jevalab.azure.preference.InitPreference</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitPreference</servlet-name>
+		<url-pattern>/azure/preference</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitVideos</servlet-name>
+		<servlet-class>com.jevalab.azure.videos.InitVideos</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitVideos</servlet-name>
+		<url-pattern>/azure/videos</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitVideos</servlet-name>
+		<servlet-class>com.jevalab.azure.videos.InitVideos</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitVideos</servlet-name>
+		<url-pattern>/azure/videos</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitNews</servlet-name>
+		<servlet-class>com.jevalab.azure.news.InitNews</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitNews</servlet-name>
+		<url-pattern>/azure/news</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitBooks</servlet-name>
+		<servlet-class>com.jevalab.azure.books.InitBooks</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitBooks</servlet-name>
+		<url-pattern>/azure/books</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitPeople</servlet-name>
+		<servlet-class>com.jevalab.azure.people.InitPeople</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitPeople</servlet-name>
+		<url-pattern>/azure/people</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InitCommunities</servlet-name>
+		<servlet-class>com.jevalab.azure.community.InitCommunities</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitCommunities</servlet-name>
+		<url-pattern>/azure/communities</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitCollections</servlet-name>
+		<servlet-class>com.jevalab.azure.collections.InitCollections</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitCollections</servlet-name>
+		<url-pattern>/azure/collections</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitNotifications</servlet-name>
+		<servlet-class>com.jevalab.azure.notifications.InitNotifications</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitNotifications</servlet-name>
+		<url-pattern>/azure/notifications</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitProfile</servlet-name>
+		<servlet-class>com.jevalab.azure.profile.InitProfile</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitProfile</servlet-name>
+		<url-pattern>/azure/profile</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetSinglePost</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.GetPost</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetSinglePost</servlet-name>
+		<url-pattern>/azure/post/single/get</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SinglePostPage</servlet-name>
+		<jsp-file>/WEB-INF/post.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SinglePostPage</servlet-name>
+		<url-pattern>/azure/post</url-pattern>
+		</servlet-mapping>
+	<servlet>
+		<servlet-name>CareerClustersPage</servlet-name>
+		<jsp-file>/WEB-INF/careerplus/career-cluster.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CareerClustersPage</servlet-name>
+		<url-pattern>/azure/careerplus/career-clusters/test</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MITPage</servlet-name>
+		<jsp-file>/WEB-INF/careerplus/mit.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MITPage</servlet-name>
+		<url-pattern>/azure/careerplus/mit/test</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SkillBuilderPage</servlet-name>
+		<jsp-file>/WEB-INF/careerplus/skill-builder.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SkillBuilderPage</servlet-name>
+		<url-pattern>/azure/careerplus/skill-builder/test</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>TalentPage</servlet-name>
+		<jsp-file>/WEB-INF/careerplus/talent.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TalentPage</servlet-name>
+		<url-pattern>/azure/careerplus/talent/test</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InitCareerPlus</servlet-name>
+		<servlet-class>com.jevalab.azure.careerplus.InitCareerPlus</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitCareerPlus</servlet-name>
+		<url-pattern>/azure/careerplus</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CBTPage</servlet-name>
+		<jsp-file>/WEB-INF/cbt/cbt.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CBTPage</servlet-name>
+		<url-pattern>/azure/cbt/page</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InitCBT</servlet-name>
+		<servlet-class>com.jevalab.azure.cbt.InitCBT</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitCBT</servlet-name>
+		<url-pattern>/azure/cbt</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetMoreDiscussions</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.GetMoreDiscussions</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetMoreDiscussions</servlet-name>
+		<url-pattern>/azure/post/get</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NoSession</servlet-name>
+		<servlet-class>com.jevalab.azure.NoSessionError</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NoSession</servlet-name>
+		<url-pattern>/session/invalid</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetComments</servlet-name>
+		<servlet-class>com.jevalab.azure.group1.GetComments</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetComments</servlet-name>
+		<url-pattern>/azure/post/comments/get</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>AddComment</servlet-name>
 		<servlet-class>com.jevalab.azure.group1.AddComment</servlet-class>
@@ -262,14 +489,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/adminlogin</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>AuthorizationPage</servlet-name>
-		<jsp-file>/WEB-INF/authorization.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuthorizationPage</servlet-name>
-		<url-pattern>/authorization</url-pattern>
-	</servlet-mapping>
+	
 
 	<servlet>
 		<servlet-name>ConfirmationCodePage</servlet-name>
@@ -286,7 +506,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MitReport</servlet-name>
-		<url-pattern>/multiple-intelligence-test-report</url-pattern>
+		<url-pattern>/azure/profile/mit/report/view</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -304,7 +524,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TalentReport</servlet-name>
-		<url-pattern>/talent-hunt-test-report</url-pattern>
+		<url-pattern>/azure/profile/talent/report/view</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -313,7 +533,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CareerClusterReport</servlet-name>
-		<url-pattern>/career-clusters-report</url-pattern>
+		<url-pattern>/azure/profile/career-clusters/report/view</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -378,11 +598,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<servlet>
 		<servlet-name>GetTalent</servlet-name>
-		<servlet-class>com.jevalab.azure.TalentTestBoardServlet</servlet-class>
+		<servlet-class>com.jevalab.azure.careerplus.TalentTestBoardServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetTalent</servlet-name>
-		<url-pattern>/gettalents</url-pattern>
+		<url-pattern>/azure/gettalents</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -432,11 +652,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<servlet>
 		<servlet-name>CareerClusterBoard</servlet-name>
-		<servlet-class>com.jevalab.azure.CareerClusterBoardServlet</servlet-class>
+		<servlet-class>com.jevalab.azure.careerplus.CareerClusterBoardServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CareerClusterBoard</servlet-name>
-		<url-pattern>/careerclusterboard</url-pattern>
+		<url-pattern>/azure/careerclusterboard</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -450,11 +670,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<servlet>
 		<servlet-name>GetQuestions</servlet-name>
-		<servlet-class>com.jevalab.azure.GetQuestionsServlet</servlet-class>
+		<servlet-class>com.jevalab.azure.cbt.GetQuestionsServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetQuestions</servlet-name>
-		<url-pattern>/getquestions</url-pattern>
+		<url-pattern>/azure/questions/get</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -463,7 +683,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveCbtTest</servlet-name>
-		<url-pattern>/savecbt</url-pattern>
+		<url-pattern>/azure/savecbt</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -472,17 +692,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveCareerClusterRecord</servlet-name>
-		<url-pattern>/savecareerclusterrecord</url-pattern>
+		<url-pattern>/azure/savecareerclusterrecord</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>SaveUpComingTest</servlet-name>
-		<servlet-class>com.jevalab.azure.SaveUpComingTestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SaveUpComingTest</servlet-name>
-		<url-pattern>/saveupcomingtest</url-pattern>
-	</servlet-mapping>
+	
 
 	<servlet>
 		<servlet-name>GetMultipleIntelligenceType</servlet-name>
@@ -490,7 +703,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetMultipleIntelligenceType</servlet-name>
-		<url-pattern>/getmultipleintelligencetype</url-pattern>
+		<url-pattern>/azure/getmultipleintelligencetype</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -553,7 +766,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveMit</servlet-name>
-		<url-pattern>/savemit</url-pattern>
+		<url-pattern>/azure/savemit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -562,7 +775,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveTalents</servlet-name>
-		<url-pattern>/savetalents</url-pattern>
+		<url-pattern>/azure/savetalents</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -571,7 +784,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetSkillBuilder</servlet-name>
-		<url-pattern>/getskillbuilder</url-pattern>
+		<url-pattern>/azure/getskillbuilder</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -580,7 +793,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveSkills</servlet-name>
-		<url-pattern>/saveskills</url-pattern>
+		<url-pattern>/azure/saveskills</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -620,50 +833,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/adduserkey</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>VerifyToken</servlet-name>
-		<servlet-class>com.jevalab.azure.TokenVerifyServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>VerifyToken</servlet-name>
-		<url-pattern>/verifytoken</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>MoreProfileInfo</servlet-name>
-		<servlet-class>com.jevalab.azure.MoreProfileInfoServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MoreProfileInfo</servlet-name>
-		<url-pattern>/moreprofileinfo</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>MoreFriendsServlet</servlet-name>
-		<servlet-class>com.jevalab.azure.MoreFriendsServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MoreFriendsServlet</servlet-name>
-		<url-pattern>/getmorefriends</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>DeleteUpcomingTest</servlet-name>
-		<servlet-class>com.jevalab.azure.DeleteUpcomingTestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DeleteUpcomingTest</servlet-name>
-		<url-pattern>/deleteupcomingtest</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>EditUpcomingTest</servlet-name>
-		<servlet-class>com.jevalab.azure.EditUpComingTestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EditUpcomingTest</servlet-name>
-		<url-pattern>/editupcomingtest</url-pattern>
-	</servlet-mapping>
+	
 
 	<servlet>
 		<servlet-name>AddEnglishCategory</servlet-name>
@@ -835,7 +1005,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ShowMitReportServlet</servlet-name>
-		<url-pattern>/showmitreport</url-pattern>
+		<url-pattern>/azure/profile/mit/report</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -844,7 +1014,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetMitReportInfoServlet</servlet-name>
-		<url-pattern>/getmitreportinfo</url-pattern>
+		<url-pattern>/azure/profile/mit/report/info</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -880,7 +1050,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TalentReportServlet</servlet-name>
-		<url-pattern>/showtalentreport</url-pattern>
+		<url-pattern>/azure/profile/talent/report</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -889,18 +1059,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TalentInfoReportServlet</servlet-name>
-		<url-pattern>/talentinforeport</url-pattern>
+		<url-pattern>/azure/profile/talent/report/info</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>FreeAccessServlet</servlet-name>
-		<servlet-class>com.jevalab.azure.FreeAccess</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>FreeAccessServlet</servlet-name>
-		<url-pattern>/free-access</url-pattern>
-	</servlet-mapping>
-
 
 	<servlet>
 		<servlet-name>CareerClusterReportServlet</servlet-name>
@@ -908,7 +1068,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CareerClusterReportServlet</servlet-name>
-		<url-pattern>/careerclusterreport</url-pattern>
+		<url-pattern>/azure/profile/careercluster/report</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -1009,10 +1169,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-
-	
-	
-
 
 	
 

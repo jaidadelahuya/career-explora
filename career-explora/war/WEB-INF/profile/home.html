@@ -1,0 +1,133 @@
+
+
+<div class="center-div">
+	<div id="home-center-div" class="center-main-content">
+		<div class="row">
+			<div class="col s12">
+				<div class="card" style="margin-top: -20px">
+					<div class="card-image">
+						<img src="${userProfile.cover}">
+						<div class="card-title"
+							style="width: 40%; height: 100%; padding-top: 4%; text-align: center; background-color: rgba(137, 155, 193, 0.5)">
+							<img class="profile-img" src="${userProfile.picture}">
+							<div>
+								<div class="flow-text"
+									style="font-weight: bold; line-height: 1.5; color: #f4ebee">
+									<c:out value='${userProfile.firstName}' />
+									<c:out value='${userProfile.lastName}' />
+								</div>
+								<h6 style="color: #eef4eb">
+									<c:out value='${userProfile.school}' />
+								</h6>
+								<h6>
+									<c:out value='${userProfile.grade}' />
+								</h6>
+								<div style="text-align: center;">
+									<label style="color: white; font-size: 9pt">Friends: <c:out
+											value="${userProfile.friends}" /></label> <label
+										style="color: white; font-size: 9pt">Followers: <c:out
+											value="${userProfile.followers}" /></label> <label
+										style="color: white; font-size: 9pt">Following: <c:out
+											value="${userProfile.following}" /></label> <label
+										style="color: white; font-size: 9pt">Collections: <c:out
+											value="${userProfile.collections}" /></label> <label
+										style="color: white; font-size: 9pt">Communities: <c:out
+											value="${userProfile.communities}" /></label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<div class="card-panel" style="overflow: auto">
+					<c:if test="${not empty userProfile.gender}">
+						<div class="col s12 m4 profile-value">
+							<label>GENDER</label><br>
+							<c:out value="${userProfile.gender}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.birthDate}">
+						<div class="col s12 m4 profile-value">
+							<label>BIRTH DAY</label><br>
+							<fmt:formatDate pattern="dd MMMMMM"
+								value="${userProfile.birthDate}" />
+
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.email}">
+						<div class="col s12 m4 profile-value">
+							<label>EMAIL</label><br>
+							<c:out value="${userProfile.email}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.state}">
+						<div class="col s12 m4 profile-value">
+							<label>STATE</label><br>
+							<c:out value="${userProfile.state}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.country}">
+						<div class="col s12 m4 profile-value">
+							<label>COUNTRY</label><br>
+							<c:out value="${userProfile.country}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.interest}">
+						<div class="col s12 m4 profile-value">
+							<label>ACADEMIC INTEREST</label><br>
+							<c:out value="${userProfile.interest}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.hobbies}">
+						<div class="col s12 profile-value">
+							<label>HOBBIES</label><br>
+							<c:out value="${userProfile.hobbies}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.about}">
+						<div class="col s12 profile-value">
+							<label>ABOUT ME</label><br> ${userProfile.about}
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.mits}">
+						<div class="col s12 profile-value">
+							<label>MY INTELLIGENCE TYPES</label><br>
+							<c:out value="${userProfile.mits}" />
+							<div id="show-mits-report" class="report">View Report</div>
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.talents}">
+						<div class="col s12 profile-value">
+							<label>MY TALENTS</label><br>
+							<c:out value="${userProfile.talents}" />
+							<div id="show-talents-report" class="report">View Report</div>
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.clusters}">
+						<div class="col s12 profile-value">
+							<label>MY CAREER CLUSTERS</label><br>
+							<c:out value="${userProfile.clusters}" />
+							<div id="show-career-cluster-report" class="report">View Report</div>
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.learntSkills}">
+						<div class="col s12 profile-value">
+							<label>MY SKILLS</label><br>
+							<c:out value="${userProfile.learntSkills}" />
+						</div>
+					</c:if>
+					<c:if test="${not empty userProfile.skillToLearn}">
+						<div class="col s12 profile-value">
+							<label>SKILLS I WANT TO BUILD</label><br>
+							<c:out value="${userProfile.skillToLearn}" />
+						</div>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

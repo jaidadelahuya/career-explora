@@ -12,9 +12,9 @@ $(document)
 					
 					$("#show-career-cluster-report").click(function(){
 						$.ajax({
-							url : "/azure/careerclusterreport",
+							url : "/azure/profile/careercluster/report",
 							success : function(data) {
-								window.open("/career-clusters-report","Career Clusters Test Report",
+								window.open("/azure/profile/career-clusters/report/view","Career Clusters Test Report",
 										"toolbar=yes, scrollbars=yes, fullscreen=1");
 							},
 							error : function(jqXHR, status, errorThrown) {
@@ -25,9 +25,9 @@ $(document)
 					
 					$("#show-talents-report").click(function(){
 						$.ajax({
-							url : "/azure/showtalentreport",
+							url : "/azure/profile/talent/report",
 							success : function(data) {
-								window.open("/talent-hunt-test-report","Talent Hunt Test Report",
+								window.open("/azure/profile/talent/report/view","Talent Hunt Test Report",
 										"toolbar=yes, scrollbars=yes, fullscreen=1");
 							},
 							error : function(jqXHR, status, errorThrown) {
@@ -38,9 +38,9 @@ $(document)
 					
 					$("#show-mits-report").click(function() {
 						$.ajax({
-							url : "/azure/showmitreport",
+							url : "/azure/profile/mit/report",
 							success : function(data) {
-								window.open("/multiple-intelligence-test-report","Multiple Intelligence Test Report",
+								window.open("/azure/profile/mit/report/view","Multiple Intelligence Test Report",
 										"toolbar=yes, scrollbars=yes, fullscreen=1");
 							},
 							error : function(jqXHR, status, errorThrown) {

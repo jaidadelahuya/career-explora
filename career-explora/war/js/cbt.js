@@ -2,88 +2,89 @@ var currentNo = 0;
 var questionNumber = 1;
 var secondsLeft = 0;
 var testDate = null;
+var info = null;
+var questions = [];
+var history = null;
 
-$(document).ready(
-		function() {
-			var subject = window.subject;
-			var time = window.time;
-			var qNumber = window.questions;
-			var passMark = window.passmark;
-			var info = null;
-			var questions = [];
-			var imageUrl = window.imageUrl;
-			var username = window.username;
-			var history = null;
 
-			$(".profile-img").attr('src', imageUrl);
+function getQuestions(subject,time,question,pass) {
+	
+	
+	$.ajax({
+		url : "/azure/questions/get",
+		type : "GET",
+		data : {
+			"subject" : subject,
+			"question" : question,
+			"time" : time,
+			"pass-mark" : pass
+		},
+		dataType : "Json",
+		success : function(data) {
+			
+			$(".test-time").text(getTime(time));
 
-			$.ajax({
-				url : "/azure/getquestions",
-				type : "GET",
-				data : {
-					sub : subject,
-					quest : qNumber
-				},
-				dataType : "Json",
-				success : function(data) {
-					
-					history = data.rec
-					$(".subject-name").text(subject);
-					$(".no-of-questions").text(qNumber);
-					$(".test-time").text(getTime(time));
-					
-					
-					if(!data.questions) {
-						info = data.englishQuestions;
-						questions = initEnglishQuestionArray(info);
-					} else{
-						info = data.questions;
-						info = shuffle(info);
-						questions = initQuestionArray(info);
-						
-					}
-					
-					$('#instructions-dialog').modal({
-						keyboard : false,
-						backdrop : 'static'
-					});
-					$('.start-test').on(
-							'click',
-							function() {
-								startCBT(subject, questions, history, time,
-										passMark, username, imageUrl);
-							});
-						
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					alert(errorThrown);
-				},
-				complete : function() {
-				}
+			if (!data.questions) {
+				info = data.englishQuestions;
+				questions = initEnglishQuestionArray(info);
+			} else {
+				info = data.questions;
+				info = shuffle(info);
+				questions = initQuestionArray(info);
+
+			}
+			
+
+			$('#instructions-dialog').modal({
+				keyboard : false,
+				backdrop : 'static'
 			});
+			$('.start-test').on(
+					'click',
+					function() {
+						startCBT(subject, questions, history, time, pass);
+					});
 
-		});
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert(errorThrown);
+		},
+		complete : function() {
+		}
+	});
+}
+
+$(document).ready(function() {
+	var subject=sessionStorage.getItem("subject");
+	var time=sessionStorage.getItem("time");
+	var question=sessionStorage.getItem("question");
+	var pass=sessionStorage.getItem("pass");
+	
+	getQuestions(subject,time,question,pass);
+
+});
 
 function getSpeedDataPoints(data) {
-	
+
 	var vals = [];
 	var a = '';
 	var b = 29;
 	var test = '';
 	for (i = 0; i < data.tests.length; i++) {
 		a = new Date(data.tests[i].testDate);
-		
-		a = new Date(a.getFullYear(),a.getMonth(),a.getDate());
-		//a = a.getDate() + "/" + (a.getMonth() + 1)+' '+a.getHours()+":"+a.getMinutes();
+
+		a = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+		// a = a.getDate() + "/" + (a.getMonth() + 1)+'
+		// '+a.getHours()+":"+a.getMinutes();
 		a = b + 3;
 		b = b + 24;
 		vals[i] = {
-				x : a,
-				y : b
-			};
-		
+			x : a,
+			y : b
+		};
+
 	}
-	
+
 	return vals;
 }
 
@@ -198,8 +199,8 @@ function getTime(time) {
 	return time;
 }
 
-function startCBT(subject, data, history, time, passMark, username, imgUrl) {
-	
+function startCBT(subject, data, history, time, passMark) {
+
 	time = time * 60;
 	$('#instructions-dialog').modal('hide');
 	$('.heading').text(subject);
@@ -210,14 +211,13 @@ function startCBT(subject, data, history, time, passMark, username, imgUrl) {
 	$('#opt-b').html(alts[1]);
 	$('#opt-c').html(alts[2]);
 	$('#opt-d').html(alts[3]);
-	
+
 	for (i = 1; i <= data.length; i++) {
 		$('.test-btn-grp').append(
 				'<button type="button" class="btn btn-default test-board-number-button">'
 						+ i + '</button>');
 	}
-	
-	
+
 	$(".opt").click(function() {
 		optionClick($(this), data);
 	});
@@ -237,13 +237,11 @@ function startCBT(subject, data, history, time, passMark, username, imgUrl) {
 	$("#finish").click(function() {
 		$('#end-test-dialog').modal();
 	});
-	
+
 	$('.submit-test').on('click', function() {
 		$('#end-test-dialog').modal('hide');
-		finishClick(data, history, passMark, username, time,imgUrl);
+		finishClick(data, history, passMark, time);
 	});
-	
-	
 
 	$('#demo').backward_timer({
 
@@ -261,8 +259,8 @@ function startCBT(subject, data, history, time, passMark, username, imgUrl) {
 		// Handle event of exhausting
 		on_exhausted : function(timer) {
 			timer.target.text('Time Up!!!');
-			
-			timeUp(data, history, passMark, username, time, imgUrl);
+
+			timeUp(data, history, passMark,time);
 		},
 
 		// Handle tick events
@@ -272,22 +270,22 @@ function startCBT(subject, data, history, time, passMark, username, imgUrl) {
 	});
 
 	$('#demo').backward_timer('start');
-	
+
 	testDate = new Date();
 
 }
 
-function timeUp(data, history, passMark, username, time, imgUrl) {
+function timeUp(data, history, passMark,time) {
 	$('#time-dialog').modal({
 		keyboard : false,
 		backdrop : 'static'
 	});
-	
+
 	$('.time-up-button').click(function() {
 		$('#time-dialog').modal('hide');
-		finishClick(data, history, passMark, username, time, imgUrl);
+		finishClick(data, history, passMark,time);
 	});
-	
+
 }
 
 function setSecondsLeft(sec) {
@@ -298,39 +296,43 @@ function getSecondsLeft() {
 	return secondsLeft;
 }
 
-function finishClick(data, history, passMark, username, time, imgUrl) {
-
-	console.log("called");
+function finishClick(data, history, passMark, time) {
+	var username = $("#h-user-name").val();
+	console.log($("#h-user-name"));
 	$('#demo').backward_timer('cancel');
 	data = markTest(data);
 	$('.test-board-footer').hide();
 	$('.heading').text('Test Report');
 	$('#demo').hide();
-	$("body").css('background-color','white');
+	$("body").css('background-color', 'white');
 	$("#cc-div-content")
 			.load(
 					'/pages/partials/cbt.html',
 					function() {
 						$('.test-board-header').addClass('hidden-xs');
-						$("#profile-image").attr('src', imgUrl);
+						$("#profile-image").attr('src', $(".profile-img").prop("src"));
 						initGeneralTab(data, username);
 						initTestInfo(data, time);
 						initReportAnalysis(data, passMark);
 						initChartAnalysis(data, passMark, time);
-						$('#save-div').append('<a id="print-doc" class="btn btn-primary btn-sm cont-button print-doc" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
-						$('#save-div').append('<button id="save-button" type="button" class="btn btn-primary btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');		
-						
+						$('#save-div')
+								.append(
+										'<a id="print-doc" class="ca-btn-primary  btn-sm cont-button print-doc" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
+						$('#save-div')
+								.append(
+										'<button id="save-button" type="button" class="ca-btn-primary  btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');
+
 						$(".print-doc").on('click', function() {
 							window.print();
 						});
-						
+
 						$(".save-button").on('click', function() {
-							
+
 							saveCbtRecord(data, time, passMark);
 						});
 
 						var spd = getSpeedDataPoints(history);
-						for(i=0; i<spd.length;i++) {
+						for (i = 0; i < spd.length; i++) {
 							alert(spd[i].x);
 							alert(spd[i].y);
 						}
@@ -353,20 +355,20 @@ function saveCbtRecord(data, totalTime, passMark) {
 	var pScore = getPercentageScore(noCorrect, data.length);
 	var overallPerformance = getOverallPerformance(pScore, accuracy,
 			confidence, speed);
-	
+
 	var data = {
-			testDate : testDate,
-			totalQuestions : totalQuestions,
-			noCorrect : noCorrect,
-			nuans : nuans,
-			noWrong : noWrong,
-			speed : speed,
-			accuracy : accuracy,
-			confidence : confidence,
-			pScore : pScore,
-			overallPerformance : overallPerformance
+		testDate : testDate,
+		totalQuestions : totalQuestions,
+		noCorrect : noCorrect,
+		nuans : nuans,
+		noWrong : noWrong,
+		speed : speed,
+		accuracy : accuracy,
+		confidence : confidence,
+		pScore : pScore,
+		overallPerformance : overallPerformance
 	};
-	
+
 	data = JSON.stringify(data);
 
 	$.ajax({
@@ -388,10 +390,10 @@ function saveCbtRecord(data, totalTime, passMark) {
 			alert(errorThrown);
 		},
 		complete : function() {
-			var ltn = $("#last-test-name",opener.document);
-			ltn.text('CBT '+subjectName);
-			var ltd = $("#last-test-date",opener.document);
-			$("#last-test-date-row",opener.document).show();
+			var ltn = $("#last-test-name", opener.document);
+			ltn.text('CBT ' + subjectName);
+			var ltd = $("#last-test-date", opener.document);
+			$("#last-test-date-row", opener.document).show();
 			ltd.text(testDate);
 		}
 	});
@@ -689,26 +691,25 @@ function initEnglishQuestionArray(data) {
 	var questionArray = [];
 	var quest = null;
 	var qs = null;
-	
-	for(i=0; i< data.length; i++) {
+
+	for (i = 0; i < data.length; i++) {
 		qs = data[i].questions;
-		
-		for(j=0; j < qs.length; j++) {
+
+		for (j = 0; j < qs.length; j++) {
 			quest = {
-					subjectName : qs[j].subjectName,
-					body : qs[j].body,
-					extraText : data[i].instruction,
-					correctAlt : qs[j].correctAlternative,
-					alts : qs[j].alternatives,
-					isCorrect : qs[j].isCorrect,
-					choice : ""
-				};
-				questionArray[questionArray.length] = quest;
+				subjectName : qs[j].subjectName,
+				body : qs[j].body,
+				extraText : data[i].instruction,
+				correctAlt : qs[j].correctAlternative,
+				alts : qs[j].alternatives,
+				isCorrect : qs[j].isCorrect,
+				choice : ""
+			};
+			questionArray[questionArray.length] = quest;
 		}
 	}
 	return questionArray;
 }
-
 
 function initQuestionArray(data) {
 	var questionArray = [];
@@ -768,37 +769,35 @@ function getPercentageScore(score, total) {
 }
 
 function getGrade(score) {
-	
 
-	if(score >= 80) {
+	if (score >= 80) {
 		return 'A';
-	} else if(score >= 70) {
+	} else if (score >= 70) {
 		return 'B';
-	}else if(score >= 60) {
+	} else if (score >= 60) {
 		return 'C';
-	}else if(score >= 50) {
+	} else if (score >= 50) {
 		return 'D';
-	}else if(score >= 40) {
+	} else if (score >= 40) {
 		return 'E';
-	}else {
+	} else {
 		return 'F';
 	}
 }
 
 function getComment(score) {
-	
 
-	if(score >= 80) {
+	if (score >= 80) {
 		return 'An excellent performance';
-	} else if(score >= 70) {
+	} else if (score >= 70) {
 		return 'A very good performance';
-	}else if(score >= 60) {
+	} else if (score >= 60) {
 		return 'A Good performance';
-	}else if(score >= 50) {
+	} else if (score >= 50) {
 		return 'A fairly good performance';
-	}else if(score >= 40) {
+	} else if (score >= 40) {
 		return 'A poor performance';
-	}else {
+	} else {
 		return 'A very poor peformance';
 	}
 }

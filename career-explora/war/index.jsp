@@ -107,7 +107,7 @@
 										id="last-name" placeholder="Last Name" name="last-name" />
 								</div>
 							</div>
-							<!-- <div class="row">
+							
 								<div class="form-group col-sm-6">
 									<input type="radio" name="username-mode" value="phone"
 										id="use-phone" /> Use mobile number
@@ -115,12 +115,12 @@
 								<div class="form-group col-sm-6">
 									<input type="radio" name="username-mode" value="email"
 										id="use-email" /> Use email
-								</div>  -->
+								</div> 
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-12">
 							<input class="form-control sign-up-input" id="userid"
-								name="userid" placeholder="E Mail address" style="width: 100%;" />
+								name="userid" placeholder="Mobile Number" style="width: 100%;" />
 						</div>
 					</div>
 					<div class="row">
@@ -249,19 +249,19 @@
 					</div>
 					<div class="row">
 
-						<!-- <div class="form-group col-sm-6">
+						<div class="form-group col-sm-6">
 									<input type="radio" name="username-mode" value="phone"
 										id="use-phone" checked="checked" /> Use mobile number
 								</div>
 								<div class="form-group col-sm-6">
 									<input type="radio" name="username-mode" value="email"
 										id="use-email" /> Use email
-								</div>  -->
+								</div>  
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-12">
 							<input class="form-control sign-up-input" id="userid"
-								name="userid" placeholder="E Mail address" style="width: 100%;" />
+								name="userid" placeholder="Mobile Number" style="width: 100%;" />
 						</div>
 					</div>
 					<div class="row">
@@ -330,24 +330,24 @@
 					<div class="row">
 						<c:choose>
 							<c:when test="${usingMobile}">
-								<!-- 	<div class="form-group col-sm-6">
+								<div class="form-group col-sm-6">
 											<input type="radio" name="username-mode" value="phone"
 												id="use-phone" checked="checked" /> Use mobile number
 										</div>
 										<div class="form-group col-sm-6">
 											<input type="radio" name="username-mode" value="email"
 												id="use-email" /> Use email
-										</div>  -->
+										</div>  
 							</c:when>
 							<c:when test="${usingEmail}">
-								<!-- 	<div class="form-group col-sm-6">
+								<div class="form-group col-sm-6">
 											<input type="radio" name="username-mode" value="phone"
 												id="use-phone" /> Use mobile number
 										</div>
 										<div class="form-group col-sm-6">
 											<input type="radio" name="username-mode" value="email"
 												id="use-email" checked="checked" /> Use email
-										</div> -->
+										</div> 
 							</c:when>
 						</c:choose>
 
@@ -355,7 +355,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12">
 							<input class="form-control sign-up-input" id="userid"
-								name="userid" placeholder="E Mail address" style="width: 100%;"
+								name="userid" placeholder="Mobile Number" style="width: 100%;"
 								value="${registrationForm.username}" />
 						</div>
 					</div>

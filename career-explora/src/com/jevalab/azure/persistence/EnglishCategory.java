@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+
 import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.datastore.Key;
@@ -23,7 +25,7 @@ public class EnglishCategory implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Key key;
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
+	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String instruction,categoryName;
 	
 	public EnglishCategory(String categoryName,String instruction) {

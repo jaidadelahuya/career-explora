@@ -241,7 +241,7 @@
 				});
 		function getMitTestInfo() {
 			$.ajax({
-				url : '/azure/getmitreportinfo',
+				url : '/azure/profile/mit/report/info',
 				type : 'GET',
 				dataType : 'Json',
 				success : function(data) {

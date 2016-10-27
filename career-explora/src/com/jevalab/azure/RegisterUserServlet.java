@@ -25,7 +25,7 @@ public class RegisterUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String firstName = req.getParameter("first-name");
 		String lastName = req.getParameter("last-name");
-		String usernameMode = "email"; //req.getParameter("username-mode");
+		String usernameMode = req.getParameter("username-mode");
 		String username = req.getParameter("userid");
 		String password1 = req.getParameter("password1");
 		String password2 = req.getParameter("password2");

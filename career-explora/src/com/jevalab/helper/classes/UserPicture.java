@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+
 import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -19,6 +21,11 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 @Entity
 public class UserPicture implements Serializable, Comparable<UserPicture> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2900526354579263799L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

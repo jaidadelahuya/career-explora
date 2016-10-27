@@ -163,7 +163,7 @@ public class TalentJpaController {
 	public List<Talent> findTalentEntities(String category) {
 		EntityManager em = getEntityManager();
 		try {
-	    	Query q = em.createQuery("SELECT t FROM Talent t where t.category = '"+category+"'");
+	    	Query q = em.createQuery("SELECT t FROM Talent t where t.category = '"+category.toUpperCase()+"'");
 	    	List<Talent> list = q.getResultList();
 	    	for(Talent t: list) {
 	    		t.getQuestions();

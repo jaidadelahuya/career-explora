@@ -10,6 +10,8 @@ import javax.persistence.Id;
 
 import org.datanucleus.api.jpa.annotations.Extension;
 
+
+
 @Entity
 public class CareerValues implements Serializable{
 	

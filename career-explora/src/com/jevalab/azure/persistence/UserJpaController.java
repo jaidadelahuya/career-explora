@@ -23,6 +23,7 @@ import com.google.appengine.api.datastore.TransactionOptions;
 import com.jevalab.exceptions.NonexistentEntityException;
 import com.jevalab.exceptions.PreexistingEntityException;
 import com.jevalab.exceptions.RollbackFailureException;
+import com.jevalab.helper.classes.EntityConverter;
 import com.jevalab.helper.classes.LoginHelper;
 import com.jevalab.helper.classes.PasswordRecovery;
 import com.jevalab.helper.classes.UserPicture;
@@ -76,7 +77,7 @@ public class UserJpaController implements Serializable {
 	
 	public AzureUser create(AzureUser user, PasswordRecovery pr, UserPicture up) {
 		
-		Entity e = LoginHelper.createEntityFromUser(user);
+		Entity e = EntityConverter.userToEntity(user);
 		Entity e1 = null;
 		Entity e2 = null;
 		if (pr != null) {
@@ -192,12 +193,7 @@ public class UserJpaController implements Serializable {
 		EntityManager em = getEntityManager();
 		try {
 			AzureUser user = em.find(AzureUser.class, id);
-			if (user != null) {
-				List<UpComingTest> uctl = user.getUpComingTests();
-				for (UpComingTest uc : uctl) {
-					uc.getTopics();
-				}
-			}
+			
 			if (user != null) {
 				user.getFriendsId();
 			}
@@ -262,20 +258,13 @@ public class UserJpaController implements Serializable {
 				return user;
 			} else {
 				Map<String, Object> map = e.getProperties();
-				user = Util.toAzureUser(e);
+				user = EntityConverter.entityToUser(e);
 			}
 		}
 
 		return user;
 	}
 
-	/*
-	 * public AzureUser findUserByUsername(String username) { EntityManager em =
-	 * getEntityManager(); AzureUser user = null; try { Query q =
-	 * em.createQuery("select a from user a"); List<AzureUser> list =
-	 * q.getResultList(); for (AzureUser u : list) { if (u.getUsername() != null
-	 * && u.getUsername().equals(username)) { user = u; u.getFriendsId();
-	 * u.getUpComingTests(); break; } } } finally { em.close(); } return user; }
-	 */
+	
 
 }

@@ -23,9 +23,9 @@ import com.jevalab.azure.persistence.Record;
 import com.jevalab.azure.persistence.RecordJpaController;
 import com.jevalab.azure.persistence.SkillCategory;
 import com.jevalab.azure.persistence.UserJpaController;
+import com.jevalab.azure.profile.UserProfile;
 import com.jevalab.helper.classes.ProfileHelper;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.UserView;
 
 public class UserProfileServlet extends HttpServlet {
@@ -76,7 +76,6 @@ public class UserProfileServlet extends HttpServlet {
 				}
 				  
 				UserProfile userProfile = ProfileHelper.getProfileData(user);
-				userProfile.setCurrentUser(currentUser);
 				synchronized (session) {
 					session.setAttribute(StringConstants.USER_PROFILE, userProfile);
 				}

@@ -6,16 +6,16 @@ var msg = null;
 $(document).ready(
 		function() {
 			msg = window.name;
-
+			
 			var info = null;
-
-			var userid = window.userid;
 			var imgUrl = window.imgUrl;
 			var username = window.username;
+			
+			
 
 			$(".profile-img").attr('src', imgUrl);
 			$.ajax({
-				url : "/gettalents",
+				url : "/azure/gettalents",
 				type : "GET",
 				data : {
 					test : msg
@@ -167,10 +167,10 @@ function finishClick(info, questions, username, imgUrl) {
 
 						$('#save-div')
 								.append(
-										'<a id="print-doc" class="btn btn-primary btn-sm cont-button" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
+										'<a id="print-doc" class="btn ca-btn-primary btn-sm cont-button" style="margin: 1em;"><span class="glyphicon glyphicon-print"></span><span class="hidden-sm hidden-md"> Print</span></a>');
 						$('#save-div')
 								.append(
-										'<button id="save-button" type="button" class="btn btn-primary btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');
+										'<button id="save-button" type="button" class="btn ca-btn-primary btn-sm cont-button save-button"><span class="glyphicon glyphicon-save"></span><span class="hidden-sm hidden-md"> Save</span></button>');
 
 						$('#print-doc').on('click', function() {
 							window.print();
@@ -186,7 +186,7 @@ function saveTalents(talents) {
 	var t = JSON.stringify(talents);
 	var hasMore = null;
 	$.ajax({
-		url : '/savetalents',
+		url : '/azure/savetalents',
 		type : 'POST',
 		dataType: 'Json',
 		data : {

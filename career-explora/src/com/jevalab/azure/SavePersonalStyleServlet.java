@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.google.appengine.api.datastore.Text;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.Util;
 
 public class SavePersonalStyleServlet extends HttpServlet {
@@ -27,7 +26,7 @@ public class SavePersonalStyleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
+	/*	HttpSession session = req.getSession();
 		if (!session.isNew()) {
 			String styles = req.getParameter("styles");
 			String testDate = req.getParameter("testDate");
@@ -58,7 +57,7 @@ public class SavePersonalStyleServlet extends HttpServlet {
 				resp.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
 						"We could not save your test on the server. Please try again.");
 			}
-		}
+		}*/
 
 	}
 }

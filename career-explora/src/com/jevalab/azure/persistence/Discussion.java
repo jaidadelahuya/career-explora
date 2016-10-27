@@ -1,96 +1,94 @@
+/*** Eclipse Class Decompiler plugin, copyright (c) 2016 Chen Chao (cnfree2000@hotmail.com) ***/
 package com.jevalab.azure.persistence;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyRange;
+import com.google.appengine.api.datastore.Text;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Text;
-
 public class Discussion implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4381455774031590445L;
-	private Key id, owner;
-	private String title,link;
+	private Key id;
+	private Key owner;
+	private String title;
+	private String link;
 	private Text body;
 	private String format;
-	private List<Key> subscribers, likers;
+	private List<Key> subscribers;
+	private List<Key> likers;
 	private Date dateCreated;
 	private List<String> tags;
 	private BlobKey image;
 	private long likes;
+	private long comments;
 	private long shares;
 	private Key unit;
 	private Key collection;
 	private Key parent;
 
-
-	@Override
 	public String toString() {
-		return "Discussion [id=" + id + ", owner=" + owner + ", title=" + title
-				+ ", body=" + body + ", format=" + format + ", subscribers="
-				+ subscribers + ", dateCreated=" + dateCreated + ", tags=" + tags
-				+ ", image=" + image + ", likes=" + likes + ", shares="
-				+ shares + "]";
-	}
-	
-	
-	public Key getParent() {
-		return parent;
+		return "Discussion [id=" + this.id + ", owner=" + this.owner
+				+ ", title=" + this.title + ", body=" + this.body + ", format="
+				+ this.format + ", subscribers=" + this.subscribers
+				+ ", dateCreated=" + this.dateCreated + ", tags=" + this.tags
+				+ ", image=" + this.image + ", likes=" + this.likes
+				+ ", shares=" + this.shares + "]";
 	}
 
+	public long getComments() {
+		return this.comments;
+	}
+
+	public void setComments(long comments) {
+		this.comments = comments;
+	}
+
+	public Key getParent() {
+		return this.parent;
+	}
 
 	public void setParent(Key parent) {
 		this.parent = parent;
 	}
 
-
 	public List<Key> getLikers() {
-		return likers;
+		return this.likers;
 	}
-
 
 	public void setLikers(List<Key> likers) {
 		this.likers = likers;
 	}
 
-
 	public String getLink() {
-		return link;
+		return this.link;
 	}
-
 
 	public void setLink(String link) {
 		this.link = link;
 	}
 
-
 	public Key getUnit() {
-		return unit;
+		return this.unit;
 	}
-
 
 	public void setUnit(Key unit) {
 		this.unit = unit;
 	}
 
-
 	public Key getCollection() {
-		return collection;
+		return this.collection;
 	}
-
 
 	public void setCollection(Key collection) {
 		this.collection = collection;
 	}
 
-
 	public Key getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Key id) {
@@ -98,7 +96,7 @@ public class Discussion implements Serializable {
 	}
 
 	public Key getOwner() {
-		return owner;
+		return this.owner;
 	}
 
 	public void setOwner(Key owner) {
@@ -106,7 +104,7 @@ public class Discussion implements Serializable {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -114,7 +112,7 @@ public class Discussion implements Serializable {
 	}
 
 	public Text getBody() {
-		return body;
+		return this.body;
 	}
 
 	public void setBody(Text body) {
@@ -122,7 +120,7 @@ public class Discussion implements Serializable {
 	}
 
 	public String getFormat() {
-		return format;
+		return this.format;
 	}
 
 	public void setFormat(String format) {
@@ -130,17 +128,15 @@ public class Discussion implements Serializable {
 	}
 
 	public List<Key> getSubscribers() {
-		return subscribers;
+		return this.subscribers;
 	}
-
 
 	public void setSubscribers(List<Key> subscribers) {
 		this.subscribers = subscribers;
 	}
 
-
 	public Date getDateCreated() {
-		return dateCreated;
+		return this.dateCreated;
 	}
 
 	public void setDateCreated(Date dateCreated) {
@@ -148,7 +144,7 @@ public class Discussion implements Serializable {
 	}
 
 	public List<String> getTags() {
-		return tags;
+		return this.tags;
 	}
 
 	public void setTags(List<String> tags) {
@@ -156,7 +152,7 @@ public class Discussion implements Serializable {
 	}
 
 	public BlobKey getImage() {
-		return image;
+		return this.image;
 	}
 
 	public void setImage(BlobKey image) {
@@ -164,7 +160,7 @@ public class Discussion implements Serializable {
 	}
 
 	public long getLikes() {
-		return likes;
+		return this.likes;
 	}
 
 	public void setLikes(long likes) {
@@ -172,7 +168,7 @@ public class Discussion implements Serializable {
 	}
 
 	public long getShares() {
-		return shares;
+		return this.shares;
 	}
 
 	public void setShares(long shares) {
@@ -180,8 +176,7 @@ public class Discussion implements Serializable {
 	}
 
 	public Discussion() {
-		id = GeneralController.ds.allocateIds(Discussion.class.getSimpleName(),
-				1).getStart();
+		this.id = GeneralController.ds.allocateIds(
+				Discussion.class.getSimpleName(), 1L).getStart();
 	}
-
 }

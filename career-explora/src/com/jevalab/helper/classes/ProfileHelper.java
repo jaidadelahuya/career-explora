@@ -16,6 +16,7 @@ import com.jevalab.azure.persistence.Record;
 import com.jevalab.azure.persistence.RecordJpaController;
 import com.jevalab.azure.persistence.SkillCategory;
 import com.jevalab.azure.persistence.UserJpaController;
+import com.jevalab.azure.profile.UserProfile;
 
 public class ProfileHelper {
 
@@ -25,13 +26,12 @@ public class ProfileHelper {
 		return user;
 	}
 
-	public static UserProfile getProfileData(AzureUser user) {
+	public static UserProfile getProfileData(AzureUser user, UserProfile profile) {
 
-		UserProfile profile = new UserProfile();
+
 		profile.setFirstName(user.getFirstName());
 		profile.setLastName(user.getLastName());
 		profile.setMiddleName(user.getMiddleName());
-		profile.setDateOfBirth(user.getDateOfBirth());
 		profile.setGender(user.getGender());
 		profile.setEmail(user.getEmail());
 		profile.setSchool(user.getSchool());
@@ -39,11 +39,23 @@ public class ProfileHelper {
 		profile.setCountry(user.getCountry());
 		profile.setCover(user.getCover());
 		profile.setPicture(user.getPicture());
-		profile.setAttends(user.isAttends());
 		profile.setLastSeenDate(user.getLastSeenDate().toString());
-
-		profile.setStyles(getStyles(user.getUserID()));
-		profile.setValues(getValues(user.getUserID()));
+		profile.setAbout((user.getAbout() == null) ? null : user.getAbout()
+				.getValue());
+		profile.setBirthDate(user.getDateOfBirth());
+		profile.setCollections((user.getCollections()==null)?0:user.getCollections().size());
+		profile.setCommunities((user.getCommunities()==null)?0:user.getCommunities().size());
+		profile.setFollowers((user.getFollowers()==null)?0:user.getFollowers().size());
+		profile.setFollowing((user.getFollowing()==null)?0:user.getFollowing().size());
+		profile.setGrade(user.getsClass());
+		profile.setHobbies((user.getHobbies()==null)?null:user.getHobbies().getValue());
+		List<String> interest = Util.toInterestValues(user.getAreaOfInterest());
+		String is = "";
+		for(String s: interest) {
+			is+=(s+", ");
+		}
+		is=is.substring(0,is.lastIndexOf(","));
+		profile.setInterest(is);
 		profile.setClusters(getClusters(user.getUserID()));
 		profile.setTalents(getTalents(user.getUserID()));
 		String mitsValues = getMits(user.getUserID());
@@ -88,30 +100,39 @@ public class ProfileHelper {
 		return list;
 	}
 
-	public static List<String> getSkillsToLearn(Map<String, String> allSkills) {
-		List<String> SkillsToBuild = new ArrayList<>();
+	public static String getSkillsToLearn(Map<String, String> allSkills) {
+		String SkillsToBuild = "";
 		Set<String> keys = allSkills.keySet();
 		String cat = null;
 		for (String s : keys) {
 			cat = allSkills.get(s);
 			if (cat.equalsIgnoreCase(SkillCategory.TO_BUILD.name())) {
-				SkillsToBuild.add(s);
+				SkillsToBuild += (s + ", ");
 			}
 		}
-		return SkillsToBuild;
+		
+		if(SkillsToBuild.isEmpty()) {
+			return SkillsToBuild;
+		}else {
+			return SkillsToBuild.substring(0,SkillsToBuild.lastIndexOf(","));
+		}
 	}
 
-	public static List<String> getLearntSkills(Map<String, String> allSkills) {
-		List<String> learntSkills = new ArrayList<>();
+	public static String getLearntSkills(Map<String, String> allSkills) {
+		String learntSkills = "";
 		Set<String> keys = allSkills.keySet();
 		String cat = null;
 		for (String s : keys) {
 			cat = allSkills.get(s);
 			if (cat.equalsIgnoreCase(SkillCategory.HAVE_BUILT.name())) {
-				learntSkills.add(s);
+				learntSkills += (s + ", ");
 			}
 		}
-		return learntSkills;
+		if(learntSkills.isEmpty()) {
+			return learntSkills;
+		}else {
+			return learntSkills.substring(0,learntSkills.lastIndexOf(","));
+		}
 	}
 
 	private static Map<String, String> getAllSkills(String id) {
@@ -135,11 +156,11 @@ public class ProfileHelper {
 		return types.getValue();
 	}
 
-	public static List<String> getAllStrongMits(String value) {
+	public static String getAllStrongMits(String value) {
 
-		List<String> list = new ArrayList<>();
+		String list = "";
 		if (value == null) {
-			return list;
+			return null;
 		} else {
 			try {
 				JSONArray arr = new JSONArray(value);
@@ -161,21 +182,26 @@ public class ProfileHelper {
 					token = token.substring(0, token.indexOf('"'));
 					v = Integer.parseInt(val);
 					if (v > 10) {
-						list.add(token);
+						list += (token + ", ");
 					}
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return list;
+			if(list.isEmpty()) {
+				return list;
+			}else {
+				return list.substring(0,list.lastIndexOf(","));
+			}
 		}
 
 	}
 
-	public static Map<String, String> getAllStrongMits(String value, int from, int to) {
+	public static Map<String, String> getAllStrongMits(String value, int from,
+			int to) {
 
-		Map<String,String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		if (value == null) {
 			return map;
 		} else {
@@ -199,7 +225,7 @@ public class ProfileHelper {
 					token = token.substring(0, token.indexOf('"'));
 					v = Integer.parseInt(val);
 					if (v >= from && v < to) {
-						map.put(token,val);
+						map.put(token, val);
 					}
 				}
 			} catch (JSONException e) {
@@ -211,102 +237,113 @@ public class ProfileHelper {
 
 	}
 
-	public static List<String> getTalents(String id) {
+	public static String getTalents(String id) {
 		Record rec = new Record(id, StringConstants.TALENT_HUNT);
 		RecordJpaController cont = new RecordJpaController();
 		rec = cont.findRecord(rec.getKey());
 		if (rec == null) {
-			return new ArrayList<String>();
+			return null;
 		}
 		Map<String, String> map = rec.getTalents();
 		return getStrongTalents(map);
 	}
-	
-	public static Map<String,String> getTalents(String id, Boolean withValues) {
+
+	public static Map<String, String> getTalents(String id, Boolean withValues) {
 		Record rec = new Record(id, StringConstants.TALENT_HUNT);
 		RecordJpaController cont = new RecordJpaController();
 		rec = cont.findRecord(rec.getKey());
 		if (rec == null) {
-			return new HashMap<String,String>();
+			return new HashMap<String, String>();
 		}
 		Map<String, String> map = rec.getTalents();
 		return getStrongTalents(map, withValues);
 	}
 
-	public static List<String> getStrongTalents(Map<String, String> map) {
-		List<String> talents = new ArrayList<>();
+	public static String getStrongTalents(Map<String, String> map) {
+		String talents = "";
 		Set<String> keys = map.keySet();
 		int val = 0;
 		for (String s : keys) {
 			val = Integer.parseInt(map.get(s));
 			if (val >= 6) {
-				talents.add(s);
+				talents += (s + ", ");
 			}
 		}
-		return talents;
+		if(talents.isEmpty()) {
+			return talents;
+		}else {
+			
+			return talents.substring(0,talents.lastIndexOf(","));
+		}
 	}
-	
-	public static Map<String,String> getStrongTalents(Map<String, String> map, Boolean withValues) {
-		Map<String,String> mp = new HashMap<>();
+
+	public static Map<String, String> getStrongTalents(Map<String, String> map,
+			Boolean withValues) {
+		Map<String, String> mp = new HashMap<>();
 		Set<String> keys = map.keySet();
 		for (String s : keys) {
 			if (Integer.parseInt(map.get(s)) >= 6) {
-				mp.put(s,map.get(s));
+				mp.put(s, map.get(s));
 			}
 		}
 		return mp;
 	}
 
-	private static List<String> getClusters(String id) {
+	private static String getClusters(String id) {
 		Record rec = new Record(id, StringConstants.CAREER_CLUSTERS);
 		RecordJpaController cont = new RecordJpaController();
 		rec = cont.findRecord(rec.getKey());
 		if (rec == null) {
-			return new ArrayList<>();
+			return null;
 		}
 		Map<String, String> map = rec.getCareerClusters();
 		return getLovedClusters(map);
 	}
 
-	public static List<String> getLovedClusters(Map<String, String> map) {
+	public static String getLovedClusters(Map<String, String> map) {
 
-		List<String> clusters = new ArrayList<>();
+		String clusters = "";
 		Set<String> keys = map.keySet();
 		int val = 0;
 		for (String s : keys) {
 			val = Integer.parseInt(map.get(s));
 			if (val > 12) {
-				clusters.add(s);
+				clusters += (s + ", ");
 			}
 		}
-		return clusters;
+
+		if(clusters.isEmpty()) {
+			return clusters;
+		}else {
+			return clusters.substring(0,clusters.lastIndexOf(","));
+		}
 	}
-	
-	public static Map<String,String> getClusters(String id, boolean withValues) {
+
+	public static Map<String, String> getClusters(String id, boolean withValues) {
 		Record rec = new Record(id, StringConstants.CAREER_CLUSTERS);
 		RecordJpaController cont = new RecordJpaController();
 		rec = cont.findRecord(rec.getKey());
 		if (rec == null) {
-			return new HashMap<String,String>();
+			return new HashMap<String, String>();
 		}
 		Map<String, String> map = rec.getCareerClusters();
 		return getLovedClusters(map, withValues);
 	}
 
-	public static Map<String,String> getLovedClusters(Map<String, String> map, boolean withValues) {
+	public static Map<String, String> getLovedClusters(Map<String, String> map,
+			boolean withValues) {
 
-		Map<String,String> clusters = new HashMap<>();
+		Map<String, String> clusters = new HashMap<>();
 		Set<String> keys = map.keySet();
 		int val = 0;
 		for (String s : keys) {
 			val = Integer.parseInt(map.get(s));
 			if (val > 12) {
-				clusters.put(s,map.get(s));
+				clusters.put(s, map.get(s));
 			}
 		}
 		return clusters;
 	}
-
 
 	private static List<String> getValues(String id) {
 		Record rec = new Record(id, StringConstants.CAREER_VALUES);
@@ -356,19 +393,4 @@ public class ProfileHelper {
 		return s;
 	}
 
-	public static ModuleInfo getSixMore(ModuleInfo mi) {
-		List<String> nextSix = new ArrayList<>();
-		List<String> oList = mi.getList();
-		int counter = mi.getCounter();
-		while (nextSix.size() < 6) {
-			if (counter >= oList.size()) {
-				counter = 0;
-			}
-			nextSix.add(oList.get(counter));
-			counter++;
-		}
-		mi.setCounter(counter);
-		mi.setList(nextSix);
-		return mi;
-	}
 }

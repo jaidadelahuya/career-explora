@@ -1,0 +1,81 @@
+<div class="center-div">
+
+	<div id="cbt-content" class="center-main-content">
+		<div class="row">
+			<div class="col s12 m12">
+				<div class="card">
+					<div class="card-content">
+						<span class="card-title">Computer Based Tests</span>
+						<div class="row">
+							<form class="col s12" id="start-cbt-form"
+								style="margin-bottom: 0px">
+								<div class="row">
+									<div class="input-field col s12">
+										<select required="required" class="validate" id="subject"
+											name="subject">
+
+											<option value="account">Account</option> Biology
+											</option>
+											<option value="Chemistry">Chemistry</option>
+											<option value="Commerce">Commerce</option>
+											<option value="C.R.K">C.R.K</option>
+											<option value="Economics">Economics</option>
+											<option value="English">English</option>
+											<option value="Government">Government</option>
+											<option value="Geography">Geography</option>
+											<option value="History">History</option>
+											<option value="Mathematics">Mathematics</option>
+											<option value="Physics">Physics</option>
+
+										</select> <label for="subject" data-error="Choose a subject"
+											data-success="right">Subject</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12">
+										<input id="time" name="time" type="number" class="validate"
+											required="required"> <label
+											data-error="Time should be in minutes" data-success="right"
+											for="time">How
+											long should this test take (mins)?</label>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="input-field col s12">
+										<input name="question" id="questions" type="number" min="10"
+											max="100" required="required" class="validate"> <label
+											for="questions"
+											data-error="Min. number = 10 and Max. number = 100"
+											data-success="right">How many
+											questions do you want to attempt?</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12">
+										<input name="pass-mark" id="pass-percentage" type="number"
+											min="40" max="100" value="50" class="validate"> <label
+											data-error="Min. mark= 40 and Max. mark = 100 "
+											data-success="right" for="pass-percentage">What is your preferred pass
+											mark (%)?</label>
+
+									</div>
+								</div>
+									<div class="row">
+
+										<div class="input-field col s12">
+											<button type="submit" id="start-cbt"
+											class="ca-btn-primary ca-btn-lg">Continue</button>
+										</div>
+									</div>
+							</form>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

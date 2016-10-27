@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +15,15 @@ import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Text;
 
 @Entity
 public class CbtRecord implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8296979764354266338L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;

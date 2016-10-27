@@ -1,6 +1,7 @@
 package com.jevalab.azure;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,19 +50,17 @@ public class ConfirmationCodeServlet extends HttpServlet {
 						} else {
 							rf.getPasswordRecovery().setVerified(true);
 							AzureUser user = new AzureUser(rf);
-							user.setAuthorized(false);
-							boolean okay = false;
+							user.setAuthorized(true);
+							user.setSubscriptionDate(new Date());
+							user.setNewUser(true);
 							synchronized (session) {
 								session.setAttribute(
 										StringConstants.AZURE_USER, user);
 							}
-							okay = com.jevalab.helper.classes.Util
-									.initAuthorizationPage(req, user);
-							if (okay) {
-								resp.getWriter().write("/authorization");
-								UserJpaController cont = new UserJpaController();
-								cont.create(user, rf.getPasswordRecovery());
-							}
+
+							resp.getWriter().write("/azure/interest/select");
+							UserJpaController cont = new UserJpaController();
+							cont.create(user, rf.getPasswordRecovery());
 
 						}
 

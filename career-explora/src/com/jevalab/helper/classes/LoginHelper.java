@@ -21,15 +21,13 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.jevalab.azure.ProcessTestTopic;
-import com.jevalab.azure.ProcessedUpComingTest;
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.IdSequence;
 import com.jevalab.azure.persistence.IdSequenceJpaController;
 import com.jevalab.azure.persistence.PasswordRecoveryJpaController;
 import com.jevalab.azure.persistence.Record;
 import com.jevalab.azure.persistence.RecordJpaController;
-import com.jevalab.azure.persistence.UpComingTest;
-import com.jevalab.azure.persistence.UpComingTestTopic;
+
 import com.jevalab.azure.persistence.UserJpaController;
 import com.jevalab.exceptions.NonexistentEntityException;
 import com.jevalab.exceptions.PreexistingEntityException;
@@ -68,11 +66,9 @@ public class LoginHelper {
 			user.setEmail(me.getEmail());
 		}
 		
-		user.setUpdateNameFromIdp(true);
-		user.setUpComingTests(new ArrayList<UpComingTest>());
 		user.setLastSeenDate(null);
 		user.setLastTestTaken(null);
-		user.setFriendsId(new ArrayList<String>());
+		user.setFriendsId(new ArrayList<Key>());
 		user.setOldPasswords(new ArrayList<String>());
 		return user;
 	}
@@ -90,24 +86,7 @@ public class LoginHelper {
 	public static AzureUser editExistingUser(User me, AzureUser user) {
 		if (me != null) {
 
-			if (user.isUpdateNameFromIdp()) {
 
-				if (me.getFirstName() != null) {
-
-					user.setFirstName(me.getFirstName());
-				}
-
-				if (me.getLastName() != null) {
-
-					user.setLastName(me.getLastName());
-				}
-
-				if (me.getMiddleName() != null) {
-
-					user.setMiddleName(me.getMiddleName());
-
-				}
-			}
 
 			if (me.getGender() != null) {
 
@@ -135,7 +114,7 @@ public class LoginHelper {
 		wpb.setPosts((List<DiscussionBean>) map.get("post"));
 		wpb.setProfileImg(user.getPicture());
 		wpb.setSchool(user.getSchool());
-		wpb.setsClass(Util.getClassValue(user.getsClass()));
+		wpb.setsClass(user.getsClass());
 		return wpb;
 	}
 
@@ -192,46 +171,7 @@ public class LoginHelper {
 		return user;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<UserView> getSuggestedFriends(AzureUser me,
-			HttpSession session) {
 
-		final int STEP = 3;
-		UserJpaController cont = new UserJpaController();
-		Object o = null;
-		synchronized (session) {
-			o = session.getAttribute(StringConstants.SF_COUNTER);
-		}
-
-		Integer sfCounter = 0;
-		if (o != null && o instanceof Integer) {
-			sfCounter = (Integer) o;
-		} else {
-			sfCounter = 0;
-		}
-
-		List<AzureUser> users = getUsers(sfCounter, STEP, cont);
-
-		
-
-		users = removeMe(me, users);
-
-		users = getNonFriends(me, users);
-
-		Map<String, Object> map = completeList(me, users, STEP, sfCounter, cont);
-		if (map == null) {
-			return null;
-		} else {
-			users = (List<AzureUser>) map.get(StringConstants.USERS);
-			sfCounter = (Integer) map.get(StringConstants.COUNTER);
-
-			List<UserView> list = toUserView(users);
-
-			session.setAttribute(StringConstants.SF_COUNTER, sfCounter);
-			return list;
-		}
-
-	}
 
 	private static List<UserView> toUserView(List<AzureUser> users) {
 		List<UserView> list = new ArrayList<>();
@@ -278,118 +218,8 @@ public class LoginHelper {
 		return users;
 	}
 
-	private static List<AzureUser> getNonFriends(AzureUser me,
-			List<AzureUser> users) {
-		List<AzureUser> nonFriends = new ArrayList<>();
-		List<String> friends = me.getFriendsId();
-		if (friends == null) {
-			return users;
-		} else if (friends.isEmpty()) {
-			return users;
-		} else {
-			for (int i = 0; i < users.size(); i++) {
-				for (int j = 0; j < friends.size(); j++) {
-					if (users.get(i).getUserID()
-							.equalsIgnoreCase(friends.get(j))) {
-						continue;
-					} else {
-						nonFriends.add(users.get(i));
-					}
-				}
-			}
-			return nonFriends;
-		}
-
-	}
-
-	private static Map<String, Object> completeList(AzureUser me,
-			List<AzureUser> users, final int STEP, Integer sfCounter,
-			UserJpaController cont) {
-
-		Map<String, Object> map = null;
-		
-		if (users.size() >= 3) {
-			map = new HashMap<>();
-			map.put(StringConstants.USERS, users);
-			map.put(StringConstants.COUNTER, sfCounter+=STEP);
-			return map;
-		} else {
-			int totalNumber = cont.getUserCount();
-			int diff = totalNumber - sfCounter;
-			int deficit = STEP - users.size();
-			List<AzureUser> extra = null;
-			if(diff > deficit) {
-				extra = getUsers(sfCounter, deficit, cont);
-				sfCounter += extra.size();
-			} else {
-				sfCounter = 0;
-				extra = getUsers(sfCounter, deficit, cont);
-				sfCounter += deficit;
-			}
-			
-			int completeSize = extra.size();
-			extra = removeMe(me, extra);
-			extra = getNonFriends(me, extra);
-			int newSize = extra.size();
-			
-			if(completeSize > newSize) {
-				users.addAll(extra);
-				completeList(me, users, STEP, sfCounter, cont);
-			} else {
-				users.addAll(extra);
-				map = new HashMap<>();
-				map.put(StringConstants.USERS, users);
-				map.put(StringConstants.COUNTER, sfCounter);
-				return map;
-			}
-		}
-
-		map = new HashMap<>();
-		map.put(StringConstants.USERS, users);
-		map.put(StringConstants.COUNTER, sfCounter);
-
-		return map;
-	}
-
-	public static List<ProcessedUpComingTest> getUpcomingTest(
-			List<UpComingTest> upComingTests) {
-
-		if (upComingTests != null) {
-			List<ProcessedUpComingTest> list = new ArrayList<>();
-			ProcessedUpComingTest puct = null;
-
-			for (UpComingTest c : upComingTests) {
-
-				puct = new ProcessedUpComingTest(c);
-				list.add(puct);
-			}
-			return list;
-		} else {
-			return Collections.emptyList();
-		}
-	}
-
-	public static List<ProcessTestTopic> asProcessedTopics(
-			List<UpComingTestTopic> tops) {
-		if (tops != null) {
-			ProcessTestTopic tTopic = null;
-			List<ProcessTestTopic> topics = new ArrayList<>();
-			for (UpComingTestTopic tt : tops) {
-				tTopic = new ProcessTestTopic();
-				tTopic.setCovered(tt.isCovered());
-				tTopic.setTopicName(tt.getTopicName());
-				topics.add(tTopic);
-			}
-			return topics;
-
-		} else {
-			return Collections.emptyList();
-		}
-
-	}
-
 	public static AzureUser setTakenTalentTest(AzureUser user) {
-		List<String> talents = ProfileHelper.getTalents(user.getUserID());
+		String talents = ProfileHelper.getTalents(user.getUserID());
 		if (talents == null || talents.isEmpty()) {
 			user.setTakenTalentTest(false);
 		} else {
@@ -398,26 +228,7 @@ public class LoginHelper {
 		return user;
 	}
 
-	public static List<UpComingTestTopic> asUpComingTestTopicsList(String tps) {
 
-		String[] topics = null;
-		UpComingTestTopic uctt = null;
-		List<UpComingTestTopic> lists = new ArrayList<>();
-
-		if (tps != null) {
-			if (tps.contains(",")) {
-				topics = tps.split(",");
-				for (String s : topics) {
-					uctt = new UpComingTestTopic(s, false);
-					lists.add(uctt);
-				}
-			} else {
-				uctt = new UpComingTestTopic(tps, false);
-				lists.add(uctt);
-			}
-		}
-		return lists;
-	}
 
 	public static void redirectUser(AzureUser user, HttpServletResponse res,
 			HttpServletRequest req) throws ServletException, IOException {
@@ -492,47 +303,7 @@ public class LoginHelper {
 		}
 	}
 
-	public static Entity createEntityFromUser(AzureUser user) {
-		Entity e = new Entity("AzureUser", user.getUserID());
-		e.setProperty(StringConstants.cFirstName, user.getFirstName());
-		e.setProperty(StringConstants.cLastName, user.getLastName());
-		e.setProperty(StringConstants.cMiddleName, user.getMiddleName());
-		e.setUnindexedProperty(StringConstants.cGender, user.getGender());
-		e.setProperty(StringConstants.cEMail, user.getEmail());
-		e.setProperty(StringConstants.cState, user.getState());
-		e.setProperty(StringConstants.cCountry, user.getCountry());
-		e.setProperty(StringConstants.cSchool, user.getSchool());
-		e.setUnindexedProperty(StringConstants.cUpdateName,
-				user.isUpdateNameFromIdp());
-		e.setUnindexedProperty(StringConstants.cLastTestTaken,
-				user.getLastTestTaken());
-		e.setUnindexedProperty(StringConstants.cDateOfBirth,
-				user.getDateOfBirth());
-		e.setUnindexedProperty(StringConstants.cLastSeenDate,
-				user.getLastSeenDate());
-		e.setUnindexedProperty(StringConstants.cAuthorized, user.isAuthorized());
-		e.setUnindexedProperty(StringConstants.cUpComingTests,
-				user.getUpComingTests());
-		e.setUnindexedProperty(StringConstants.cSubscriptionDate,
-				user.getSubscriptionDate());
-		e.setUnindexedProperty(StringConstants.cValidity, user.getValidity());
-		e.setUnindexedProperty(StringConstants.cAttends, user.isAttends());
-		e.setUnindexedProperty(StringConstants.cPicture, user.getPicture());
-		e.setUnindexedProperty(StringConstants.cCover, user.getCover());
-		e.setUnindexedProperty(StringConstants.cFriends, user.getFriendsId());
-		e.setProperty(StringConstants.cUsername, user.getUsername());
-		e.setProperty(StringConstants.cMobile, user.getMobile());
-		e.setUnindexedProperty(StringConstants.cPassword, user.getPassword());
-		e.setProperty(StringConstants.cPasswordRecoveryIds,
-				user.getPasswordRecoveryIds());
-		e.setUnindexedProperty(StringConstants.cLastPasswordChangeDate, user.getLastPasswordChangeDate());
-		e.setUnindexedProperty(StringConstants.cOldPasswords, user.getOldPasswords());
-		e.setUnindexedProperty(StringConstants.cUserPicturesIds,user.getUserPicturesIds() );
-		e.setUnindexedProperty(StringConstants.cFreeAccess, user.isFreeAccess());
-		e.setIndexedProperty("Class", user.getsClass());
-		e.setIndexedProperty("AreaOfInterest", user.getAreaOfInterest());
-		return e;
-	}
+	
 
 	public static Entity createEntityFromPasswordRecovery(PasswordRecovery pr) {
 		Entity e = new Entity("PasswordRecovery", pr.getKey().getName());

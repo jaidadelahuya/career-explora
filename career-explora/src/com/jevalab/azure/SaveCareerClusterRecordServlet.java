@@ -11,16 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
-
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.Util;
 
 public class SaveCareerClusterRecordServlet extends HttpServlet {
-
-	
 
 	/**
 	 * 
@@ -39,35 +33,13 @@ public class SaveCareerClusterRecordServlet extends HttpServlet {
 			List<String> vals = Util.asList(clusters);
 			Map<String, String> mp = Util.getCareerMap(vals);
 
-			boolean updated = Util.updateCareerCluster(session, StringConstants.CAREER_CLUSTERS,
-					testDate, mp);
+			Util.updateCareerCluster(session,
+					StringConstants.CAREER_CLUSTERS, testDate, mp);
 
-			UserProfile up = null;
-			if (updated) {
-
-				up = Util.getUserProfileFromSession(session);
-				List<String> list = up.getClusters();
-				Map<String, Object> map = new HashMap<>();
-
-				if (list.size() > 6) {
-					list = up.getClusters().subList(0, 6);
-					map.put("hasMore", true);
-				} else {
-					map.put("hasMore", false);
-				}
-
-				map.put("list", list);
-				if(up.isCurrentUser()) {
-					Util.useJSON(map, resp);
-				}
-				
-
-			} else {
-				resp.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
-						"We could not save your test on the server. Please try again.");
-			}
+		} else {
+			resp.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
+					"We could not save your test on the server. Please try again.");
 		}
-
 	}
 
 }

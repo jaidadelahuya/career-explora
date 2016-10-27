@@ -4,15 +4,20 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.datanucleus.api.jpa.annotations.Extension;
 
+
+
 @Entity
 public class PersonalStyle implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4919194394684647091L;
+
 	@Id
 	long id = 1l;
 	

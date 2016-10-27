@@ -8,9 +8,9 @@
 }
 </style>
 </head>
-<body>
-	<div class="container" id="c1" style="background-color: white">
-		<div class="row">
+<body class="test-grad">
+	<div class="container-fluid test-grad" id="c1" cl>
+		<div class="row" style="width: 80%; margin: 0 auto">
 			<div class="hidden-xs hidden-sm col-md-7">
 				<div id="div-2" style="height: 600px"></div>
 			</div>
@@ -19,16 +19,14 @@
 					<div class="col-sm-12" id="gen-panel">
 						<div class="panel panel-default" style="margin-top: 2%;">
 							<div class="panel-body text-right">
-								<div class="col-xs-5 col-sm-5" style="padding: 2%;">
 
-									<img class="img-circle img-responsive profile-img to-pointer"
-										id="profile-image"/>
-
-								</div>
-								<div class="col-xs-7 col-sm-7">
-									<h1 id="user-name" class="report-username"></h1>
-									<h4 class="report-test-name">Multiple Intelligence Test</h4>
-									<h6 id="today" class="report-date"></h6>
+								<img class="img-circle img-responsive profile-img to-pointer"
+									style="width: 130px; height: 130px; float: left"
+									id="profile-image" />
+								<div>
+									<h3 id="user-name" class="report-username"></h3>
+									<h4 style="color: #983b59" class="report-test-name">Multiple Intelligence Test</h4>
+									<h6 style="color:#59983b" id="today" class="report-date"></h6>
 								</div>
 							</div>
 
@@ -78,7 +76,7 @@
 
 				<div class="col-sm-12 hidden-sm hidden-md hidden-lg">
 					<button type="button"
-						class="btn btn-primary btn-sm save-button pull-right"
+						class="btn ca-btn-primary btn-sm save-button pull-right"
 						style="margin-right: 1em">
 						<span class="glyphicon glyphicon-save"></span><span> Save</span>
 					</button>

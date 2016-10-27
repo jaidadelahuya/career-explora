@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +21,10 @@ import javax.persistence.Transient;
 import org.datanucleus.api.jpa.annotations.Extension;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Text;
 import com.jevalab.helper.classes.LoginHelper;
 import com.jevalab.helper.classes.RegistrationForm;
-import com.jevalab.helper.classes.StringConstants;
 import com.jevalab.helper.classes.UpdateHelperClass;
 import com.jevalab.helper.classes.UserSettingsModel;
 import com.jevalab.helper.classes.WelcomePageBean;
@@ -44,6 +44,8 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	@Id
 	private String userID;
+	
+	private Key key;
 
 	@Column(name = "FirstName")
 	private String firstName;
@@ -70,17 +72,13 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	@Column(name = "School")
 	private String school;
 
-	@Column(name = "UpdateName")
-	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private boolean updateNameFromIdp;
-
 	@Column(name = "LastTestTaken")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String lastTestTaken;
 
 	@Column(name = "DateOfBirth")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private String dateOfBirth;
+	private Date dateOfBirth;
 
 	@Column(name = "LastSeenDate")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
@@ -88,17 +86,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	@Column(name = "authorized")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private boolean authorized;
-
-	@Column(name = "FreeAccess")
-	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private boolean freeAccess;
-
-	@Column(name = "UpComingTests")
-	@Basic
-	@OneToMany(cascade = CascadeType.ALL)
-	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private List<UpComingTest> upComingTests;
+	private boolean authorized;	
 
 	@Column(name = "SubscriptionDate")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
@@ -107,10 +95,6 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	@Column(name = "Validity")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
 	private String validity;
-
-	@Column(name = "Attends")
-	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private String attends;
 
 	@Column(name = "Picture")
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
@@ -124,7 +108,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	@Column(name = "Friends")
 	@OneToMany(cascade = CascadeType.ALL)
 	@Extension(vendorName = "datanucleus", key = "gae.unindexed", value = "true")
-	private List<String> friendsId;
+	private List<Key> friendsId;
 
 	@Basic
 	@Column(name = "Username")
@@ -177,12 +161,63 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	private boolean newUser;
 
 	@Transient
-	private String accessToken;
-
-	@Transient
 	private boolean fromAuthorization;
 	
+	private Text about, hobbies;
 	
+	private List<Key> collections, followers, following;
+	
+	
+
+	public List<Key> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<Key> followers) {
+		this.followers = followers;
+	}
+
+	public List<Key> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<Key> following) {
+		this.following = following;
+	}
+
+	public List<Key> getCollections() {
+		return collections;
+	}
+
+	public void setCollections(List<Key> collections) {
+		this.collections = collections;
+	}
+
+	public PropertyChangeSupport getPcs() {
+		return pcs;
+	}
+
+	public void setPcs(PropertyChangeSupport pcs) {
+		this.pcs = pcs;
+	}
+
+	public Text getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(Text hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	
+
+	public Text getAbout() {
+		return about;
+	}
+
+	public void setAbout(Text about) {
+		this.about = about;
+	}
 
 	public String getsClass() {
 		return sClass;
@@ -206,14 +241,6 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	public void setCommunities(List<Key> communities) {
 		this.communities = communities;
-	}
-
-	public boolean isFreeAccess() {
-		return freeAccess;
-	}
-
-	public void setFreeAccess(boolean freeAccess) {
-		this.freeAccess = freeAccess;
 	}
 
 	public Set<String> getUserPicturesIds() {
@@ -281,17 +308,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		this.takenTalentTest = takenTalentTest;
 	}
 
-	public String getAccessToken() {
-		return accessToken;
-	}
 
-	public String getAttends() {
-		return attends;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
 
 	public boolean isNewUser() {
 		return newUser;
@@ -317,30 +334,6 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		this.picture = picture;
 	}
 
-	public List<String> getFriendsId() {
-		return friendsId;
-	}
-
-	public void setFriendsId(List<String> friends) {
-		this.friendsId = friends;
-	}
-
-	public String isAttends() {
-		return attends;
-	}
-
-	public void setAttends(String attends) {
-		String oldAttends = this.attends;
-		this.attends = attends;
-		pcs.firePropertyChange("attends", oldAttends, attends);
-	}
-
-	@Transient
-	private Date expiryDate;
-
-	@Transient
-	private int upComingTestsSize;
-
 	public Date getSubscriptionDate() {
 		return subscriptionDate;
 	}
@@ -357,18 +350,6 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		this.validity = validity;
 	}
 
-	public Date getExpiryDate() {
-		Calendar c = Calendar.getInstance();
-		c.setTime(subscriptionDate);
-		int v = Integer.parseInt(validity);
-		c.add(Calendar.MONTH, v);
-		Date eDate = c.getTime();
-		return eDate;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
 
 	public boolean isAuthorized() {
 		return authorized;
@@ -378,12 +359,12 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		this.authorized = authorized;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
-		String oldDateOfBirth = this.dateOfBirth;
+	public void setDateOfBirth(Date dateOfBirth) {
+		Date oldDateOfBirth = this.dateOfBirth;
 		this.dateOfBirth = dateOfBirth;
 		pcs.firePropertyChange("dateOfBirth", oldDateOfBirth, dateOfBirth);
 	}
@@ -406,19 +387,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		this.lastSeenDate = lastSeenDate;
 	}
 
-	public int getUpComingTestsSize() {
-		return upComingTests.size();
-	}
 
-	public List<UpComingTest> getUpComingTests() {
-		return upComingTests;
-	}
-
-	public void setUpComingTests(List<UpComingTest> upComingTests) {
-		List<UpComingTest> oldUpComingTests = this.upComingTests;
-		this.upComingTests = upComingTests;
-		pcs.firePropertyChange("upComingTests", oldUpComingTests, upComingTests);
-	}
 
 	public String getState() {
 		return state;
@@ -426,7 +395,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	public void setState(String state) {
 		String oldState = this.state;
-		if (country != null) {
+		if (state != null) {
 			this.state = state.toUpperCase();
 			pcs.firePropertyChange("state", oldState, state);
 		}
@@ -456,15 +425,6 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		}
 	}
 
-	public boolean isUpdateNameFromIdp() {
-		return updateNameFromIdp;
-	}
-
-	public void setUpdateNameFromIdp(boolean updateNameFromIdp) {
-		boolean oldValue = this.updateNameFromIdp;
-		this.updateNameFromIdp = updateNameFromIdp;
-		pcs.firePropertyChange("updateFromIdp", oldValue, updateNameFromIdp);
-	}
 
 	public String getEmail() {
 		return email;
@@ -541,6 +501,16 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public Key getKey() {
+		return KeyFactory.createKey(AzureUser.class.getSimpleName(), this.userID);
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
 
 	@Override
 	public int hashCode() {
@@ -567,30 +537,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "AzureUser [takenTalentTest=" + takenTalentTest + ", userID="
-				+ userID + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", middleName=" + middleName + ", gender="
-				+ gender + ", email=" + email + ", state=" + state
-				+ ", country=" + country + ", school=" + school
-				+ ", updateNameFromIdp=" + updateNameFromIdp
-				+ ", lastTestTaken=" + lastTestTaken + ", dateOfBirth="
-				+ dateOfBirth + ", lastSeenDate=" + lastSeenDate
-				+ ", authorized=" + authorized + ", upComingTests="
-				+ upComingTests + ", subscriptionDate=" + subscriptionDate
-				+ ", validity=" + validity + ", attends=" + attends
-				+ ", picture=" + picture + ", cover=" + cover + ", friendsId="
-				+ friendsId + ", username=" + username + ", mobile=" + mobile
-				+ ", password=" + password + ", oldPasswords=" + oldPasswords
-				+ ", lastPasswordChangeDate=" + lastPasswordChangeDate
-				+ ", passwordRecoveryIds=" + passwordRecoveryIds
-				+ ", UserPicturesIds=" + UserPicturesIds + ", newUser="
-				+ newUser + ", accessToken=" + accessToken
-				+ ", fromAuthorization=" + fromAuthorization + ", expiryDate="
-				+ expiryDate + ", upComingTestsSize=" + upComingTestsSize + "]";
-	}
-
+	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		pcs.addPropertyChangeListener(pcl);
 	}
@@ -623,7 +570,7 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 			this.mobile = rf.getUsername();
 		}
 
-		this.upComingTests = new ArrayList<>();
+	
 		this.friendsId = new ArrayList<>();
 		this.picture = rf.getPicture();
 		this.passwordRecoveryIds = new TreeSet<String>();
@@ -639,52 +586,38 @@ public class AzureUser implements Serializable, PropertyChangeListener {
 
 	}
 
-	public AzureUser(com.google.appengine.api.datastore.Entity e) {
-		this.attends = (String) e.getProperty(StringConstants.cAttends);
-		this.authorized = (Boolean) e.getProperty(StringConstants.cAuthorized);
-		this.country = (String) e.getProperty(StringConstants.cCountry);
-		this.cover = (String) e.getProperty(StringConstants.cCover);
-		this.dateOfBirth = (String) e.getProperty(StringConstants.cDateOfBirth);
-		this.email = (String) e.getProperty(StringConstants.cEMail);
-		this.firstName = (String) e.getProperty(StringConstants.cFirstName);
-		this.friendsId = (List<String>) e.getProperty(StringConstants.cFriends);
-		this.gender = (String) e.getProperty(StringConstants.cGender);
-		this.lastName = (String) e.getProperty(StringConstants.cLastName);
-		this.lastSeenDate = (Date) e.getProperty(StringConstants.cLastSeenDate);
-		this.lastTestTaken = (String) e
-				.getProperty(StringConstants.cLastTestTaken);
-		this.middleName = (String) e.getProperty(StringConstants.cMiddleName);
-		this.mobile = (String) e.getProperty(StringConstants.cMobile);
-		this.password = (String) e.getProperty(StringConstants.cPassword);
-		this.passwordRecoveryIds = new TreeSet<String>(
-				((List<String>) e
-						.getProperty(StringConstants.cPasswordRecoveryIds)));
-		this.picture = (String) e.getProperty(StringConstants.cPicture);
-		this.school = ((String) e.getProperty(StringConstants.cSchool));
-		this.state = ((String) e.getProperty(StringConstants.cState));
-		this.subscriptionDate = (Date) e
-				.getProperty(StringConstants.cSubscriptionDate);
-		this.upComingTests = (List<UpComingTest>) e
-				.getProperty(StringConstants.cUpComingTests);
-		this.updateNameFromIdp = (Boolean) e
-				.getProperty(StringConstants.cUpdateName);
-		this.userID = e.getKey().getName();
-		this.username = (String) e.getProperty(StringConstants.cUsername);
-		this.validity = (String) e.getProperty(StringConstants.cValidity);
-		this.oldPasswords = (List<String>) e
-				.getProperty(StringConstants.cOldPasswords);
-		this.lastPasswordChangeDate = (Date) e
-				.getProperty(StringConstants.cLastPasswordChangeDate);
-		this.UserPicturesIds = (Set<String>) e
-				.getProperty(StringConstants.cUserPicturesIds);
-		this.setsClass((String) e.getProperty("Class"));
-		this.setAreaOfInterest((List<String>) e.getProperty("AreaOfInterest"));
-		Object o = e.getProperty(StringConstants.cFreeAccess);
-		if (o != null) {
-			this.freeAccess = (boolean) e
-					.getProperty(StringConstants.cFreeAccess);
-		}
 
+
+	@Override
+	public String toString() {
+		return "AzureUser [takenTalentTest=" + takenTalentTest + ", pcs=" + pcs
+				+ ", userID=" + userID + ", key=" + key + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", middleName="
+				+ middleName + ", gender=" + gender + ", email=" + email
+				+ ", state=" + state + ", country=" + country + ", school="
+				+ school + ", lastTestTaken=" + lastTestTaken
+				+ ", dateOfBirth=" + dateOfBirth + ", lastSeenDate="
+				+ lastSeenDate + ", authorized=" + authorized
+				+ ", subscriptionDate=" + subscriptionDate + ", validity="
+				+ validity + ", picture=" + picture + ", cover=" + cover
+				+ ", friendsId=" + friendsId + ", username=" + username
+				+ ", mobile=" + mobile + ", password=" + password
+				+ ", oldPasswords=" + oldPasswords + ", communities="
+				+ communities + ", areaOfInterest=" + areaOfInterest
+				+ ", lastPasswordChangeDate=" + lastPasswordChangeDate
+				+ ", passwordRecoveryIds=" + passwordRecoveryIds
+				+ ", UserPicturesIds=" + UserPicturesIds + ", sClass=" + sClass
+				+ ", newUser=" + newUser + ", fromAuthorization="
+				+ fromAuthorization + ", about=" + about + ", hobbies="
+				+ hobbies + "]";
+	}
+
+	public List<Key> getFriendsId() {
+		return friendsId;
+	}
+
+	public void setFriendsId(List<Key> friendsId) {
+		this.friendsId = friendsId;
 	}
 
 }

@@ -1,58 +1,166 @@
-<main>
-<div style="width: 80%; margin: 0 auto">
-	<div class="row">
-		<div class="col s12">
-			<div class="card" style="margin-top: -20px">
-				<div class="card-image">
-					<img src="${welcomePage.backgroundImg}">
-					<div class="card-title"
-						style="width: 40%; height: 100%; padding-top: 7%; text-align: center; background-color: rgba(137, 155, 193, 0.5)">
-						<img class="circle" src="${welcomePage.profileImg}"
-							style="width: 50%; height: 50%; margin: 0 auto">
-						<div>
-							<div class="flow-text"
-								style="font-weight: bold; line-height: 1.5; color: #f4ebee">
-								<c:out value='${welcomePage.firstName}' />
-								<c:out value='${welcomePage.lastName}' />
+
+
+<div class="center-div">
+	<div id="home-center-div">
+
+
+		<div class="row">
+			<div class="col s12">
+				<div class="card" style="margin-top: -20px">
+					<div class="card-image">
+						<img src="${welcomePage.backgroundImg}">
+						<div class="card-title"
+							style="width: 40%; height: 100%; padding-top: 7%; text-align: center; background-color: rgba(137, 155, 193, 0.5)">
+							<img class="profile-img" src="${welcomePage.profileImg}">
+							<div>
+								<div class="flow-text"
+									style="font-weight: bold; line-height: 1.5; color: #f4ebee">
+									<c:out value='${welcomePage.firstName}' />
+									<c:out value='${welcomePage.lastName}' />
+								</div>
+								<h6 style="color: #eef4eb">
+									<c:out value='${welcomePage.school}' />
+								</h6>
+								<h6>
+									<c:out value='${welcomePage.sClass}' />
+								</h6>
 							</div>
-							<h6 style="color: #eef4eb">
-								<c:out value='${welcomePage.school}' />
-							</h6>
-							<h6>
-								<c:out value='${welcomePage.sClass}' />
-							</h6>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col s12 m6">
-			<div class="card-panel ">
-				<div class="row valign-wrapper" style="margin-bottom: 0px">
-					<img class="circle" src="${welcomePage.profileImg}"
-						style="width: 45px; height: 45px; margin: 0px 10px"> <span><c:out
-							value='${welcomePage.firstName}' /> <c:out
-							value='${welcomePage.lastName}' /></span>
+
+
+		<div class="row" id="discussion-cols">
+			<div class="col s12 m6">
+				<div class="card-panel ">
+					<div class="row valign-wrapper" style="margin-bottom: 0px">
+						<img class="circle" src="${welcomePage.profileImg}"
+							style="width: 45px; height: 45px; margin: 0px 10px"> <span><c:out
+								value='${welcomePage.firstName}' /> <c:out
+								value='${welcomePage.lastName}' /></span>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12" style="margin-bottom: 0px">
+							<a class="modal-trigger" href="#modal1">Write something or
+								ask a question</a>
+						</div>
+					</div>
+
+				</div>
+				<div id="f-col">
+					<c:forEach var="item" items="${welcomePage.posts}" step="2">
+						<div class="row">
+							<div class="card" style="padding-top: 20px">
+								<div class="row" style="margin-bottom: 10px;">
+									<img class="circle" src="${item.authorImage}"
+										style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px; float: left">
+									<div style="padding: 1%;">
+										<span><c:out value='${item.author}' /></span><a
+											style="color: #59983b"
+											href="<c:url value='/azure/post/single/get?bean=welcome&webkey=${item.webkey}' />"><i
+											class="material-icons right">more_vert</i></a><br> <span
+											class=""
+											style="font-style: italic; font-family: calibri; color: #983b59"><c:out
+												value='${item.postDate}' /></span>
+									</div>
+								</div>
+
+								<div class="card-content" style="padding-top: 0px">
+									<c:out value="${item.snippet}" />
+
+								</div>
+								<c:if test='${not empty item.pictureUrl}'>
+									<div class="card-image">
+										<img class="responsive-img materialboxed"
+											src="${item.pictureUrl}">
+									</div>
+								</c:if>
+								<div class="card-action" style="overflow: auto; background-color: #f4ebee">
+									<c:if test="${not empty item.link}">
+										<a class="source" target="_blank" href="${item.link}">Source</a>
+									</c:if>
+									<input class="h-input" value="${item.webkey}" type="hidden">
+
+									<i class="material-icons md-dark right post-icons comment">
+										comment</i><span class="right no-comments"><c:out
+											value='${item.comments}' /></span> <i
+										class="material-icons md-dark right post-icons like"> <c:choose>
+											<c:when test="item.liked">thumb_down</c:when>
+											<c:otherwise>thumb_up</c:otherwise>
+										</c:choose></i><span class="right no-likes"><c:out
+											value='${item.likes}' /></span>
+								</div>
+								<div class="progress" style="display: none">
+									<div class="indeterminate"></div>
+								</div>
+								<div class="comment-div" style="display: none; overflow: auto;">
+									<div class="all-comments"
+										style="max-height: 300px; overflow-y: auto; border-top: 1px solid #dadada; border-bottom: 1px solid #dadada"></div>
+									<div class="new-comment">
+										<div class="row">
+											<div class="col s12">
+												<img alt="" src="${welcomePage.profileImg}"
+													style="height: 45px; width: 45px; margin: 2%; float: left"
+													class="image circle">
+												<div>
+													<h6
+														style="margin-bottom: 4px; margin-top: 25px; font-weight: bold;">
+														<span class="comment-author-name"><c:out
+																value='${welcomePage.firstName}' /> <c:out
+																value='${welcomePage.lastName}' /></span>
+													</h6>
+													<form>
+														<input type="hidden" value="${item.webkey}" name="web-key">
+														<textarea class="materialize-textarea comment-text"
+															rows="1" placeholder="Write a comment" name="comment"
+															style="margin: 0px; padding: 0px; border-bottom: none;"></textarea>
+													</form>
+												</div>
+												<div style="margin-bottom: 10px">
+													<span class="right post-comment"
+														style="font-weight: bold; cursor: pointer;">POST</span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</c:forEach>
+
 				</div>
 
-				<div class="row">
-					<div class="input-field col s12" style="margin-bottom: 0px">
-						<a class="modal-trigger" href="#modal1">Write something or ask
-							a question</a>
-					</div>
-				</div>
+
 
 			</div>
-			<div id="f-col">
-				<c:forEach var="item" items="${welcomePage.posts}" step="2">
+			<%@ include file="/pages/partials/cloneable-comment.html"%>
+			<div id="s-col" class="col s12 m6">
+
+				<c:forEach var="item" items="${welcomePage.posts}" step="2"
+					begin="1">
 					<div class="row">
 						<div class="card" style="padding-top: 20px">
-							<div class="row valign-wrapper" style="margin-bottom: 10px;">
+							<div class="row" style="margin-bottom: 10px;">
 								<img class="circle" src="${item.authorImage}"
-									style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-								<span><c:out value='${item.author}' /></span>
+									style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px; float: left">
+								<div style="padding: 1%;">
+									<span><c:out value='${item.author}' /></span><a
+										style="color: #59983b"
+										href="<c:url value='/azure/post/single/get?bean=welcome&webkey=${item.webkey}' />"><i
+										class="material-icons right">more_vert</i></a><br> <span
+										class=""
+										style="font-style: italic; font-family: calibri; color: #983b59"><c:out
+											value='${item.postDate}' /></span>
+								</div>
+							</div>
+
+							<div class="card-content" style="padding-top: 0px">
+								<c:out value="${item.snippet}" />
 							</div>
 							<c:if test='${not empty item.pictureUrl}'>
 								<div class="card-image">
@@ -60,77 +168,73 @@
 										src="${item.pictureUrl}">
 								</div>
 							</c:if>
-							<div class="card-content">
-								<c:out value="${item.snippet}" />
-							</div>
-
-							<div class="card-action" style="overflow: auto">
+							<div class="card-action" style="overflow: auto; background-color: #f4ebee">
 								<c:if test="${not empty item.link}">
-									<a target="_blank" href="${item.link}">Source</a>
+									<a class="source" target="_blank" href="${item.link}">Source</a>
 								</c:if>
 								<input class="h-input" value="${item.webkey}" type="hidden">
 
 								<i class="material-icons md-dark right post-icons comment">
 									comment</i><span class="right no-comments"><c:out
 										value='${item.comments}' /></span> <i
-									class="material-icons md-dark right post-icons like">
-									thumb_up</i><span class="right no-likes"><c:out
+									class="material-icons md-dark right post-icons like"> <c:choose>
+										<c:when test="item.liked">thumb_down</c:when>
+										<c:otherwise>thumb_up</c:otherwise>
+									</c:choose></i><span class="right no-likes"><c:out
 										value='${item.likes}' /></span>
 							</div>
 							<div class="progress" style="display: none">
 								<div class="indeterminate"></div>
 							</div>
-							<div class="comment-div" style="display: none">
-								i am comment div
+							<div class="comment-div" style="display: none; overflow: auto;">
+								<div class="all-comments"
+									style="max-height: 300px; overflow-y: auto; border-top: 1px solid #dadada; border-bottom: 1px solid #dadada"></div>
+								<div class="new-comment">
+									<div class="row">
+										<div class="col s12">
+											<img alt="" src="${welcomePage.profileImg}"
+												style="height: 45px; width: 45px; margin: 2%; float: left"
+												class="image circle">
+											<div>
+												<h6
+													style="margin-bottom: 4px; margin-top: 25px; font-weight: bold;">
+													<span class="comment-author-name"><c:out
+															value='${welcomePage.firstName}' /> <c:out
+															value='${welcomePage.lastName}' /></span>
+												</h6>
+												<form>
+													<input type="hidden" value="${item.webkey}" name="web-key">
+													<textarea class="materialize-textarea comment-text"
+														rows="1" placeholder="Write a comment" name="comment"
+														style="margin: 0px; padding: 0px; border-bottom: none;"></textarea>
+												</form>
+											</div>
+											<div style="margin-bottom: 10px">
+												<span class="right post-comment"
+													style="font-weight: bold; cursor: pointer;">POST</span>
+											</div>
+										</div>
+
+									</div>
+								</div>
 							</div>
 
 						</div>
 					</div>
+					<div style="clear: both"></div>
 				</c:forEach>
+
+
+
+
 			</div>
-
-
-
 		</div>
-		<div class="col s12 m6">
 
-			<c:forEach var="item" items="${welcomePage.posts}" step="2" begin="1">
-				<div class="row">
-					<div class="card" style="padding-top: 20px; overflow: auto;">
-						<div class="row valign-wrapper" style="margin-bottom: 10px;">
-							<img class="circle" src="${item.authorImage}"
-								style="width: 45px; height: 45px; margin: 0px 10px; margin-left: 30px">
-							<span><c:out value='${item.author}' /></span>
-						</div>
-						<c:if test='${not empty item.pictureUrl}'>
-							<div class="card-image">
-								<img class="responsive-image materialboxed"
-									src="${item.pictureUrl}">
-							</div>
-						</c:if>
-						<div class="card-content">${item.snippet}</div>
-						<div class="card-action">
-							<a href="#">This is a link</a>
-						</div>
-
-					</div>
-				</div>
-				<div style="clear: both"></div>
-			</c:forEach>
-
-
-
-
+		<div style="text-align: center">
+			<div class="loader" style="margin: 0 auto;"></div>
 		</div>
+
+
+
 	</div>
-	<c:if test="${welcomePage.offset > 0}">
-		<div id="load-status">
-			<h4 style="color: green; text-align: center; display: none;">
-				<span style="background-color: #dadada; padding: 1%;">loading...</span>
-			</h4>
-		</div>
-	</c:if>
-
-
 </div>
-</main>

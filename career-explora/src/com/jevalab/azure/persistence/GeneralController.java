@@ -26,6 +26,8 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
+import com.jevalab.azure.people.Friends;
+import com.jevalab.azure.people.PeoplePageBean;
 import com.jevalab.helper.classes.EntityConverter;
 import com.jevalab.helper.classes.Util;
 
@@ -161,7 +163,6 @@ public class GeneralController {
 	public static Map<String, Object> getPreferredPosts(AzureUser user,
 			int offset) {
 		Query q = new Query(Discussion.class.getSimpleName());
-	
 
 		String clss = user.getsClass();
 		List<String> ints = user.getAreaOfInterest();
@@ -188,13 +189,13 @@ public class GeneralController {
 		q.addSort("dateCreated", SortDirection.DESCENDING);
 		PreparedQuery pq = ds.prepare(q);
 		FetchOptions options = FetchOptions.Builder.withLimit(10);
-			options.offset(offset*10);
+		options.offset(offset * 10);
 		List<Discussion> articles = new ArrayList<>();
 		QueryResultList<Entity> rs = pq.asQueryResultList(options);
 		Iterator<Entity> ents = rs.iterator();
 		if (rs.size() < 10) {
 			offset = 0;
-		}else {
+		} else {
 			offset++;
 		}
 		while (ents.hasNext()) {
@@ -206,25 +207,43 @@ public class GeneralController {
 		return map;
 	}
 
-	public static List<Entity> getComments(Key key, String cursor) {
+	public static QueryResultList<Entity> getComments(Key key, String cursor) {
 		Query q = new Query(Discussion.class.getSimpleName());
 		Cursor s = null;
 		FetchOptions options = null;
-		if(cursor != null) {
-			 s = Cursor.fromWebSafeString(cursor);
-			 options = FetchOptions.Builder.withStartCursor(s).limit(10); 
-		}else {
+		if (cursor != null) {
+			s = Cursor.fromWebSafeString(cursor);
+			options = FetchOptions.Builder.withStartCursor(s).limit(10);
+		} else {
 			options = FetchOptions.Builder.withLimit(10);
 		}
-		Filter f = new FilterPredicate("parent", FilterOperator.EQUAL, key);
+		Query.Filter f = new Query.FilterPredicate("parent",
+				Query.FilterOperator.EQUAL, key);
 		q.setFilter(f);
 		PreparedQuery pq = ds.prepare(q);
 		QueryResultList<Entity> r = pq.asQueryResultList(options);
-		Cursor cur = r.getCursor();
-		return null;
-			
 
+		return r;
+	}
+
+	public static QueryResultList<Entity> getFriends(PeoplePageBean ppb, AzureUser u) {
+		Query q = new Query(Friends.class.getSimpleName());
+		FetchOptions options = FetchOptions.Builder.withLimit(20);
+		if (ppb.getCursor() != null) {
+			options.startCursor(Cursor.fromWebSafeString(ppb.getCursor()));
+		}
 		
+		Query.Filter f = new Query.FilterPredicate("friends",
+				Query.FilterOperator.EQUAL, u.getKey());
+		
+		q.setFilter(f);
+		PreparedQuery pq = ds.prepare(q);
+		QueryResultList<Entity> r = pq.asQueryResultList(options);
+
+		return r;
+		
+		
+
 	}
 
 }

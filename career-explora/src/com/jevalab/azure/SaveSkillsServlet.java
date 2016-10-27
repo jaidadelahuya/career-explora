@@ -27,7 +27,6 @@ import com.jevalab.azure.persistence.UserJpaController;
 import com.jevalab.exceptions.NonexistentEntityException;
 import com.jevalab.exceptions.RollbackFailureException;
 import com.jevalab.helper.classes.StringConstants;
-import com.jevalab.helper.classes.UserProfile;
 import com.jevalab.helper.classes.Util;
 
 public class SaveSkillsServlet extends HttpServlet {
@@ -41,66 +40,32 @@ public class SaveSkillsServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
-		if(!session.isNew()) {
+		if (!session.isNew()) {
 			String hb = req.getParameter("hb");
 			String tb = req.getParameter("tb");
 			String wb = req.getParameter("wb");
 			String nd = req.getParameter("nd");
 			String testDate = req.getParameter("testDate");
-			
+
 			List<String> shb = Util.asList(hb);
 			List<String> stb = Util.asList(tb);
 			List<String> swb = Util.asList(wb);
 			List<String> snd = Util.asList(nd);
-			
+
 			Map<String, String> allSkillRecords = new TreeMap<>();
-			allSkillRecords = Util.addToSkillRecords(shb, SkillCategory.HAVE_BUILT,
-					allSkillRecords);
-			allSkillRecords = Util.addToSkillRecords(stb, SkillCategory.TO_BUILD,
-					allSkillRecords);
-			allSkillRecords = Util.addToSkillRecords(swb, SkillCategory.WONT_BUILD,
-					allSkillRecords);
-			allSkillRecords = Util.addToSkillRecords(snd, SkillCategory.NOT_DECIDED,
-					allSkillRecords);
-			
-			boolean updated = Util.updateSkill(session, StringConstants.SKILL_BUILDER, allSkillRecords, testDate);
-			
-			UserProfile up = null;
-			if (updated) {
+			allSkillRecords = Util.addToSkillRecords(shb,
+					SkillCategory.HAVE_BUILT, allSkillRecords);
+			allSkillRecords = Util.addToSkillRecords(stb,
+					SkillCategory.TO_BUILD, allSkillRecords);
+			allSkillRecords = Util.addToSkillRecords(swb,
+					SkillCategory.WONT_BUILD, allSkillRecords);
+			allSkillRecords = Util.addToSkillRecords(snd,
+					SkillCategory.NOT_DECIDED, allSkillRecords);
 
-				up = Util.getUserProfileFromSession(session);
-				List<String> skillToLearnList = up.getSkillToLearn();
-				List<String> learntSkillsList = up.getLearntSkills();
-				Map<String, Object> map = new HashMap<>();
+			Util.updateSkill(session, StringConstants.SKILL_BUILDER,
+					allSkillRecords, testDate);
 
-				if (skillToLearnList.size() > 6) {
-					skillToLearnList = up.getSkillToLearn().subList(0, 6);
-					map.put("hasMoreSkillToLearn", true);
-				} else {
-					map.put("hasMoreSkillToLearn", false);
-				}
-				
-				map.put("skillToLearn", skillToLearnList);
-				
-				if (learntSkillsList.size() > 6) {
-					learntSkillsList = up.getLearntSkills().subList(0, 6);
-					map.put("hasMorelearntSkill", true);
-				} else {
-					map.put("hasMorelearntSkill", false);
-				}
-
-				map.put("learntSkills", learntSkillsList);
-				if(up.isCurrentUser()) {
-					Util.useJSON(map, resp);
-				}
-				
-
-			} else {
-				resp.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
-						"We could not save your test on the server. Please try again.");
-			}
 		}
-		
 	}
-	
+
 }

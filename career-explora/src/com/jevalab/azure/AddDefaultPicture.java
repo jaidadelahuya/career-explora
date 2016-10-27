@@ -58,6 +58,7 @@ public class AddDefaultPicture extends HttpServlet {
 					String data = resp.encodeRedirectURL("/azure/success?id=" + webkey
 							+ iStr + c);
 					u = LoginHelper.persistUser(u, null);
+					Util.saveUserToIndex(u);
 					resp.getWriter().write(new Gson().toJson(data.trim()));
 				}
 				synchronized (session) {

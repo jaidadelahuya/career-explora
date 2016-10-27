@@ -6,8 +6,6 @@ import java.util.Set;
 import com.google.appengine.api.datastore.Key;
 import com.jevalab.azure.persistence.AzureUser;
 import com.jevalab.azure.persistence.PasswordRecoveryJpaController;
-import com.jevalab.azure.persistence.UpComingTest;
-import com.jevalab.azure.persistence.UpComingTestJpaController;
 import com.jevalab.exceptions.NonexistentEntityException;
 import com.jevalab.exceptions.RollbackFailureException;
 
@@ -28,13 +26,7 @@ public class UpdateHelperClass {
 		} else if (pptName.equalsIgnoreCase(StringConstants.EMAIL)
 				&& value != null) {
 			user.setEmail(value.toString());
-		} else if (pptName.equalsIgnoreCase(StringConstants.DATE_OF_BIRTH)
-				&& value != null) {
-			user.setDateOfBirth(value.toString());
-		} else if (pptName.equalsIgnoreCase(StringConstants.ATTENDS)
-				&& value != null) {
-			user.setAttends(value.toString());
-		} else if (pptName.equalsIgnoreCase(StringConstants.SCHOOL)
+		}   else if (pptName.equalsIgnoreCase(StringConstants.SCHOOL)
 				&& value != null) {
 			user.setSchool(value.toString());
 		} else if (pptName.equalsIgnoreCase(StringConstants.STATE)
@@ -43,46 +35,16 @@ public class UpdateHelperClass {
 		} else if (pptName.equalsIgnoreCase(StringConstants.COUNTRY)
 				&& value != null) {
 			user.setCountry(value.toString());
-		} else if (pptName.equalsIgnoreCase(StringConstants.UPDATE_FROM_IDP)
-				&& value != null) {
-			Boolean b = (Boolean) value;
-			user.setUpdateNameFromIdp(b);
-		} else if (pptName.equalsIgnoreCase(StringConstants.PICTURE) && value != null) {
+		}  else if (pptName.equalsIgnoreCase(StringConstants.PICTURE) && value != null) {
 			user.setPicture(value.toString());
 		} else if (pptName.equalsIgnoreCase(StringConstants.COVER) && value != null) {
 			user.setCover(value.toString());
 		}
 	}
 
-	public static UpComingTest deleteUpComingTest(Key key) {
-		UpComingTest uct = null;
-		if (key != null) {
 
-			UpComingTestJpaController cont = new UpComingTestJpaController();
-			uct = cont.findUpComingTest(key);
 
-			if (uct != null) {
-				try {
-					cont.destroy(key);
-				} catch (NonexistentEntityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (RollbackFailureException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return uct;
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-
-	}
+	
 
 	public static void updateUserPasswordRecovery(PropertyChangeEvent evt,
 			AzureUser azureUser) {

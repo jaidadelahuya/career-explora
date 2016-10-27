@@ -229,7 +229,7 @@
 
 		function getTalentInfo() {
 			$.ajax({
-				url : '/azure/talentinforeport',
+				url : '/azure/profile/talent/report/info',
 				type : 'GET',
 				dataType : 'Json',
 				success : function(data) {
